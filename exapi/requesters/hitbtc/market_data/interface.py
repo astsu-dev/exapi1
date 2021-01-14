@@ -8,7 +8,7 @@ from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
 from exapi.requesters.typedefs import RequesterResponse
 
 
-class HitbtcMarketDataRequesterInterface(Protocol):
+class IHitbtcMarketDataRequester(Protocol):
     """Has methods for market data requests making."""
 
     def get_currencies(self, currencies: Optional[Currencies] = None) -> RequesterResponse:

@@ -1,1 +1,1 @@
-from .interface import HitbtcMarketDataRequesterInterface
+from .interface import IHitbtcMarketDataRequester
