@@ -6,7 +6,7 @@ from .typedefs import HitbtcAuthHeaders
 
 
 class IHitbtcAuth(Protocol):
-    """Has methods for authorization a request to exchange."""
+    """Has methods for authorization a request to hitbtc."""
 
     def sign(self, method: str,
              url_path: str,
