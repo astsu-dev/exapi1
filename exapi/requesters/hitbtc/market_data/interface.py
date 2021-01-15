@@ -101,12 +101,12 @@ class IHitbtcMarketDataRequester(Protocol):
         """
 
     async def get_trades(self, symbols: Optional[Symbols] = None,
-                   sort: Optional[SortDirection] = None,
-                   from_: Optional[IntervalValue] = None,
-                   till: Optional[IntervalValue] = None,
-                   limit: Optional[int] = None,
-                   offset: Optional[int] = None
-                   ) -> RequesterResponse:
+                         sort: Optional[SortDirection] = None,
+                         from_: Optional[IntervalValue] = None,
+                         till: Optional[IntervalValue] = None,
+                         limit: Optional[int] = None,
+                         offset: Optional[int] = None
+                         ) -> RequesterResponse:
         """Gets trades for all symbols or for specified symbols.
 
         Returns response with trades information for a symbol with a symbol Id.
@@ -132,13 +132,13 @@ class IHitbtcMarketDataRequester(Protocol):
         """
 
     async def get_certain_trades(self, symbol: Symbol,
-                           sort: Optional[SortDirection] = None,
-                           by: Optional[SortBy] = None,
-                           from_: Optional[IntervalValue] = None,
-                           till: Optional[IntervalValue] = None,
-                           limit: Optional[int] = None,
-                           offset: Optional[int] = None
-                           ) -> RequesterResponse:
+                                 sort: Optional[SortDirection] = None,
+                                 by: Optional[SortBy] = None,
+                                 from_: Optional[IntervalValue] = None,
+                                 till: Optional[IntervalValue] = None,
+                                 limit: Optional[int] = None,
+                                 offset: Optional[int] = None
+                                 ) -> RequesterResponse:
         """Gets trades for a certain symbol.
 
         Returns response with trades information for a symbol with a symbol Id.
@@ -165,8 +165,8 @@ class IHitbtcMarketDataRequester(Protocol):
         """
 
     async def get_orderbooks(self, symbols: Optional[Symbols] = None,
-                       limit: Optional[int] = None
-                       ) -> RequesterResponse:
+                             limit: Optional[int] = None
+                             ) -> RequesterResponse:
         """Gets order book for all symbols or for specified symbols.
 
         An order book is an electronic list of buy and sell orders
@@ -185,9 +185,9 @@ class IHitbtcMarketDataRequester(Protocol):
         """
 
     async def get_certain_orderbook(self, symbol: Symbol,
-                              limit: Optional[int] = None,
-                              volume: Optional[int] = None
-                              ) -> RequesterResponse:
+                                    limit: Optional[int] = None,
+                                    volume: Optional[int] = None
+                                    ) -> RequesterResponse:
         """Gets order book for a certain symbol.
 
         Returns an order book for a certain symbol.
@@ -209,13 +209,13 @@ class IHitbtcMarketDataRequester(Protocol):
         """
 
     async def get_candles(self, symbols: Optional[Symbols] = None,
-                    period: Optional[CandlesPeriod] = None,
-                    sort: Optional[SortDirection] = None,
-                    from_: Optional[IntervalValue] = None,
-                    till: Optional[IntervalValue] = None,
-                    limit: Optional[int] = None,
-                    offset: Optional[int] = None
-                    ) -> RequesterResponse:
+                          period: Optional[CandlesPeriod] = None,
+                          sort: Optional[SortDirection] = None,
+                          from_: Optional[IntervalValue] = None,
+                          till: Optional[IntervalValue] = None,
+                          limit: Optional[int] = None,
+                          offset: Optional[int] = None
+                          ) -> RequesterResponse:
         """Gets candles for all symbols or for specified symbols.
 
         Candles are used for the representation of a specific symbol as an OHLC chart.
@@ -241,13 +241,13 @@ class IHitbtcMarketDataRequester(Protocol):
         """
 
     async def get_certain_candles(self, symbol: Symbol,
-                            period: Optional[CandlesPeriod] = None,
-                            sort: Optional[SortDirection] = None,
-                            from_: Optional[IntervalValue] = None,
-                            till: Optional[IntervalValue] = None,
-                            limit: Optional[int] = None,
-                            offset: Optional[int] = None
-                            ) -> RequesterResponse:
+                                  period: Optional[CandlesPeriod] = None,
+                                  sort: Optional[SortDirection] = None,
+                                  from_: Optional[IntervalValue] = None,
+                                  till: Optional[IntervalValue] = None,
+                                  limit: Optional[int] = None,
+                                  offset: Optional[int] = None
+                                  ) -> RequesterResponse:
         """Gets candles for a certain symbol.
 
         Returns candles for a certain symbol.
