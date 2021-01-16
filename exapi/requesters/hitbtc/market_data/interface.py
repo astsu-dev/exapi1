@@ -1,14 +1,15 @@
 """Has interface for hitbtc market data requester."""
 
-from typing import Optional, Protocol
+from typing import Optional
 
+from exapi.requesters.hitbtc.interfaces import IHitbtcPublicRequester
 from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
                                               Currency, IntervalValue, SortBy,
                                               SortDirection, Symbol, Symbols)
 from exapi.requesters.typedefs import RequesterResponse
 
 
-class IHitbtcMarketDataRequester(Protocol):
+class IHitbtcMarketDataRequester(IHitbtcPublicRequester):
     """Has methods for market data requests making."""
 
     async def get_currencies(self, currencies: Optional[Currencies] = None) -> RequesterResponse:
