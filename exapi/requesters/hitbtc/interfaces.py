@@ -1,18 +1,17 @@
 """Has interfaces for hitbtc requesters."""
 
-from types import TracebackType
-from typing import Optional, Protocol, Type
+from typing import Optional
+
+import aiohttp
+from exapi.requesters.interfaces import IBaseRequester
 
 
-class IHitbtcRequester(Protocol):
-    """Has the context manager for close session."""
+class IHitbtcPublicRequester(IBaseRequester):
+    """Hitbtc public requester interface
+    which inherites base requester interface.
 
-    async def __aenter__(self) -> "IHitbtcRequester":
-        ...
+    Handles session in init.
+    """
 
-    async def __aexit__(self,
-                        exc_type: Optional[Type[BaseException]],
-                        exc_val: Optional[BaseException],
-                        exc_tb: Optional[TracebackType],
-                        ) -> None:
+    def __init__(self, session: Optional[aiohttp.ClientSession] = None) -> None:
         ...
