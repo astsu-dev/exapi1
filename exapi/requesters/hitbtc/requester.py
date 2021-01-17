@@ -5,10 +5,8 @@ from typing import Optional
 import aiohttp
 from exapi.requesters.requester import BaseRequester
 
-from .interfaces import IHitbtcPublicRequester
 
-
-class HitbtcPublicRequester(BaseRequester, IHitbtcPublicRequester):
+class HitbtcPublicRequester(BaseRequester):
     """Hitbtc public requester which inherites base requester.
 
     Handles session in init.
