@@ -19,9 +19,9 @@ class BaseRequester(abc.ABC, IBaseRequester):
 
     async def _request(self, method: str,
                        url: URL,
-                       headers: Headers,
-                       json: Any,
-                       timeout: aiohttp.ClientTimeout
+                       headers: Optional[Headers] = None,
+                       json: Any = None,
+                       timeout: Optional[aiohttp.ClientTimeout] = None
                        ) -> RequesterResponse:
         """Wrapper over aiohttp session request.
 
