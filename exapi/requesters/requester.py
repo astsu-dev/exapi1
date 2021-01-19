@@ -2,18 +2,46 @@
 
 import abc
 from types import TracebackType
-from typing import Optional, Type, cast
+from typing import Any, Optional, Type, cast
 
 import aiohttp
 from exapi.typedefs import T
+from yarl import URL
 
 from .interfaces import IBaseRequester
+from .typedefs import Headers, RequesterResponse
 
 
 class BaseRequester(abc.ABC, IBaseRequester):
     """Has the context manager for close session."""
 
     _session: aiohttp.ClientSession
+
+    async def _request(self, method: str,
+                       url: URL,
+                       headers: Headers,
+                       json: Any,
+                       timeout: aiohttp.ClientTimeout
+                       ) -> RequesterResponse:
+        """Wrapper over aiohttp session request.
+
+        Uses session from _session field.
+
+        Args:
+            method (str)
+            url (URL)
+            headers (Headers)
+            json (Any)
+            timeout (aiohttp.ClientTimeout)
+
+        Returns:
+            RequesterResponse: aiohttp client response.
+        """
+
+        session = self._session
+        res = await session.request(method, url, headers=headers,
+                                    json=json, timeout=timeout)
+        return res
 
     async def __aenter__(self: T) -> T:
         await cast(BaseRequester, self)._session.__aenter__()
