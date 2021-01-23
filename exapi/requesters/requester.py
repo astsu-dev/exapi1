@@ -19,7 +19,9 @@ class BaseRequester(abc.ABC, IBaseRequester):
 
     async def _request(self, method: str,
                        url: URL,
+                       *,
                        headers: Optional[Headers] = None,
+                       data: Any = None,
                        json: Any = None,
                        timeout: Optional[aiohttp.ClientTimeout] = None
                        ) -> RequesterResponse:
@@ -31,6 +33,7 @@ class BaseRequester(abc.ABC, IBaseRequester):
             method (str)
             url (URL)
             headers (Headers)
+            data (Any)
             json (Any)
             timeout (aiohttp.ClientTimeout)
 
@@ -39,7 +42,7 @@ class BaseRequester(abc.ABC, IBaseRequester):
         """
 
         session = self._session
-        res = await session.request(method, url, headers=headers,
+        res = await session.request(method, url, headers=headers, data=data,
                                     json=json, timeout=timeout)
         return res
 
