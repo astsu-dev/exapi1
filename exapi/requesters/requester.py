@@ -9,7 +9,7 @@ from exapi.typedefs import T
 from yarl import URL
 
 from .interfaces import IBaseRequester
-from .typedefs import Headers, RequesterResponse
+from .typedefs import Headers, Params, RequesterResponse
 
 
 class BaseRequester(abc.ABC, IBaseRequester):
@@ -20,6 +20,7 @@ class BaseRequester(abc.ABC, IBaseRequester):
     async def _request(self, method: str,
                        url: URL,
                        *,
+                       params: Optional[Params] = None,
                        headers: Optional[Headers] = None,
                        data: Any = None,
                        json: Any = None,
@@ -42,8 +43,8 @@ class BaseRequester(abc.ABC, IBaseRequester):
         """
 
         session = self._session
-        res = await session.request(method, url, headers=headers, data=data,
-                                    json=json, timeout=timeout)
+        res = await session.request(method, url, params=params, headers=headers,
+                                    data=data, json=json, timeout=timeout)
         return res
 
     async def __aenter__(self: T) -> T:
