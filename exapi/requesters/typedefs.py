@@ -6,3 +6,4 @@ import aiohttp
 
 RequesterResponse = aiohttp.ClientResponse
 Headers = Dict[str, str]
+Params = Dict[str, str]
