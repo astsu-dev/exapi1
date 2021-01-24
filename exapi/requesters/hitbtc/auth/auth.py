@@ -123,6 +123,6 @@ class HitbtcAuth(IHitbtcAuth):
 
         auth_payload = ":".encode(en).join(
             [self._API_KEY.encode(en), timestamp.encode(en), signature.encode(en)])
-        auth_string = "HS256" + base64.b64encode(auth_payload).decode(en)
+        auth_string = "HS256 " + base64.b64encode(auth_payload).decode(en)
 
         return auth_string
