@@ -1,3 +1,5 @@
+"""Has hitbtc trading request creator."""
+
 from typing import Optional
 
 from exapi.requesters.hitbtc.auth import IHitbtcAuth
@@ -248,7 +250,7 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
             method=method, url_path=url.path, url_query=url.query_string)
         return Request(method=method, url=url, headers=headers)
 
-    def create_get_commission_request(self, symbol: Symbol) -> Request:
+    def create_get_fee_request(self, symbol: Symbol) -> Request:
         """Creates a request for get trading commission endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.

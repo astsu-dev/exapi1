@@ -148,7 +148,7 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def create_get_commission_request(self, symbol: Symbol) -> Request:
+    def create_get_fee_request(self, symbol: Symbol) -> Request:
         """Creates a request for get trading commission endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
