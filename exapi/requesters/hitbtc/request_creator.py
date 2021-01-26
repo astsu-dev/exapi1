@@ -12,3 +12,7 @@ class HitbtcBaseRequestCreator(abc.ABC):
 
     ROOT_URI: Final[str] = "https://api.hitbtc.com"
     ROOT_URL: Final[str] = ROOT_URI + "/api/2"
+    base_url: str = ROOT_URL
+
+    def _create_url(self, path: str) -> str:
+        return self.base_url + path
