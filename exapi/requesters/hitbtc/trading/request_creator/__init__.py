@@ -1,1 +1,2 @@
+from .creator import HitbtcTradingRequestCreator
 from .interface import IHitbtcTradingRequestCreator
