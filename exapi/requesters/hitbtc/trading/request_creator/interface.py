@@ -10,7 +10,7 @@ from exapi.requesters.request import Request
 class IHitbtcTradingRequestCreator(Protocol):
     """Has methods for creating requests to hitbtc trading api."""
 
-    def get_trading_balance(self) -> Request:
+    def create_get_trading_balance_request(self) -> Request:
         """Creates a request for get trading balance.
 
         Requires the "Orderbook, History, Trading balance" API key Access Right.
@@ -19,7 +19,7 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def get_active_orders(self, symbol: Optional[Symbol]) -> Request:
+    def create_get_active_orders_request(self, symbol: Optional[Symbol]) -> Request:
         """Creates a request for get active orders.
 
         Requires the "Place/cancel orders" API key Access Right.
@@ -31,9 +31,9 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def get_active_order(self, client_order_id: int,
-                         wait: Optional[int] = None
-                         ) -> Request:
+    def create_get_active_order_request(self, client_order_id: int,
+                                        wait: Optional[int] = None
+                                        ) -> Request:
         """Creates a request for get active order endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
@@ -51,18 +51,18 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def new_order(self, symbol: Symbol,
-                  side: OrderSide,
-                  quantity: str,
-                  price: str,
-                  type_: Optional[OrderType] = None,
-                  time_in_force: Optional[TimeInForce] = None,
-                  stop_price: Optional[str] = None,
-                  expire_time: Optional[Datetime] = None,
-                  strict_validate: Optional[bool] = None,
-                  post_only: Optional[bool] = None,
-                  client_order_id: Optional[int] = None,
-                  ) -> Request:
+    def create_new_order_request(self, symbol: Symbol,
+                                 side: OrderSide,
+                                 quantity: str,
+                                 price: str,
+                                 type_: Optional[OrderType] = None,
+                                 time_in_force: Optional[TimeInForce] = None,
+                                 stop_price: Optional[str] = None,
+                                 expire_time: Optional[Datetime] = None,
+                                 strict_validate: Optional[bool] = None,
+                                 post_only: Optional[bool] = None,
+                                 client_order_id: Optional[int] = None,
+                                 ) -> Request:
         """Creates a request for create new order endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
@@ -123,7 +123,7 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def cancel_orders(self, symbol: Optional[Symbol] = None) -> Request:
+    def create_cancel_orders_request(self, symbol: Optional[Symbol] = None) -> Request:
         """Creates a request for cancel orders endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
@@ -136,7 +136,7 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def cancel_order(self, client_order_id: int) -> Request:
+    def create_cancel_order_request(self, client_order_id: int) -> Request:
         """Creates a request for cancel order endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
@@ -148,7 +148,7 @@ class IHitbtcTradingRequestCreator(Protocol):
             Request
         """
 
-    def get_commission(self, symbol: Symbol) -> Request:
+    def create_get_commission_request(self, symbol: Symbol) -> Request:
         """Creates a request for get trading commission endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
