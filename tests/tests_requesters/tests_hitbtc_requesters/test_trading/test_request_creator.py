@@ -253,3 +253,31 @@ def test_create_new_order_request(creator: HitbtcTradingRequestCreator, auth: Hi
         post_only=True,
         client_order_id=15)
     assert req == expected
+
+
+def test_create_cancel_orders_request(creator: HitbtcTradingRequestCreator, auth: HitbtcAuth) -> None:
+    expected = Request(
+        method="DELETE",
+        url=URL("https://api.hitbtc.com/api/2/order"),
+        headers=auth.sign(
+            method="DELETE", url_path="/api/2/order", url_query=""))
+    req = creator.create_cancel_orders_request()
+    assert req == expected
+
+    expected = Request(
+        method="DELETE",
+        url=URL("https://api.hitbtc.com/api/2/order?symbol=BTCUSD"),
+        headers=auth.sign(
+            method="DELETE", url_path="/api/2/order", url_query="symbol=BTCUSD"))
+    req = creator.create_cancel_orders_request("BTCUSD")
+    assert req == expected
+
+
+def test_create_get_fee_request(creator: HitbtcTradingRequestCreator, auth: HitbtcAuth) -> None:
+    expected = Request(
+        method="GET",
+        url=URL("https://api.hitbtc.com/api/2/trading/fee/BTCUSD"),
+        headers=auth.sign(
+            method="GET", url_path="/api/2/trading/fee/BTCUSD", url_query=""))
+    req = creator.create_get_fee_request("BTCUSD")
+    assert req == expected
