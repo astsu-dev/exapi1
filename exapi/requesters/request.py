@@ -14,6 +14,5 @@ class Request:
     method: str
     url: URL
     headers: Optional[Headers] = None
-    params: Optional[Headers] = None
     data: Any = None
     json: Any = None

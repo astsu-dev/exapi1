@@ -33,10 +33,12 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
 
         path = "/currency"
         url = URL(self._create_url(path))
-        params = {"currencies": ",".join(
-            currencies)} if currencies is not None else currencies
+        params: Params = {}
+        if currencies is not None:
+            params["currencies"] = ",".join(currencies)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params)
+        return Request(method="GET", url=url)
 
     def create_get_certain_currency_request(self, currency: Currency) -> Request:
         """Creates request for /public/currency/`currency` endpoint.
@@ -68,10 +70,12 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
 
         path = "/symbol"
         url = URL(self._create_url(path))
-        params = {"symbols": ",".join(
-            symbols)} if symbols is not None else symbols
+        params: Params = {}
+        if symbols is not None:
+            params["symbols"] = ",".join(symbols)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params)
+        return Request(method="GET", url=url)
 
     def create_get_certain_symbol_request(self, symbol: Symbol) -> Request:
         """Creates request for /public/symbol/`symbol` endpoint.
@@ -105,10 +109,12 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
 
         path = "/ticker"
         url = URL(self._create_url(path))
-        params = {"symbols": ",".join(
-            symbols)} if symbols is not None else symbols
+        params: Params = {}
+        if symbols is not None:
+            params["symbols"] = ",".join(symbols)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params)
+        return Request(method="GET", url=url)
 
     def create_get_certain_ticker_request(self, symbol: Symbol) -> Request:
         """Creates request for /public/ticker/`symbol` endpoint.
@@ -158,7 +164,7 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
 
         path = "/trades"
         url = URL(self._create_url(path))
-        params = {}
+        params: Params = {}
         if symbols is not None:
             params["symbols"] = ",".join(symbols)
         if sort is not None:
@@ -171,8 +177,9 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
             params["limit"] = str(limit)
         if offset is not None:
             params["offset"] = str(offset)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params or None)
+        return Request(method="GET", url=url)
 
     def create_get_certain_trades_request(self, symbol: Symbol,
                                           sort: Optional[SortDirection] = None,
@@ -220,8 +227,9 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
             params["limit"] = str(limit)
         if offset is not None:
             params["offset"] = str(offset)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params or None)
+        return Request(method="GET", url=url)
 
     def create_get_orderbooks_request(self, symbols: Optional[Symbols] = None,
                                       limit: Optional[int] = None
@@ -242,13 +250,14 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
 
         path = "/orderbook"
         url = URL(self._create_url(path))
-        params = {}
+        params: Params = {}
         if symbols is not None:
             params["symbols"] = ",".join(symbols)
         if limit is not None:
             params["limit"] = str(limit)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params or None)
+        return Request(method="GET", url=url)
 
     def create_get_certain_orderbook_request(self, symbol: Symbol,
                                              limit: Optional[int] = None,
@@ -274,13 +283,14 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
 
         path = f"/orderbook/{symbol}"
         url = URL(self._create_url(path))
-        params = {}
+        params: Params = {}
         if limit is not None:
             params["limit"] = str(limit)
         if volume is not None:
             params["volume"] = str(volume)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params or None)
+        return Request(method="GET", url=url)
 
     def create_get_candles_request(self, symbols: Optional[Symbols] = None,
                                    period: Optional[CandlesPeriod] = None,
@@ -329,8 +339,9 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
             params["limit"] = str(limit)
         if offset is not None:
             params["offset"] = str(offset)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params or None)
+        return Request(method="GET", url=url)
 
     def create_get_certain_candles_request(self, symbol: Symbol,
                                            period: Optional[CandlesPeriod] = None,
@@ -376,8 +387,9 @@ class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketData
             params["limit"] = str(limit)
         if offset is not None:
             params["offset"] = str(offset)
+        url = url.with_query(params)
 
-        return Request(method="GET", url=url, params=params or None)
+        return Request(method="GET", url=url)
 
     def _create_url(self, path: str) -> str:
         return self.BASE_URL + path

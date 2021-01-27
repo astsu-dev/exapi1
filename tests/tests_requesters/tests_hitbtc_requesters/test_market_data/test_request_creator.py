@@ -16,10 +16,9 @@ def test_create_get_currencies_request(creator: HitbtcMarketDataRequestCreator) 
         method="GET",
         url=url)
     assert creator.create_get_currencies_request() == expected
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"currencies": "BTC,ETH"})
+
+    url = url.with_query({"currencies": "BTC,ETH"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_currencies_request(
         ["BTC", "ETH"]) == expected
 
@@ -34,8 +33,9 @@ def test_create_get_symbols_request(creator: HitbtcMarketDataRequestCreator) -> 
     url = URL("https://api.hitbtc.com/api/2/public/symbol")
     expected = Request(method="GET", url=url)
     assert creator.create_get_symbols_request() == expected
-    expected = Request(method="GET", url=url, params={
-                       "symbols": "ETHBTC,BTCUSD"})
+
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_symbols_request(
         ["ETHBTC", "BTCUSD"]) == expected
 
@@ -50,8 +50,9 @@ def test_create_get_tickers_request(creator: HitbtcMarketDataRequestCreator) -> 
     url = URL("https://api.hitbtc.com/api/2/public/ticker")
     expected = Request(method="GET", url=url)
     assert creator.create_get_tickers_request() == expected
-    expected = Request(method="GET", url=url, params={
-                       "symbols": "ETHBTC,BTCUSD"})
+
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_tickers_request(
         ["ETHBTC", "BTCUSD"]) == expected
 
@@ -68,60 +69,41 @@ def test_create_get_trades_request(creator: HitbtcMarketDataRequestCreator) -> N
         method="GET", url=url)
     assert creator.create_get_trades_request() == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_trades_request(
         symbols=["ETHBTC", "BTCUSD"]) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "sort": "ASC"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "sort": "ASC"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_trades_request(
         symbols=["ETHBTC", "BTCUSD"], sort="ASC") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "sort": "ASC",
-                "from": "150"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD",
+                          "sort": "ASC", "from": "150"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_trades_request(
         symbols=["ETHBTC", "BTCUSD"], sort="ASC", from_=150) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD",
+                          "sort": "ASC", "from": "150",
+                          "till": "160"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_trades_request(
         symbols=["ETHBTC", "BTCUSD"], sort="ASC", from_=150, till=160) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160",
-                "limit": "500"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD",
+                          "sort": "ASC", "from": "150",
+                          "till": "160", "limit": "500"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_trades_request(
         symbols=["ETHBTC", "BTCUSD"], sort="ASC", from_=150, till=160, limit=500) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160",
-                "limit": "500",
-                "offset": "100"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD",
+                          "sort": "ASC", "from": "150",
+                          "till": "160", "limit": "500",
+                          "offset": "100"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_trades_request(
         symbols=["ETHBTC", "BTCUSD"], sort="ASC",
         from_=150, till=160, limit=500, offset=100) == expected
@@ -129,65 +111,42 @@ def test_create_get_trades_request(creator: HitbtcMarketDataRequestCreator) -> N
 
 def test_create_get_certain_trades_request(creator: HitbtcMarketDataRequestCreator) -> None:
     url = URL("https://api.hitbtc.com/api/2/public/trades/BTCUSD")
-    expected = Request(
-        method="GET",
-        url=url)
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_trades_request("BTCUSD") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"sort": "ASC"})
+    url = url.with_query({"sort": "ASC"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_trades_request(
         symbol="BTCUSD", sort="ASC") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"sort": "ASC",
-                "by": "timestamp"})
+    url = url.with_query({"sort": "ASC", "by": "timestamp"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_trades_request(
         symbol="BTCUSD", sort="ASC", by="timestamp") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"sort": "ASC",
-                "by": "timestamp",
-                "from": "150"})
+    url = url.with_query({"sort": "ASC", "by": "timestamp",
+                          "from": "150"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_trades_request(
         symbol="BTCUSD", sort="ASC", by="timestamp", from_=150) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"sort": "ASC",
-                "by": "timestamp",
-                "from": "150",
-                "till": "160"})
+    url = url.with_query({"sort": "ASC", "by": "timestamp",
+                          "from": "150", "till": "160"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_trades_request(
         symbol="BTCUSD", sort="ASC", by="timestamp", from_=150, till=160) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"sort": "ASC",
-                "by": "timestamp",
-                "from": "150",
-                "till": "160",
-                "limit": "500"})
+    url = url.with_query({"sort": "ASC", "by": "timestamp",
+                          "from": "150", "till": "160",
+                          "limit": "500"})
+    expected = Request(method="GET", url=url)   
     assert creator.create_get_certain_trades_request(
         symbol="BTCUSD", sort="ASC", by="timestamp", from_=150, till=160, limit=500) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"sort": "ASC",
-                "by": "timestamp",
-                "from": "150",
-                "till": "160",
-                "limit": "500",
-                "offset": "100"})
+    url = url.with_query({"sort": "ASC", "by": "timestamp",
+                          "from": "150", "till": "160",
+                          "limit": "500", "offset": "100"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_trades_request(
         symbol="BTCUSD", sort="ASC",
         by="timestamp", from_=150, till=160, limit=500, offset=100) == expected
@@ -198,39 +157,31 @@ def test_create_get_orderbooks_request(creator: HitbtcMarketDataRequestCreator) 
     expected = Request(method="GET", url=url)
     assert creator.create_get_orderbooks_request() == expected
 
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD"})
     expected = Request(
         method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD"})
+        url=url)
     assert creator.create_get_orderbooks_request(
         ["ETHBTC", "BTCUSD"]) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD", "limit": "0"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "limit": "0"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_orderbooks_request(
         ["ETHBTC", "BTCUSD"], 0) == expected
 
 
 def test_create_get_certain_orderbook_request(creator: HitbtcMarketDataRequestCreator) -> None:
     url = URL("https://api.hitbtc.com/api/2/public/orderbook/BTCUSD")
-    expected = Request(
-        method="GET",
-        url=url)
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_orderbook_request("BTCUSD") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"limit": "0", "volume": "15"})
+    url = url.with_query({"limit": "0", "volume": "15"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_orderbook_request(
-        "BTCUSD", 0, 15) == expected
+        "BTCUSD", limit=0, volume=15) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"limit": "0"})
+    url = url.with_query({"limit": "0"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_orderbook_request(
         "BTCUSD", 0) == expected
 
@@ -241,74 +192,46 @@ def test_create_get_candles_request(creator: HitbtcMarketDataRequestCreator) -> 
         method="GET", url=url)
     assert creator.create_get_candles_request() == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"]) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "period": "1M"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "period": "1M"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"], period="1M") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "period": "1M",
-                "sort": "ASC"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "period": "1M",
+                          "sort": "ASC"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"], period="1M", sort="ASC") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "period": "1M",
-                "sort": "ASC",
-                "from": "150"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "period": "1M",
+                          "sort": "ASC", "from": "150"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"], period="1M", sort="ASC", from_=150) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "period": "1M",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "period": "1M",
+                          "sort": "ASC", "from": "150", "till": "160"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"], period="1M", sort="ASC", from_=150, till=160) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "period": "1M",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160",
-                "limit": "500"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "period": "1M",
+                          "sort": "ASC", "from": "150", "till": "160",
+                          "limit": "500"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"], period="1M", sort="ASC",
         from_=150, till=160, limit=500) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"symbols": "ETHBTC,BTCUSD",
-                "period": "1M",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160",
-                "limit": "500",
-                "offset": "100"})
+    url = url.with_query({"symbols": "ETHBTC,BTCUSD", "period": "1M",
+                          "sort": "ASC", "from": "150", "till": "160",
+                          "limit": "500", "offset": "100"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_candles_request(
         symbols=["ETHBTC", "BTCUSD"], period="1M", sort="ASC",
         from_=150, till=160, limit=500, offset=100) == expected
@@ -320,66 +243,45 @@ def test_create_get_certain_candles_request(creator: HitbtcMarketDataRequestCrea
         method="GET", url=url)
     assert creator.create_get_certain_candles_request("BTCUSD") == expected
 
-    expected = Request(
-        method="GET",
-        url=url)
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
         symbol="BTCUSD") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"period": "1M"})
+    url = url.with_query({"period": "1M"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
         symbol="BTCUSD", period="1M") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"period": "1M",
-                "sort": "ASC"})
+    url = url.with_query({"period": "1M",
+                          "sort": "ASC"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
         symbol="BTCUSD", period="1M", sort="ASC") == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"period": "1M",
-                "sort": "ASC",
-                "from": "150"})
+    url = url.with_query({"period": "1M",
+                          "sort": "ASC", "from": "150"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
         symbol="BTCUSD", period="1M", sort="ASC", from_=150) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"period": "1M",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160"})
+    url = url.with_query({"period": "1M",
+                          "sort": "ASC", "from": "150", "till": "160"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
         symbol="BTCUSD", period="1M", sort="ASC", from_=150, till=160) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"period": "1M",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160",
-                "limit": "500"})
+    url = url.with_query({"period": "1M",
+                          "sort": "ASC", "from": "150", "till": "160",
+                          "limit": "500"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
-        symbol="BTCUSD", period="1M", sort="ASC", from_=150, till=160, limit=500) == expected
+        symbol="BTCUSD", period="1M", sort="ASC",
+        from_=150, till=160, limit=500) == expected
 
-    expected = Request(
-        method="GET",
-        url=url,
-        params={"period": "1M",
-                "sort": "ASC",
-                "from": "150",
-                "till": "160",
-                "limit": "500",
-                "offset": "100"})
+    url = url.with_query({"period": "1M",
+                          "sort": "ASC", "from": "150", "till": "160",
+                          "limit": "500", "offset": "100"})
+    expected = Request(method="GET", url=url)
     assert creator.create_get_certain_candles_request(
         symbol="BTCUSD", period="1M", sort="ASC",
         from_=150, till=160, limit=500, offset=100) == expected
