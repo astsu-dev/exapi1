@@ -9,7 +9,7 @@ from exapi.requesters.typedefs import RequesterResponse
 class BaseResponseHandler(abc.ABC):
     """Has methods for handle aiohttp response."""
 
-    _json_content_type: Optional[str] = "application/json"
+    _json_content_type: Optional[str]
 
     async def handle_response(self, response: RequesterResponse) -> Any:
         """Handles response.
@@ -46,7 +46,7 @@ class BaseResponseHandler(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def _check_json_response(self, response: RequesterResponse) -> Any:
+    def _check_json_response(self, response: Any) -> Any:
         """Checks a json from response.
 
         Args:
