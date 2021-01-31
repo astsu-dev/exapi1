@@ -12,8 +12,15 @@ class HitbtcError(BaseExchangeError):
     Has code field, which has error code enum.
     Has error field, which has whole error.
     """
-    
+
     def __init__(self, code: HitbtcErrorCode, error: HitbtcErrorModel) -> None:
+        """Class initialization.
+
+        Args:
+            code (HitbtcErrorCode): error code.
+            error (HitbtcErrorModel): full error.
+        """
+
         self._code = code
         self._error = error
 
