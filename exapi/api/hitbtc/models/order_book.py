@@ -1,5 +1,4 @@
-"""Has hitbtc order book, order book order models.
-    """
+"""Has hitbtc order book, order book order models."""
 
 from dataclasses import dataclass
 from decimal import Decimal
