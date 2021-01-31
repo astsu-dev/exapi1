@@ -2,7 +2,6 @@
 
 from exapi.api.exceptions import BaseExchangeError
 
-from .error_code import HitbtcErrorCode
 from .models.error import HitbtcErrorModel
 
 
@@ -13,7 +12,7 @@ class HitbtcError(BaseExchangeError):
     Has error field, which has whole error.
     """
 
-    def __init__(self, code: HitbtcErrorCode, error: HitbtcErrorModel) -> None:
+    def __init__(self, code: int, error: HitbtcErrorModel) -> None:
         """Class initialization.
 
         Args:
@@ -25,7 +24,7 @@ class HitbtcError(BaseExchangeError):
         self._error = error
 
     @property
-    def code(self) -> HitbtcErrorCode:
+    def code(self) -> int:
         return self._code
 
     @property

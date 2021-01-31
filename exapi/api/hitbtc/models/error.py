@@ -3,8 +3,6 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from exapi.api.hitbtc.error_code import HitbtcErrorCode
-
 
 @dataclass(frozen=True)
 class HitbtcErrorModel:
@@ -16,6 +14,6 @@ class HitbtcErrorModel:
         description: description to error.
     """
 
-    code: HitbtcErrorCode
+    code: int
     message: str
     description: Optional[str] = None
