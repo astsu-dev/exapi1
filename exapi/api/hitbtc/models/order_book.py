@@ -9,7 +9,12 @@ from exapi.requesters.hitbtc.typedefs import Datetime
 
 @dataclass(frozen=True)
 class HitbtcOrderBookOrderModel:
-    """Hitbtc order model from order book."""
+    """Hitbtc order model from order book.
+
+    Args:
+        price (Decimal)
+        size (Decimal): quantity.
+    """
 
     price: Decimal
     size: Decimal
@@ -17,7 +22,13 @@ class HitbtcOrderBookOrderModel:
 
 @dataclass(frozen=True)
 class HitbtcOrderBookModel:
-    """Hitbtc order book model."""
+    """Hitbtc order book model.
+
+    Args:
+        ask (List[HitbtcOrderBookOrderModel]): list of ask orders.
+        bid (List[HitbtcOrderBookOrderModel]): list of bid orders.
+        timestamp: Datetime
+    """
 
     ask: List[HitbtcOrderBookOrderModel]
     bid: List[HitbtcOrderBookOrderModel]

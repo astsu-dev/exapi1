@@ -8,7 +8,15 @@ from exapi.requesters.hitbtc.typedefs import Datetime, OrderSide
 
 @dataclass(frozen=True)
 class HitbtcTradeModel:
-    """Hitbtc trade model."""
+    """Hitbtc trade model.
+
+    Args:
+        id (int)
+        price (Decimal)
+        quantity (Decimal)
+        side (OrderSide)
+        timestamp (Datetime)
+    """
 
     id: int
     price: Decimal

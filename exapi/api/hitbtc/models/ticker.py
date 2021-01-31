@@ -9,7 +9,20 @@ from exapi.requesters.hitbtc.typedefs import Datetime, Symbol
 
 @dataclass(frozen=True)
 class HitbtcTickerModel:
-    """Hitbtc ticker model."""
+    """Hitbtc ticker model.
+
+    Args:
+        ask (Optional[Decimal])
+        bid (Optional[Decimal])
+        last (Optional[Decimal])
+        open (Optional[Decimal])
+        low (Decimal)
+        high (Decimal)
+        volume (Decimal)
+        volume_quote (Decimal)
+        timestamp (Datetime)
+        symbol (Optional[Symbol])
+    """
 
     ask: Optional[Decimal]
     bid: Optional[Decimal]
@@ -18,6 +31,6 @@ class HitbtcTickerModel:
     low: Decimal
     high: Decimal
     volume: Decimal
-    volumeQuote: Decimal
+    volume_quote: Decimal
     timestamp: Datetime
     symbol: Optional[Symbol]
