@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Optional
+from typing import List, Optional
 
 from exapi.requesters.hitbtc.typedefs import Datetime, Symbol
 
@@ -24,13 +24,16 @@ class HitbtcTickerModel:
         symbol (Optional[Symbol])
     """
 
-    ask: Optional[Decimal]
-    bid: Optional[Decimal]
-    last: Optional[Decimal]
-    open: Optional[Decimal]
+    symbol: Symbol
     low: Decimal
     high: Decimal
     volume: Decimal
     volume_quote: Decimal
     timestamp: Datetime
-    symbol: Optional[Symbol]
+    ask: Optional[Decimal] = None
+    bid: Optional[Decimal] = None
+    last: Optional[Decimal] = None
+    open: Optional[Decimal] = None
+
+
+HitbtcTickers = List[HitbtcTickerModel]

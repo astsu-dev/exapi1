@@ -2,9 +2,9 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List
+from typing import Dict, List, Optional
 
-from exapi.requesters.hitbtc.typedefs import Datetime
+from exapi.requesters.hitbtc.typedefs import Datetime, Symbol
 
 
 @dataclass(frozen=True)
@@ -33,3 +33,7 @@ class HitbtcOrderBookModel:
     ask: List[HitbtcOrderBookOrderModel]
     bid: List[HitbtcOrderBookOrderModel]
     timestamp: Datetime
+    symbol: Optional[Symbol] = None
+
+
+HitbtcOrderBooks = Dict[str, HitbtcOrderBookModel]

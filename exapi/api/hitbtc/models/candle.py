@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
+from typing import Dict, List
 
 from exapi.requesters.hitbtc.typedefs import Datetime
 
@@ -27,3 +28,7 @@ class HitbtcCandleModel:
     max: Decimal
     volume: Decimal
     volume_quote: Decimal
+
+
+HitbtcSymbolCandles = List[HitbtcCandleModel]
+HitbtcCandles = Dict[str, HitbtcSymbolCandles]
