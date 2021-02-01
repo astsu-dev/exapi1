@@ -1,7 +1,23 @@
 """Has hitbtc error model."""
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, TypedDict
+
+
+class HitbtcRawErrorModel(TypedDict):
+    """Hitbtc json error model."""
+
+    code: int
+    message: str
+
+
+class HitbtcRawDetailedErrorModel(HitbtcRawErrorModel):
+    """Hitbtc detailed json error model.
+
+    Has additional description field.
+    """
+
+    description: str
 
 
 @dataclass(frozen=True)

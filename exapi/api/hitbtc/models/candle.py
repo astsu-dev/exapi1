@@ -2,9 +2,21 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Dict, List
+from typing import Dict, List, TypedDict
 
 from exapi.requesters.hitbtc.typedefs import Datetime
+
+
+class HitbtcRawCandleModel(TypedDict):
+    """Candle json model."""
+
+    timestamp: Datetime
+    open: str
+    close: str
+    min: str
+    max: str
+    volume: str
+    volumeQuote: str
 
 
 @dataclass(frozen=True)
@@ -30,5 +42,7 @@ class HitbtcCandleModel:
     volume_quote: Decimal
 
 
+HitbtcRawSymbolCandles = List[HitbtcRawCandleModel]
+HitbtcRawCandles = Dict[str, HitbtcRawSymbolCandles]
 HitbtcSymbolCandles = List[HitbtcCandleModel]
 HitbtcCandles = Dict[str, HitbtcSymbolCandles]

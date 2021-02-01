@@ -2,9 +2,22 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List
+from typing import List, TypedDict
 
 from exapi.requesters.hitbtc.typedefs import Currency, Symbol
+
+
+class HitbtcRawSymbolModel(TypedDict):
+    """Symbol json model."""
+
+    id: Symbol
+    baseCurrency: Currency
+    quoteCurrency: Currency
+    quantityIncrement: str
+    tickSize: str
+    takeLiquidityRate: str
+    provideLiquidityRate: str
+    feeCurrency: Currency
 
 
 @dataclass(frozen=True)
@@ -32,4 +45,5 @@ class HitbtcSymbolModel:
     fee_currency: Currency
 
 
+HitbtcRawSymbols = List[HitbtcRawSymbolModel]
 HitbtcSymbols = List[HitbtcSymbolModel]
