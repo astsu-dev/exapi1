@@ -3,17 +3,18 @@
 from typing import Optional
 
 import aiohttp
-from exapi.requesters.hitbtc.requester import HitbtcBasePublicRequester
+from exapi.requesters.hitbtc.requester import HitbtcBaseRequester
 from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
                                               Currency, IntervalValue, SortBy,
                                               SortDirection, Symbol, Symbols)
 from exapi.requesters.typedefs import RequesterResponse
 
+from .interface import IHitbtcMarketDataRequester
 from .request_creator.creator import HitbtcMarketDataRequestCreator
 from .request_creator.interface import IHitbtcMarketDataRequestCreator
 
 
-class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
+class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester):
     """Has methods for market data requests making."""
 
     def __init__(self, session: Optional[aiohttp.ClientSession] = None,
@@ -48,7 +49,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
         req = self._creator.create_get_currencies_request(currencies)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_certain_currency(self, currency: Currency) -> RequesterResponse:
@@ -68,7 +69,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
         req = self._creator.create_get_certain_currency_request(currency)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_symbols(self, symbols: Optional[Symbols] = None) -> RequesterResponse:
@@ -91,7 +92,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
         req = self._creator.create_get_symbols_request(symbols)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_certain_symbol(self, symbol: Symbol) -> RequesterResponse:
@@ -111,7 +112,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
         req = self._creator.create_get_certain_symbol_request(symbol)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_tickers(self, symbols: Optional[Symbols] = None) -> RequesterResponse:
@@ -132,7 +133,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
         req = self._creator.create_get_tickers_request(symbols)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_certain_ticker(self, symbol: Symbol) -> RequesterResponse:
@@ -152,7 +153,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
         req = self._creator.create_get_certain_ticker_request(symbol)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_trades(self, symbols: Optional[Symbols] = None,
@@ -195,7 +196,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
             offset=offset)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_certain_trades(self, symbol: Symbol,
@@ -240,7 +241,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
             offset=offset)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_orderbooks(self, symbols: Optional[Symbols] = None,
@@ -267,7 +268,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
             symbols=symbols, limit=limit)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_certain_orderbook(self, symbol: Symbol,
@@ -298,7 +299,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
             symbol=symbol, limit=limit, volume=volume)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_candles(self, symbols: Optional[Symbols] = None,
@@ -343,7 +344,7 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
             offset=offset)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
     async def get_certain_candles(self, symbol: Symbol,
@@ -387,5 +388,5 @@ class HitbtcMarketDataRequester(HitbtcBasePublicRequester):
             offset=offset)
 
         return await self._request(
-            method=req.method, url=req.url, params=req.params,
+            method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
