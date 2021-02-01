@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Dict, List, Optional, TypedDict
+from typing import Dict, List, TypedDict
 
 from exapi.requesters.hitbtc.typedefs import Datetime, Symbol
 
