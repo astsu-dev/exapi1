@@ -1,1 +1,2 @@
+from .models_mapper import IHitbtcBaseModelsMapper
 from .response_handler import HitbtcBaseResponseHandler
