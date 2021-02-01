@@ -1,1 +1,2 @@
 from .interface import IHitbtcMarketDataModelsMapper
+from .mapper import HitbtcMarketDataModelsMapper
