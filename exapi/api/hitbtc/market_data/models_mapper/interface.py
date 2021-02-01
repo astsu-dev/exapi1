@@ -1,13 +1,19 @@
 """Has hitbtc market data models mapper interface."""
 
-from typing import Protocol
+from typing import Union, overload
 
-from exapi.api.hitbtc.models import (HitbtcCandles, HitbtcCurrencies,
-                                     HitbtcCurrencyModel, HitbtcOrderBooks,
+from exapi.api.hitbtc.base import IHitbtcBaseModelsMapper
+from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCandles,
+                                     HitbtcCurrencies, HitbtcCurrencyModel,
+                                     HitbtcOrderBookModel,
+                                     HitbtcOrderBookOrderModel,
+                                     HitbtcOrderBooks, HitbtcRawCandleModel,
                                      HitbtcRawCandles, HitbtcRawCurrencies,
                                      HitbtcRawCurrencyModel,
                                      HitbtcRawOrderBookModel,
+                                     HitbtcRawOrderBookOrderModel,
                                      HitbtcRawOrderBooks,
+                                     HitbtcRawSingleOrderBookModel,
                                      HitbtcRawSymbolCandles,
                                      HitbtcRawSymbolModel, HitbtcRawSymbols,
                                      HitbtcRawSymbolTrades,
@@ -20,7 +26,7 @@ from exapi.api.hitbtc.models import (HitbtcCandles, HitbtcCurrencies,
                                      HitbtcTradeModel, HitbtcTrades)
 
 
-class IHitbtcMarketDataModelsMapper(Protocol):
+class IHitbtcMarketDataModelsMapper(IHitbtcBaseModelsMapper):
     """Has methods for mapping hitbtc market data json models
     to hitbtc dataclass models.
     """
@@ -65,16 +71,51 @@ class IHitbtcMarketDataModelsMapper(Protocol):
             HitbtcSymbols
         """
 
-    def map_to_orderbook(
-            self,
-            raw_orderbook: HitbtcRawOrderBookModel) -> HitbtcSingleOrderBookModel:
-        """Maps orderbook json to single orderbook model.
+    def map_to_orderbook_order(self, raw_orderbook_order: HitbtcRawOrderBookOrderModel
+                               ) -> HitbtcOrderBookOrderModel:
+        """Maps orderbook order json to orderbook order model.
+
+        Args:
+            raw_orderbook_order (HitbtcRawOrderBookOrder)
+
+        Returns:
+            HitbtcOrderBookOrder
+        """
+
+    @overload
+    def map_to_orderbook(self, raw_orderbook: HitbtcRawOrderBookModel,
+                         ) -> HitbtcOrderBookModel:
+        """Maps orderbook json to orderbook model.
 
         Args:
             raw_orderbook (HitbtcRawOrderBook)
 
         Returns:
+            HitbtcOrderBookModel
+        """
+
+    @overload
+    def map_to_orderbook(self, raw_orderbook: HitbtcRawSingleOrderBookModel,
+                         ) -> HitbtcSingleOrderBookModel:
+        """Maps orderbook json to single orderbook model.
+
+        Args:
+            raw_orderbook (HitbtcRawSingleOrderBook)
+
+        Returns:
             HitbtcSingleOrderBookModel
+        """
+
+    def map_to_orderbook(self, raw_orderbook: Union[HitbtcRawOrderBookModel,
+                                                    HitbtcRawSingleOrderBookModel]
+                         ) -> Union[HitbtcSingleOrderBookModel, HitbtcOrderBookModel]:
+        """Maps orderbook json to orderbook model.
+
+        Args:
+            raw_orderbook (Union[HitbtcRawOrderBookModel, HitbtcRawSingleOrderBookModel])
+
+        Returns:
+            Union[HitbtcSingleOrderBookModel, HitbtcOrderBookModel]
         """
 
     def map_to_orderbooks(self, raw_orderbooks: HitbtcRawOrderBooks) -> HitbtcOrderBooks:
@@ -107,7 +148,7 @@ class IHitbtcMarketDataModelsMapper(Protocol):
             HitbtcTickers
         """
 
-    def map_to_trade(self, raw_trades: HitbtcRawTradeModel) -> HitbtcTradeModel:
+    def map_to_trade(self, raw_trade: HitbtcRawTradeModel) -> HitbtcTradeModel:
         """Maps trade json to trade model.
 
         Args:
@@ -135,6 +176,16 @@ class IHitbtcMarketDataModelsMapper(Protocol):
 
         Returns:
             HitbtcSymbolTrades
+        """
+
+    def map_to_candle(self, raw_candle: HitbtcRawCandleModel) -> HitbtcCandleModel:
+        """Maps candle json to candle.
+
+        Args:
+            raw_candle (HitbtcRawCandle)
+
+        Returns:
+            HitbtcCandleModel
         """
 
     def map_to_candles(self, raw_candles: HitbtcRawCandles) -> HitbtcCandles:
