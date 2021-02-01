@@ -1,5 +1,6 @@
 """Has hitbtc error code class which has hitbtc error codes."""
 
+
 class HitbtcErrorCode:
     """Has hitbtc error codes."""
 
