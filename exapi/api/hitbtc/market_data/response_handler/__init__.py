@@ -1,1 +1,2 @@
+from .handler import HitbtcMarketDataResponseHandler
 from .interface import IHitbtcMarketDataResponseHandler
