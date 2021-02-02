@@ -1,7 +1,5 @@
 """Has hitbtc market data models mapper interface."""
 
-from typing import Union, overload
-
 from exapi.api.hitbtc.base import IHitbtcBaseModelsMapper
 from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCandles,
                                      HitbtcCurrencies, HitbtcCurrencyModel,
