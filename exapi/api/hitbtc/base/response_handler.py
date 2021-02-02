@@ -46,7 +46,7 @@ class HitbtcBaseResponseHandler(BaseResponseHandler):
             Any
         """
 
-        if not isinstance(response, dict) and "error" not in response:
+        if not isinstance(response, dict) or "error" not in response:
             return None
 
         raw_error: Union[HitbtcRawDetailedErrorModel,
