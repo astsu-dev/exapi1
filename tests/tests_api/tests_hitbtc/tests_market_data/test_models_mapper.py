@@ -1,0 +1,611 @@
+from decimal import Decimal
+from typing import List, Union
+
+import pytest
+from exapi.api.hitbtc.market_data import HitbtcMarketDataModelsMapper
+from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCurrencyModel,
+                                     HitbtcOrderBookModel,
+                                     HitbtcOrderBookOrderModel,
+                                     HitbtcRawCandleModel, HitbtcRawCurrencies,
+                                     HitbtcRawCurrencyModel,
+                                     HitbtcRawOrderBookModel,
+                                     HitbtcRawOrderBookOrderModel,
+                                     HitbtcRawOrderBooks,
+                                     HitbtcRawSingleOrderBookModel,
+                                     HitbtcRawSymbolCandles,
+                                     HitbtcRawSymbolModel, HitbtcRawSymbols,
+                                     HitbtcRawSymbolTrades,
+                                     HitbtcRawTickerModel, HitbtcRawTickers,
+                                     HitbtcRawTradeModel, HitbtcRawTrades,
+                                     HitbtcSingleOrderBookModel,
+                                     HitbtcSymbolModel, HitbtcTickerModel,
+                                     HitbtcTradeModel)
+
+
+@pytest.fixture(scope="module")
+def mapper() -> HitbtcMarketDataModelsMapper:
+    return HitbtcMarketDataModelsMapper()
+
+
+def test_map_to_currency(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = HitbtcCurrencyModel(
+        id="BTC", full_name="Bitcoin", crypto=True,
+        payin_enabled=True, payin_payment_id=True,
+        payin_confirmations=2, payout_enabled=False,
+        payout_is_payment_id=True, transfer_enabled=True,
+        delisted=False, payout_fee=Decimal("0.002"),
+        payout_minimal_amount=Decimal("0.001"), precision_payout=5,
+        precision_transfer=8
+    )
+    raw: HitbtcRawCurrencyModel = {
+        "id": "BTC",
+        "fullName": "Bitcoin",
+        "crypto": True,
+        "payinEnabled": True,
+        "payinPaymentId": True,
+        "payinConfirmations": 2,
+        "payoutEnabled": False,
+        "payoutIsPaymentId": True,
+        "transferEnabled": True,
+        "delisted": False,
+        "payoutFee": "0.002",
+        "payoutMinimalAmount": "0.001",
+        "precisionPayout": 5,
+        "precisionTransfer": 8
+    }
+    assert mapper.map_to_currency(raw) == expected
+
+
+def test_map_to_currencies(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = [
+        HitbtcCurrencyModel(
+            id="BTC", full_name="Bitcoin", crypto=True,
+            payin_enabled=True, payin_payment_id=True,
+            payin_confirmations=2, payout_enabled=False,
+            payout_is_payment_id=True, transfer_enabled=True,
+            delisted=False, payout_fee=Decimal("0.002"),
+            payout_minimal_amount=Decimal("0.001"), precision_payout=5,
+            precision_transfer=8
+        ),
+        HitbtcCurrencyModel(
+            id="ETH", full_name="Ethereum", crypto=True,
+            payin_enabled=True, payin_payment_id=True,
+            payin_confirmations=2, payout_enabled=False,
+            payout_is_payment_id=True, transfer_enabled=True,
+            delisted=False, payout_fee=Decimal("0.003"),
+            payout_minimal_amount=Decimal("0.001"), precision_payout=5,
+            precision_transfer=8
+        )
+    ]
+    raw: HitbtcRawCurrencies = [
+        {
+            "id": "BTC",
+            "fullName": "Bitcoin",
+            "crypto": True,
+            "payinEnabled": True,
+            "payinPaymentId": True,
+            "payinConfirmations": 2,
+            "payoutEnabled": False,
+            "payoutIsPaymentId": True,
+            "transferEnabled": True,
+            "delisted": False,
+            "payoutFee": "0.002",
+            "payoutMinimalAmount": "0.001",
+            "precisionPayout": 5,
+            "precisionTransfer": 8
+        },
+        {
+            "id": "ETH",
+            "fullName": "Ethereum",
+            "crypto": True,
+            "payinEnabled": True,
+            "payinPaymentId": True,
+            "payinConfirmations": 2,
+            "payoutEnabled": False,
+            "payoutIsPaymentId": True,
+            "transferEnabled": True,
+            "delisted": False,
+            "payoutFee": "0.003",
+            "payoutMinimalAmount": "0.001",
+            "precisionPayout": 5,
+            "precisionTransfer": 8
+        }
+    ]
+    assert mapper.map_to_currencies(raw) == expected
+
+
+def test_map_to_symbol(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = HitbtcSymbolModel(
+        id="ETHBTC",
+        base_currency="ETH",
+        quote_currency="BTC",
+        quantity_increment=Decimal("0.000001"),
+        tick_size=Decimal("0.001"),
+        take_liquidity_rate=Decimal("0.01"),
+        provide_liquidity_rate=Decimal("0.01"),
+        fee_currency="BTC")
+    raw: HitbtcRawSymbolModel = {
+        "id": "ETHBTC",
+        "baseCurrency": "ETH",
+        "quoteCurrency": "BTC",
+        "quantityIncrement": "0.000001",
+        "tickSize": "0.001",
+        "takeLiquidityRate": "0.01",
+        "provideLiquidityRate": "0.01",
+        "feeCurrency": "BTC"
+    }
+    assert mapper.map_to_symbol(raw) == expected
+
+
+def test_map_to_symbols(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = [
+        HitbtcSymbolModel(
+            id="ETHBTC",
+            base_currency="ETH",
+            quote_currency="BTC",
+            quantity_increment=Decimal("0.000001"),
+            tick_size=Decimal("0.001"),
+            take_liquidity_rate=Decimal("0.01"),
+            provide_liquidity_rate=Decimal("0.01"),
+            fee_currency="BTC"),
+        HitbtcSymbolModel(
+            id="LTCBTC",
+            base_currency="LTC",
+            quote_currency="BTC",
+            quantity_increment=Decimal("0.000001"),
+            tick_size=Decimal("0.002"),
+            take_liquidity_rate=Decimal("0.01"),
+            provide_liquidity_rate=Decimal("0.01"),
+            fee_currency="BTC")
+    ]
+    raw: HitbtcRawSymbols = [{
+        "id": "ETHBTC",
+        "baseCurrency": "ETH",
+        "quoteCurrency": "BTC",
+        "quantityIncrement": "0.000001",
+        "tickSize": "0.001",
+        "takeLiquidityRate": "0.01",
+        "provideLiquidityRate": "0.01",
+        "feeCurrency": "BTC"
+    },
+        {
+        "id": "LTCBTC",
+        "baseCurrency": "LTC",
+        "quoteCurrency": "BTC",
+        "quantityIncrement": "0.000001",
+        "tickSize": "0.002",
+        "takeLiquidityRate": "0.01",
+        "provideLiquidityRate": "0.01",
+        "feeCurrency": "BTC"
+    }
+    ]
+    assert mapper.map_to_symbols(raw) == expected
+
+
+def test_map_to_orderbook_order(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = HitbtcOrderBookOrderModel(
+        price=Decimal("0.001"), size=Decimal("10.5"))
+    raw: HitbtcRawOrderBookOrderModel = {
+        "price": "0.001",
+        "size": "10.5"
+    }
+    assert mapper.map_to_orderbook_order(raw) == expected
+
+
+def test_map_to_orderbook(mapper: HitbtcMarketDataModelsMapper) -> None:
+    raw: Union[HitbtcRawSingleOrderBookModel, HitbtcRawOrderBookModel]
+
+    raw_ask_orders: List[HitbtcRawOrderBookOrderModel] = [
+        {
+            "price": "0.001",
+            "size": "10.5"
+        }, {
+            "price": "0.002",
+            "size": "12.5"
+        }]
+    raw_bid_orders: List[HitbtcRawOrderBookOrderModel] = [
+        {
+            "price": "0.0005",
+            "size": "10.5"
+        }, {
+            "price": "0.0004",
+            "size": "12.5"
+        }]
+
+    ask_orders: List[HitbtcOrderBookOrderModel] = [
+        HitbtcOrderBookOrderModel(
+            price=Decimal("0.001"), size=Decimal("10.5")),
+        HitbtcOrderBookOrderModel(price=Decimal("0.002"), size=Decimal("12.5"))]
+    bid_orders: List[HitbtcOrderBookOrderModel] = [
+        HitbtcOrderBookOrderModel(price=Decimal(
+            "0.0005"), size=Decimal("10.5")),
+        HitbtcOrderBookOrderModel(price=Decimal("0.0004"), size=Decimal("12.5"))]
+
+    expected = HitbtcSingleOrderBookModel(
+        ask=ask_orders,
+        bid=bid_orders,
+        timestamp="1234")
+    raw = {
+        "ask": raw_ask_orders,
+        "bid": raw_bid_orders,
+        "timestamp": "1234"
+    }
+    assert mapper.map_to_orderbook(raw) == expected
+
+    expected = HitbtcOrderBookModel(
+        ask=ask_orders,
+        bid=bid_orders,
+        timestamp="1234",
+        symbol="BTCUSDT")
+    raw = {
+        "ask": raw_ask_orders,
+        "bid": raw_bid_orders,
+        "timestamp": "1234",
+        "symbol": "BTCUSDT"
+    }
+    assert mapper.map_to_orderbook(raw) == expected
+
+
+def test_map_to_orderbooks(mapper: HitbtcMarketDataModelsMapper) -> None:
+    raw_ask_orders: List[HitbtcRawOrderBookOrderModel] = [
+        {
+            "price": "0.001",
+            "size": "10.5"
+        }, {
+            "price": "0.002",
+            "size": "12.5"
+        }]
+    raw_bid_orders: List[HitbtcRawOrderBookOrderModel] = [
+        {
+            "price": "0.0005",
+            "size": "10.5"
+        }, {
+            "price": "0.0004",
+            "size": "12.5"
+        }]
+
+    ask_orders: List[HitbtcOrderBookOrderModel] = [
+        HitbtcOrderBookOrderModel(
+            price=Decimal("0.001"), size=Decimal("10.5")),
+        HitbtcOrderBookOrderModel(price=Decimal("0.002"), size=Decimal("12.5"))]
+    bid_orders: List[HitbtcOrderBookOrderModel] = [
+        HitbtcOrderBookOrderModel(price=Decimal(
+            "0.0005"), size=Decimal("10.5")),
+        HitbtcOrderBookOrderModel(price=Decimal("0.0004"), size=Decimal("12.5"))]
+
+    expected = {
+        "BTCUSDT": HitbtcOrderBookModel(
+            ask=ask_orders,
+            bid=bid_orders,
+            timestamp="1234",
+            symbol="BTCUSDT"),
+        "ETHUSDT": HitbtcOrderBookModel(
+            ask=ask_orders,
+            bid=bid_orders,
+            timestamp="1235",
+            symbol="ETHUSDT")
+    }
+    raw: HitbtcRawOrderBooks = {
+        "BTCUSDT": {
+            "ask": raw_ask_orders,
+            "bid": raw_bid_orders,
+            "timestamp": "1234",
+            "symbol": "BTCUSDT"
+        },
+        "ETHUSDT": {
+            "ask": raw_ask_orders,
+            "bid": raw_bid_orders,
+            "timestamp": "1235",
+            "symbol": "ETHUSDT"
+        }
+    }
+
+    assert mapper.map_to_orderbooks(raw) == expected
+
+
+def test_map_to_ticker(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = HitbtcTickerModel(
+        symbol="BTCUSDT",
+        low=Decimal("0.002"),
+        high=Decimal("0.004"),
+        volume=Decimal("1800.4"),
+        volume_quote=Decimal("50055.3"),
+        timestamp="1234")
+    raw: HitbtcRawTickerModel = {
+        "symbol": "BTCUSDT",
+        "low": "0.002",
+        "high": "0.004",
+        "volume": "1800.4",
+        "volumeQuote": "50055.3",
+        "timestamp": "1234",
+        "ask": None,
+        "bid": None,
+        "last": None,
+        "open": None
+    }
+    assert mapper.map_to_ticker(raw) == expected
+
+    expected = HitbtcTickerModel(
+        symbol="BTCUSDT",
+        low=Decimal("0.002"),
+        high=Decimal("0.004"),
+        volume=Decimal("1800.4"),
+        volume_quote=Decimal("50055.3"),
+        timestamp="1234",
+        ask=Decimal("15.5"),
+        bid=Decimal("4.5"),
+        last=Decimal("3.5"),
+        open=Decimal("6.5"))
+    raw = {
+        "symbol": "BTCUSDT",
+        "low": "0.002",
+        "high": "0.004",
+        "volume": "1800.4",
+        "volumeQuote": "50055.3",
+        "timestamp": "1234",
+        "ask": "15.5",
+        "bid": "4.5",
+        "last": "3.5",
+        "open": "6.5"
+    }
+    assert mapper.map_to_ticker(raw) == expected
+
+
+def test_map_to_tickers(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = [
+        HitbtcTickerModel(
+            symbol="BTCUSDT",
+            low=Decimal("0.002"),
+            high=Decimal("0.004"),
+            volume=Decimal("1800.4"),
+            volume_quote=Decimal("50055.3"),
+            timestamp="1234"),
+        HitbtcTickerModel(
+            symbol="ETHUSDT",
+            low=Decimal("0.003"),
+            high=Decimal("0.005"),
+            volume=Decimal("1800.4"),
+            volume_quote=Decimal("50055.3"),
+            timestamp="1234")
+    ]
+    raw: HitbtcRawTickers = [
+        {
+            "symbol": "BTCUSDT",
+            "low": "0.002",
+            "high": "0.004",
+            "volume": "1800.4",
+            "volumeQuote": "50055.3",
+            "timestamp": "1234",
+            "ask": None,
+            "bid": None,
+            "last": None,
+            "open": None
+        },
+        {
+            "symbol": "ETHUSDT",
+            "low": "0.003",
+            "high": "0.005",
+            "volume": "1800.4",
+            "volumeQuote": "50055.3",
+            "timestamp": "1234",
+            "ask": None,
+            "bid": None,
+            "last": None,
+            "open": None
+        }]
+    assert mapper.map_to_tickers(raw) == expected
+
+
+def test_map_to_trade(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = HitbtcTradeModel(
+        id=45,
+        price=Decimal("456.6"),
+        quantity=Decimal("234"),
+        side="sell",
+        timestamp="1234")
+    raw: HitbtcRawTradeModel = {
+        "id": 45,
+        "price": "456.6",
+        "quantity": "234",
+        "side": "sell",
+        "timestamp": "1234"
+    }
+    assert mapper.map_to_trade(raw) == expected
+
+
+def test_map_to_symbol_trades(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = [
+        HitbtcTradeModel(
+            id=45,
+            price=Decimal("456.6"),
+            quantity=Decimal("234"),
+            side="sell",
+            timestamp="1234"),
+        HitbtcTradeModel(
+            id=46,
+            price=Decimal("456.6"),
+            quantity=Decimal("234"),
+            side="buy",
+            timestamp="1235")
+    ]
+    raw: HitbtcRawSymbolTrades = [
+        {
+            "id": 45,
+            "price": "456.6",
+            "quantity": "234",
+            "side": "sell",
+            "timestamp": "1234"
+        },
+        {
+            "id": 46,
+            "price": "456.6",
+            "quantity": "234",
+            "side": "buy",
+            "timestamp": "1235"
+        }
+    ]
+    assert mapper.map_to_symbol_trades(raw) == expected
+
+
+def test_map_to_trades(mapper: HitbtcMarketDataModelsMapper) -> None:
+    raw_symbol_trades: HitbtcRawSymbolTrades = [
+        {
+            "id": 45,
+            "price": "456.6",
+            "quantity": "234",
+            "side": "sell",
+            "timestamp": "1234"
+        },
+        {
+            "id": 46,
+            "price": "456.6",
+            "quantity": "234",
+            "side": "buy",
+            "timestamp": "1235"
+        }
+    ]
+
+    symbol_trades = [
+        HitbtcTradeModel(
+            id=45,
+            price=Decimal("456.6"),
+            quantity=Decimal("234"),
+            side="sell",
+            timestamp="1234"),
+        HitbtcTradeModel(
+            id=46,
+            price=Decimal("456.6"),
+            quantity=Decimal("234"),
+            side="buy",
+            timestamp="1235")
+    ]
+
+    expected = {
+        "BTCUSDT": symbol_trades,
+        "ETHUSDT": symbol_trades
+    }
+
+    raw: HitbtcRawTrades = {
+        "BTCUSDT": raw_symbol_trades,
+        "ETHUSDT": raw_symbol_trades
+    }
+    assert mapper.map_to_trades(raw) == expected
+
+
+def test_map_to_candle(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = HitbtcCandleModel(
+        timestamp="1234",
+        open=Decimal("15.5"),
+        close=Decimal("17.4"),
+        min=Decimal("12.5"),
+        max=Decimal("17.4"),
+        volume=Decimal("177.9"),
+        volume_quote=Decimal("188.2"))
+
+    raw: HitbtcRawCandleModel = {
+        "timestamp": "1234",
+        "open": "15.5",
+        "close": "17.4",
+        "min": "12.5",
+        "max": "17.4",
+        "volume": "177.9",
+        "volumeQuote": "188.2"
+    }
+
+    assert mapper.map_to_candle(raw) == expected
+
+
+def test_map_to_symbol_candles(mapper: HitbtcMarketDataModelsMapper) -> None:
+    expected = [
+        HitbtcCandleModel(
+            timestamp="1234",
+            open=Decimal("15.5"),
+            close=Decimal("17.4"),
+            min=Decimal("12.5"),
+            max=Decimal("17.4"),
+            volume=Decimal("177.9"),
+            volume_quote=Decimal("188.2")),
+        HitbtcCandleModel(
+            timestamp="1235",
+            open=Decimal("25.5"),
+            close=Decimal("17.4"),
+            min=Decimal("12.5"),
+            max=Decimal("17.4"),
+            volume=Decimal("177.9"),
+            volume_quote=Decimal("188.2"))
+    ]
+
+    raw: HitbtcRawSymbolCandles = [
+        {
+            "timestamp": "1234",
+            "open": "15.5",
+            "close": "17.4",
+            "min": "12.5",
+            "max": "17.4",
+            "volume": "177.9",
+            "volumeQuote": "188.2"
+        },
+        {
+            "timestamp": "1235",
+            "open": "25.5",
+            "close": "17.4",
+            "min": "12.5",
+            "max": "17.4",
+            "volume": "177.9",
+            "volumeQuote": "188.2"
+        }
+    ]
+
+    assert mapper.map_to_symbol_candles(raw) == expected
+
+
+def test_map_to_candles(mapper: HitbtcMarketDataModelsMapper) -> None:
+    raw_symbol_candles: HitbtcRawSymbolCandles = [
+        {
+            "timestamp": "1234",
+            "open": "15.5",
+            "close": "17.4",
+            "min": "12.5",
+            "max": "17.4",
+            "volume": "177.9",
+            "volumeQuote": "188.2"
+        },
+        {
+            "timestamp": "1235",
+            "open": "25.5",
+            "close": "17.4",
+            "min": "12.5",
+            "max": "17.4",
+            "volume": "177.9",
+            "volumeQuote": "188.2"
+        }
+    ]
+    symbol_candles = [
+        HitbtcCandleModel(
+            timestamp="1234",
+            open=Decimal("15.5"),
+            close=Decimal("17.4"),
+            min=Decimal("12.5"),
+            max=Decimal("17.4"),
+            volume=Decimal("177.9"),
+            volume_quote=Decimal("188.2")),
+        HitbtcCandleModel(
+            timestamp="1235",
+            open=Decimal("25.5"),
+            close=Decimal("17.4"),
+            min=Decimal("12.5"),
+            max=Decimal("17.4"),
+            volume=Decimal("177.9"),
+            volume_quote=Decimal("188.2"))
+    ]
+
+    expected = {
+        "BTCUSDT": symbol_candles,
+        "ETHUSDT": symbol_candles
+    }
+    raw = {
+        "BTCUSDT": raw_symbol_candles,
+        "ETHUSDT": raw_symbol_candles
+    }
+
+    assert mapper.map_to_candles(raw) == expected
