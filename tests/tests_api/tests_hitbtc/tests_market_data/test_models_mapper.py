@@ -156,26 +156,27 @@ def test_map_to_symbols(mapper: HitbtcMarketDataModelsMapper) -> None:
             provide_liquidity_rate=Decimal("0.01"),
             fee_currency="BTC")
     ]
-    raw: HitbtcRawSymbols = [{
-        "id": "ETHBTC",
-        "baseCurrency": "ETH",
-        "quoteCurrency": "BTC",
-        "quantityIncrement": "0.000001",
-        "tickSize": "0.001",
-        "takeLiquidityRate": "0.01",
-        "provideLiquidityRate": "0.01",
-        "feeCurrency": "BTC"
-    },
+    raw: HitbtcRawSymbols = [
         {
-        "id": "LTCBTC",
-        "baseCurrency": "LTC",
-        "quoteCurrency": "BTC",
-        "quantityIncrement": "0.000001",
-        "tickSize": "0.002",
-        "takeLiquidityRate": "0.01",
-        "provideLiquidityRate": "0.01",
-        "feeCurrency": "BTC"
-    }
+            "id": "ETHBTC",
+            "baseCurrency": "ETH",
+            "quoteCurrency": "BTC",
+            "quantityIncrement": "0.000001",
+            "tickSize": "0.001",
+            "takeLiquidityRate": "0.01",
+            "provideLiquidityRate": "0.01",
+            "feeCurrency": "BTC"
+        },
+        {
+            "id": "LTCBTC",
+            "baseCurrency": "LTC",
+            "quoteCurrency": "BTC",
+            "quantityIncrement": "0.000001",
+            "tickSize": "0.002",
+            "takeLiquidityRate": "0.01",
+            "provideLiquidityRate": "0.01",
+            "feeCurrency": "BTC"
+        }
     ]
     assert mapper.map_to_symbols(raw) == expected
 
