@@ -17,7 +17,7 @@ def auth() -> HitbtcAuth:
     return HitbtcAuth("aa", "aa")
 
 
-def test_get_trading_balance(creator: HitbtcTradingRequestCreator, auth: HitbtcAuth) -> None:
+def test_create_get_trading_balance_request(creator: HitbtcTradingRequestCreator, auth: HitbtcAuth) -> None:
     expected = Request(
         method="GET",
         url=URL("https://api.hitbtc.com/api/2/trading/balance"),
