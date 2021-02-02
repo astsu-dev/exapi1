@@ -14,21 +14,16 @@ class HitbtcRawOrderBookOrderModel(TypedDict):
     size: str
 
 
-class HitbtcRawSingleOrderBookModel(TypedDict):
-    """Order book json model from get orderbook response."""
-
-    ask: List[HitbtcRawOrderBookOrderModel]
-    bid: List[HitbtcRawOrderBookOrderModel]
-    timestamp: Datetime
-
-
-class HitbtcRawOrderBookModel(HitbtcRawSingleOrderBookModel):
+class HitbtcRawOrderBookModel(TypedDict):
     """Order book json model from get orderbooks response.
 
     Inherites hitbtc raw single order book model. Has additional symbol field.
     """
 
     symbol: Symbol
+    ask: List[HitbtcRawOrderBookOrderModel]
+    bid: List[HitbtcRawOrderBookOrderModel]
+    timestamp: Datetime
 
 
 @dataclass(frozen=True)
@@ -45,7 +40,7 @@ class HitbtcOrderBookOrderModel:
 
 
 @dataclass(frozen=True)
-class HitbtcSingleOrderBookModel:
+class HitbtcOrderBookModel:
     """Hitbtc order book model.
 
     Will be returend from get orderbook response.
@@ -56,27 +51,10 @@ class HitbtcSingleOrderBookModel:
         timestamp: Datetime
     """
 
+    symbol: Symbol
     ask: List[HitbtcOrderBookOrderModel]
     bid: List[HitbtcOrderBookOrderModel]
     timestamp: Datetime
-
-
-@dataclass(frozen=True)
-class HitbtcOrderBookModel(HitbtcSingleOrderBookModel):
-    """Inherites hitbtc single order book model.
-
-    Has additional symbol field.
-
-    Will be returned from get orderbooks response.
-
-    Args:
-        ask (List[HitbtcOrderBookOrderModel]): list of ask orders.
-        bid (List[HitbtcOrderBookOrderModel]): list of bid orders.
-        timestamp (Datetime)
-        symbol (Symbol)
-    """
-
-    symbol: Symbol
 
 
 HitbtcRawOrderBooks = Dict[str, HitbtcRawOrderBookModel]

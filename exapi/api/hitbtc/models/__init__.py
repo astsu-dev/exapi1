@@ -9,9 +9,7 @@ from .error import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
                     HitbtcRawErrorModel)
 from .order_book import (HitbtcOrderBookModel, HitbtcOrderBookOrderModel,
                          HitbtcOrderBooks, HitbtcRawOrderBookModel,
-                         HitbtcRawOrderBookOrderModel, HitbtcRawOrderBooks,
-                         HitbtcRawSingleOrderBookModel,
-                         HitbtcSingleOrderBookModel)
+                         HitbtcRawOrderBookOrderModel, HitbtcRawOrderBooks)
 from .symbol import (HitbtcRawSymbolModel, HitbtcRawSymbols, HitbtcSymbolModel,
                      HitbtcSymbols)
 from .ticker import (HitbtcRawTickerModel, HitbtcRawTickers, HitbtcTickerModel,

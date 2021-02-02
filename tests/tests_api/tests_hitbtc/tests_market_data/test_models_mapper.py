@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import List, Union
+from typing import List
 
 import pytest
 from exapi.api.hitbtc.market_data import HitbtcMarketDataModelsMapper
@@ -11,13 +11,11 @@ from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCurrencyModel,
                                      HitbtcRawOrderBookModel,
                                      HitbtcRawOrderBookOrderModel,
                                      HitbtcRawOrderBooks,
-                                     HitbtcRawSingleOrderBookModel,
                                      HitbtcRawSymbolCandles,
                                      HitbtcRawSymbolModel, HitbtcRawSymbols,
                                      HitbtcRawSymbolTrades,
                                      HitbtcRawTickerModel, HitbtcRawTickers,
                                      HitbtcRawTradeModel, HitbtcRawTrades,
-                                     HitbtcSingleOrderBookModel,
                                      HitbtcSymbolModel, HitbtcTickerModel,
                                      HitbtcTradeModel)
 
@@ -193,8 +191,6 @@ def test_map_to_orderbook_order(mapper: HitbtcMarketDataModelsMapper) -> None:
 
 
 def test_map_to_orderbook(mapper: HitbtcMarketDataModelsMapper) -> None:
-    raw: Union[HitbtcRawSingleOrderBookModel, HitbtcRawOrderBookModel]
-
     raw_ask_orders: List[HitbtcRawOrderBookOrderModel] = [
         {
             "price": "0.001",
@@ -221,23 +217,12 @@ def test_map_to_orderbook(mapper: HitbtcMarketDataModelsMapper) -> None:
             "0.0005"), size=Decimal("10.5")),
         HitbtcOrderBookOrderModel(price=Decimal("0.0004"), size=Decimal("12.5"))]
 
-    expected = HitbtcSingleOrderBookModel(
-        ask=ask_orders,
-        bid=bid_orders,
-        timestamp="1234")
-    raw = {
-        "ask": raw_ask_orders,
-        "bid": raw_bid_orders,
-        "timestamp": "1234"
-    }
-    assert mapper.map_to_orderbook(raw) == expected
-
     expected = HitbtcOrderBookModel(
         ask=ask_orders,
         bid=bid_orders,
         timestamp="1234",
         symbol="BTCUSDT")
-    raw = {
+    raw: HitbtcRawOrderBookModel = {
         "ask": raw_ask_orders,
         "bid": raw_bid_orders,
         "timestamp": "1234",

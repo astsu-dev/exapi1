@@ -13,13 +13,11 @@ from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCandles,
                                      HitbtcRawOrderBookModel,
                                      HitbtcRawOrderBookOrderModel,
                                      HitbtcRawOrderBooks,
-                                     HitbtcRawSingleOrderBookModel,
                                      HitbtcRawSymbolCandles,
                                      HitbtcRawSymbolModel, HitbtcRawSymbols,
                                      HitbtcRawSymbolTrades,
                                      HitbtcRawTickerModel, HitbtcRawTickers,
                                      HitbtcRawTradeModel, HitbtcRawTrades,
-                                     HitbtcSingleOrderBookModel,
                                      HitbtcSymbolCandles, HitbtcSymbolModel,
                                      HitbtcSymbols, HitbtcSymbolTrades,
                                      HitbtcTickerModel, HitbtcTickers,
@@ -82,40 +80,15 @@ class IHitbtcMarketDataModelsMapper(IHitbtcBaseModelsMapper):
             HitbtcOrderBookOrder
         """
 
-    @overload
-    def map_to_orderbook(self, raw_orderbook: HitbtcRawOrderBookModel,
+    def map_to_orderbook(self, raw_orderbook: HitbtcRawOrderBookModel
                          ) -> HitbtcOrderBookModel:
         """Maps orderbook json to orderbook model.
 
         Args:
-            raw_orderbook (HitbtcRawOrderBook)
+            raw_orderbook (HitbtcRawOrderBookModel)
 
         Returns:
             HitbtcOrderBookModel
-        """
-
-    @overload
-    def map_to_orderbook(self, raw_orderbook: HitbtcRawSingleOrderBookModel,
-                         ) -> HitbtcSingleOrderBookModel:
-        """Maps orderbook json to single orderbook model.
-
-        Args:
-            raw_orderbook (HitbtcRawSingleOrderBook)
-
-        Returns:
-            HitbtcSingleOrderBookModel
-        """
-
-    def map_to_orderbook(self, raw_orderbook: Union[HitbtcRawOrderBookModel,
-                                                    HitbtcRawSingleOrderBookModel]
-                         ) -> Union[HitbtcSingleOrderBookModel, HitbtcOrderBookModel]:
-        """Maps orderbook json to orderbook model.
-
-        Args:
-            raw_orderbook (Union[HitbtcRawOrderBookModel, HitbtcRawSingleOrderBookModel])
-
-        Returns:
-            Union[HitbtcSingleOrderBookModel, HitbtcOrderBookModel]
         """
 
     def map_to_orderbooks(self, raw_orderbooks: HitbtcRawOrderBooks) -> HitbtcOrderBooks:
