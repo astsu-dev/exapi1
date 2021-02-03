@@ -3,7 +3,7 @@
 from typing import Optional
 
 import aiohttp
-from exapi.requesters.hitbtc.requester import HitbtcBaseRequester
+from exapi.requesters.hitbtc.base import HitbtcBaseRequester
 from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
                                               Currency, IntervalValue, SortBy,
                                               SortDirection, Symbol, Symbols)
@@ -17,7 +17,7 @@ from .request_creator.interface import IHitbtcMarketDataRequestCreator
 class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester):
     """Has methods for market data requests making."""
 
-    def __init__(self, session: Optional[aiohttp.ClientSession] = None,
+    def __init__(self, session: aiohttp.ClientSession,
                  creator: Optional[IHitbtcMarketDataRequestCreator] = None
                  ) -> None:
         """Class initialization.
@@ -28,7 +28,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
                 Defaults to None.
         """
 
-        self._session = session if session is not None else aiohttp.ClientSession()
+        self._session = session
         self._creator = creator if creator is not None else HitbtcMarketDataRequestCreator()
 
     async def get_currencies(self, currencies: Optional[Currencies] = None) -> RequesterResponse:
@@ -48,7 +48,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
 
         req = self._creator.create_get_currencies_request(currencies)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -68,7 +68,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
 
         req = self._creator.create_get_certain_currency_request(currency)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -91,7 +91,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
 
         req = self._creator.create_get_symbols_request(symbols)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -111,7 +111,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
 
         req = self._creator.create_get_certain_symbol_request(symbol)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -132,7 +132,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
 
         req = self._creator.create_get_tickers_request(symbols)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -152,7 +152,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
 
         req = self._creator.create_get_certain_ticker_request(symbol)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -195,7 +195,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
             limit=limit,
             offset=offset)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -240,7 +240,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
             limit=limit,
             offset=offset)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -267,7 +267,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
         req = self._creator.create_get_orderbooks_request(
             symbols=symbols, limit=limit)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -298,7 +298,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
         req = self._creator.create_get_certain_orderbook_request(
             symbol=symbol, limit=limit, volume=volume)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -343,7 +343,7 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
             limit=limit,
             offset=offset)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
 
@@ -387,6 +387,6 @@ class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester)
             limit=limit,
             offset=offset)
 
-        return await self._request(
+        return await self.request(
             method=req.method, url=req.url,
             headers=req.headers, data=req.data, json=req.json)
