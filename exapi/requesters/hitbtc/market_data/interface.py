@@ -2,10 +2,10 @@
 
 from typing import Optional
 
+from exapi.requesters.base import IBaseRequester
 from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
                                               Currency, IntervalValue, SortBy,
                                               SortDirection, Symbol, Symbols)
-from exapi.requesters.interfaces import IBaseRequester
 from exapi.requesters.typedefs import RequesterResponse
 
 

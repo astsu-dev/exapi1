@@ -2,9 +2,9 @@
 
 from typing import Optional
 
+from exapi.requesters.base import IBaseRequester
 from exapi.requesters.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
                                               Symbol, TimeInForce)
-from exapi.requesters.interfaces import IBaseRequester
 from exapi.requesters.typedefs import RequesterResponse
 
 
@@ -147,7 +147,7 @@ class IHitbtcTradingRequester(IBaseRequester):
             RequesterResponse
         """
 
-    def get_commission(self, symbol: Symbol) -> RequesterResponse:
+    def get_fee(self, symbol: Symbol) -> RequesterResponse:
         """Gets personal trading commission rate for certain symbol.
 
         Requires the "Place/cancel orders" API key Access Right.
