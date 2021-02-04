@@ -7,7 +7,10 @@ from exapi.models.hitbtc import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
 
 
 class IHitbtcBaseModelsMapper(Protocol):
-    """Has methods for mapping json models to dataclass models."""
+    """Base hitbtc models mapper.
+
+    Has method for map json error to error model.
+    """
 
     def map_to_error(self, raw_error: Union[HitbtcRawErrorModel,
                                             HitbtcRawDetailedErrorModel]

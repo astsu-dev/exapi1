@@ -5,11 +5,12 @@ from typing import Union
 from exapi.models.hitbtc import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
                                  HitbtcRawErrorModel)
 
-from .interface import IHitbtcBaseModelsMapper
 
+class HitbtcBaseModelsMapper:
+    """Base hitbtc models mapper.
 
-class HitbtcBaseModelsMapper(IHitbtcBaseModelsMapper):
-    """Has methods for mapping json models to dataclass models."""
+    Has method for map json error to error model.
+    """
 
     def map_to_error(self, raw_error: Union[HitbtcRawErrorModel,
                                             HitbtcRawDetailedErrorModel]
