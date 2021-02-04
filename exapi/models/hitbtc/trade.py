@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict, List, TypedDict
 
-from exapi.requesters.hitbtc.typedefs import Datetime, OrderSide
+from .typedefs import Datetime, OrderSide
 
 
 class HitbtcRawTradeModel(TypedDict):

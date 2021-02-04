@@ -2,9 +2,8 @@
 
 from typing import Protocol, Union
 
-from exapi.api.hitbtc.models import (HitbtcRawDetailedErrorModel,
-                                     HitbtcRawErrorModel)
-from exapi.api.hitbtc.models.error import HitbtcErrorModel
+from exapi.models.hitbtc import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
+                                 HitbtcRawErrorModel)
 
 
 class IHitbtcBaseModelsMapper(Protocol):

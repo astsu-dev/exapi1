@@ -2,9 +2,9 @@
 
 from typing import Optional, Protocol
 
-from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
-                                              Currency, IntervalValue, SortBy,
-                                              SortDirection, Symbol, Symbols)
+from exapi.models.hitbtc.typedefs import (CandlesPeriod, Currencies, Currency,
+                                          IntervalValue, SortBy, SortDirection,
+                                          Symbol, Symbols)
 from exapi.requesters.request import Request
 
 

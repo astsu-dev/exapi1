@@ -2,9 +2,8 @@
 
 from typing import Union
 
-from exapi.api.hitbtc.models import (HitbtcErrorModel,
-                                     HitbtcRawDetailedErrorModel,
-                                     HitbtcRawErrorModel)
+from exapi.models.hitbtc import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
+                                 HitbtcRawErrorModel)
 
 from .interface import IHitbtcBaseModelsMapper
 

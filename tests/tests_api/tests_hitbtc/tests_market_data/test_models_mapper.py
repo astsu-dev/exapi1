@@ -3,21 +3,19 @@ from typing import List
 
 import pytest
 from exapi.api.hitbtc.market_data import HitbtcMarketDataModelsMapper
-from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCurrencyModel,
-                                     HitbtcOrderBookModel,
-                                     HitbtcOrderBookOrderModel,
-                                     HitbtcRawCandleModel, HitbtcRawCurrencies,
-                                     HitbtcRawCurrencyModel,
-                                     HitbtcRawOrderBookModel,
-                                     HitbtcRawOrderBookOrderModel,
-                                     HitbtcRawOrderBooks,
-                                     HitbtcRawSymbolCandles,
-                                     HitbtcRawSymbolModel, HitbtcRawSymbols,
-                                     HitbtcRawSymbolTrades,
-                                     HitbtcRawTickerModel, HitbtcRawTickers,
-                                     HitbtcRawTradeModel, HitbtcRawTrades,
-                                     HitbtcSymbolModel, HitbtcTickerModel,
-                                     HitbtcTradeModel)
+from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCurrencyModel,
+                                 HitbtcOrderBookModel,
+                                 HitbtcOrderBookOrderModel,
+                                 HitbtcRawCandleModel, HitbtcRawCurrencies,
+                                 HitbtcRawCurrencyModel,
+                                 HitbtcRawOrderBookModel,
+                                 HitbtcRawOrderBookOrderModel,
+                                 HitbtcRawOrderBooks, HitbtcRawSymbolCandles,
+                                 HitbtcRawSymbolModel, HitbtcRawSymbols,
+                                 HitbtcRawSymbolTrades, HitbtcRawTickerModel,
+                                 HitbtcRawTickers, HitbtcRawTradeModel,
+                                 HitbtcRawTrades, HitbtcSymbolModel,
+                                 HitbtcTickerModel, HitbtcTradeModel)
 
 
 @pytest.fixture(scope="module")

@@ -15,3 +15,5 @@ CandlesPeriod = Literal["M1", "M3", "M5",
 OrderSide = Literal["buy", "sell"]
 OrderType = Literal["limit", "market", "stopLimit", "stopMarket"]
 TimeInForce = Literal["GTC", "IOC", "FOK", "Day", "GTD"]
+OrderStatus = Literal["new", "suspended",
+                      "partiallyFilled", "filled", "canceled", "expired"]

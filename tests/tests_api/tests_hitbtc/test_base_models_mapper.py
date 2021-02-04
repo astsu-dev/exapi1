@@ -2,9 +2,8 @@ from typing import Union
 
 import pytest
 from exapi.api.hitbtc.base import HitbtcBaseModelsMapper
-from exapi.api.hitbtc.models import (HitbtcErrorModel,
-                                     HitbtcRawDetailedErrorModel,
-                                     HitbtcRawErrorModel)
+from exapi.models.hitbtc import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
+                                 HitbtcRawErrorModel)
 
 
 @pytest.fixture(scope="module")

@@ -4,8 +4,8 @@ from typing import Any, Optional, Union
 
 from exapi.api.base import BaseResponseHandler
 from exapi.api.hitbtc.exceptions import HitbtcError
-from exapi.api.hitbtc.models import (HitbtcRawDetailedErrorModel,
-                                     HitbtcRawErrorModel)
+from exapi.models.hitbtc import (HitbtcRawDetailedErrorModel,
+                                 HitbtcRawErrorModel)
 from exapi.requesters.typedefs import RequesterResponse
 
 from .models_mapper import HitbtcBaseModelsMapper, IHitbtcBaseModelsMapper

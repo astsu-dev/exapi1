@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict, List, TypedDict
 
-from exapi.requesters.hitbtc.typedefs import Datetime
+from .typedefs import Datetime
 
 
 class HitbtcRawCandleModel(TypedDict):

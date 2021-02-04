@@ -2,12 +2,12 @@
 
 from typing import Protocol
 
-from exapi.api.hitbtc.models import (HitbtcCandles, HitbtcCurrencies,
-                                     HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                     HitbtcOrderBooks, HitbtcSymbolCandles,
-                                     HitbtcSymbolModel, HitbtcSymbols,
-                                     HitbtcSymbolTrades, HitbtcTickerModel,
-                                     HitbtcTickers, HitbtcTrades)
+from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
+                                 HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBooks, HitbtcSymbolCandles,
+                                 HitbtcSymbolModel, HitbtcSymbols,
+                                 HitbtcSymbolTrades, HitbtcTickerModel,
+                                 HitbtcTickers, HitbtcTrades)
 from exapi.requesters.typedefs import RequesterResponse
 
 

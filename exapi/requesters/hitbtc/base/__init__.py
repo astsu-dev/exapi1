@@ -1,1 +1,1 @@
-from .requester import HitbtcBaseRequester
+from .request_creator import HitbtcBaseRequestCreator

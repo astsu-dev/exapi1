@@ -6,21 +6,18 @@ from exapi.api.hitbtc.base import HitbtcBaseResponseHandler
 from exapi.api.hitbtc.market_data import HitbtcMarketDataModelsMapper
 from exapi.api.hitbtc.market_data.models_mapper.interface import \
     IHitbtcMarketDataModelsMapper
-from exapi.api.hitbtc.models import (HitbtcCandles, HitbtcCurrencies,
-                                     HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                     HitbtcOrderBooks, HitbtcRawCandles,
-                                     HitbtcRawCurrencies,
-                                     HitbtcRawCurrencyModel,
-                                     HitbtcRawOrderBookModel,
-                                     HitbtcRawOrderBooks,
-                                     HitbtcRawSymbolCandles,
-                                     HitbtcRawSymbolModel, HitbtcRawSymbols,
-                                     HitbtcRawSymbolTrades,
-                                     HitbtcRawTickerModel, HitbtcRawTickers,
-                                     HitbtcRawTrades, HitbtcSymbolCandles,
-                                     HitbtcSymbolModel, HitbtcSymbols,
-                                     HitbtcSymbolTrades, HitbtcTickerModel,
-                                     HitbtcTickers, HitbtcTrades)
+from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
+                                 HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBooks, HitbtcRawCandles,
+                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel,
+                                 HitbtcRawOrderBookModel, HitbtcRawOrderBooks,
+                                 HitbtcRawSymbolCandles, HitbtcRawSymbolModel,
+                                 HitbtcRawSymbols, HitbtcRawSymbolTrades,
+                                 HitbtcRawTickerModel, HitbtcRawTickers,
+                                 HitbtcRawTrades, HitbtcSymbolCandles,
+                                 HitbtcSymbolModel, HitbtcSymbols,
+                                 HitbtcSymbolTrades, HitbtcTickerModel,
+                                 HitbtcTickers, HitbtcTrades)
 from exapi.requesters.typedefs import RequesterResponse
 
 from .interface import IHitbtcMarketDataResponseHandler

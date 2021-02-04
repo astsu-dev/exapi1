@@ -1,25 +1,22 @@
 """Has hitbtc market data models mapper interface."""
 
 from exapi.api.hitbtc.base import IHitbtcBaseModelsMapper
-from exapi.api.hitbtc.models import (HitbtcCandleModel, HitbtcCandles,
-                                     HitbtcCurrencies, HitbtcCurrencyModel,
-                                     HitbtcOrderBookModel,
-                                     HitbtcOrderBookOrderModel,
-                                     HitbtcOrderBooks, HitbtcRawCandleModel,
-                                     HitbtcRawCandles, HitbtcRawCurrencies,
-                                     HitbtcRawCurrencyModel,
-                                     HitbtcRawOrderBookModel,
-                                     HitbtcRawOrderBookOrderModel,
-                                     HitbtcRawOrderBooks,
-                                     HitbtcRawSymbolCandles,
-                                     HitbtcRawSymbolModel, HitbtcRawSymbols,
-                                     HitbtcRawSymbolTrades,
-                                     HitbtcRawTickerModel, HitbtcRawTickers,
-                                     HitbtcRawTradeModel, HitbtcRawTrades,
-                                     HitbtcSymbolCandles, HitbtcSymbolModel,
-                                     HitbtcSymbols, HitbtcSymbolTrades,
-                                     HitbtcTickerModel, HitbtcTickers,
-                                     HitbtcTradeModel, HitbtcTrades)
+from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
+                                 HitbtcCurrencies, HitbtcCurrencyModel,
+                                 HitbtcOrderBookModel,
+                                 HitbtcOrderBookOrderModel, HitbtcOrderBooks,
+                                 HitbtcRawCandleModel, HitbtcRawCandles,
+                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel,
+                                 HitbtcRawOrderBookModel,
+                                 HitbtcRawOrderBookOrderModel,
+                                 HitbtcRawOrderBooks, HitbtcRawSymbolCandles,
+                                 HitbtcRawSymbolModel, HitbtcRawSymbols,
+                                 HitbtcRawSymbolTrades, HitbtcRawTickerModel,
+                                 HitbtcRawTickers, HitbtcRawTradeModel,
+                                 HitbtcRawTrades, HitbtcSymbolCandles,
+                                 HitbtcSymbolModel, HitbtcSymbols,
+                                 HitbtcSymbolTrades, HitbtcTickerModel,
+                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
 
 
 class IHitbtcMarketDataModelsMapper(IHitbtcBaseModelsMapper):

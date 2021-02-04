@@ -2,8 +2,8 @@
 
 from typing import Optional, Protocol
 
-from exapi.requesters.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
-                                              Symbol, TimeInForce)
+from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
+                                          Symbol, TimeInForce)
 from exapi.requesters.request import Request
 
 

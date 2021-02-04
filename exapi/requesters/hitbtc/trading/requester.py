@@ -1,15 +1,30 @@
-"""Has hitbtc trading requester interface."""
-
 from typing import Optional
 
 from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
                                           Symbol, TimeInForce)
-from exapi.requesters.base import IBaseRequester
-from exapi.requesters.typedefs import RequesterResponse
+from exapi.requesters.base import BaseRequester
+from exapi.requesters.typedefs import RequesterResponse, Session
+
+from .interface import IHitbtcTradingRequester
+from .request_creator import IHitbtcTradingRequestCreator
 
 
-class IHitbtcTradingRequester(IBaseRequester):
-    """Has methods for making requests to hitbtc trading api."""
+class HitbtcTradingRequester(BaseRequester, IHitbtcTradingRequester):
+    """Has methods for hitbtc trading requests making."""
+
+    def __init__(self, session: Session,
+                 creator: IHitbtcTradingRequestCreator
+                 ) -> None:
+        """Class initialization.
+
+        Args:
+            session (Optional[session], optional): aiohttp session. Defaults to None.
+            creator (Optional[IHitbtcTradingRequestCreator], optional): request creator.
+                Defaults to None.
+        """
+
+        self._session = session
+        self._creator = creator
 
     async def get_trading_balance(self) -> RequesterResponse:
         """Returns a response with the user's trading balance.
@@ -19,6 +34,12 @@ class IHitbtcTradingRequester(IBaseRequester):
         Returns:
             RequesterResponse
         """
+
+        req = self._creator.create_get_trading_balance_request()
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res
 
     async def get_active_orders(self, symbol: Optional[Symbol] = None) -> RequesterResponse:
         """Return a response with array of active orders.
@@ -31,6 +52,13 @@ class IHitbtcTradingRequester(IBaseRequester):
         Returns:
             RequesterResponse
         """
+
+        req = self._creator.create_get_active_orders_request(
+            symbol=symbol)
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res
 
     async def get_active_order(self, client_order_id: int,
                                wait: Optional[int] = None
@@ -52,6 +80,13 @@ class IHitbtcTradingRequester(IBaseRequester):
             RequesterResponse
         """
 
+        req = self._creator.create_get_active_order_request(
+            client_order_id=client_order_id, wait=wait)
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res
+
     async def new_order(self, symbol: Symbol,
                         side: OrderSide,
                         quantity: str,
@@ -64,7 +99,7 @@ class IHitbtcTradingRequester(IBaseRequester):
                         post_only: Optional[bool] = None,
                         client_order_id: Optional[int] = None,
                         ) -> RequesterResponse:
-        """Requires the "Place/cancel orders" API key Access Right.
+        """Requires the "Place/cancel orders" API key Accekss Right.
 
         Price accuracy and quantity
 
@@ -110,7 +145,7 @@ class IHitbtcTradingRequester(IBaseRequester):
             strict_validate (Optional[bool], optional): Price and quantity
                 will be checked for incrementation within the symbol’s tick size
                 and quantity step. See the symbol's tickSize and quantityIncrement.
-            post_only (Optional[bool], optional): If your post-only order
+            post_only (Optional[bool], optional): If your pkost-only order
                 causes a match with a pre-existing order as a taker,
                 then the order will be cancelled.
             client_order_id (Optional[int], optional): If it is skipped,
@@ -121,6 +156,24 @@ class IHitbtcTradingRequester(IBaseRequester):
         Returns:
             RequesterResponse
         """
+
+        req = self._creator.create_new_order_request(
+            symbol=symbol,
+            side=side,
+            quantity=quantity,
+            price=price,
+            type_=type_,
+            time_in_force=time_in_force,
+            stop_price=stop_price,
+            expire_time=expire_time,
+            strict_validate=strict_validate,
+            post_only=post_only,
+            client_order_id=client_order_id
+        )
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res
 
     async def cancel_orders(self, symbol: Optional[Symbol] = None) -> RequesterResponse:
         """Cancel all active orders, or all active orders for a specified symbol.
@@ -135,6 +188,13 @@ class IHitbtcTradingRequester(IBaseRequester):
             RequesterResponse
         """
 
+        req = self._creator.create_cancel_orders_request(
+            symbol=symbol)
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res
+
     async def cancel_order(self, client_order_id: int) -> RequesterResponse:
         """Cancel active order by `client_order_id`.
 
@@ -147,6 +207,13 @@ class IHitbtcTradingRequester(IBaseRequester):
             RequesterResponse
         """
 
+        req = self._creator.create_cancel_order_request(
+            client_order_id=client_order_id)
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res
+
     async def get_fee(self, symbol: Symbol) -> RequesterResponse:
         """Gets personal trading commission rate for certain symbol.
 
@@ -158,3 +225,10 @@ class IHitbtcTradingRequester(IBaseRequester):
         Returns:
             RequesterResponse
         """
+
+        req = self._creator.create_get_fee_request(
+            symbol=symbol)
+        res = await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
+        return res

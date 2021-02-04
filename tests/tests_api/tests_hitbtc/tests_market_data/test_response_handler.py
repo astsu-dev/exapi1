@@ -4,9 +4,9 @@ from unittest import mock
 
 import pytest
 from exapi.api.hitbtc.market_data import HitbtcMarketDataResponseHandler
-from exapi.api.hitbtc.models import (HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                     HitbtcOrderBookOrderModel,
-                                     HitbtcSymbolModel, HitbtcTickerModel)
+from exapi.models.hitbtc import (HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBookOrderModel, HitbtcSymbolModel,
+                                 HitbtcTickerModel)
 
 HANDLE_RESPONSE_PATH: Final[str] = "exapi.api.hitbtc.market_data.response_handler.handler.HitbtcMarketDataResponseHandler.handle_response"
 

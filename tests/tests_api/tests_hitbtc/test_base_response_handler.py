@@ -4,7 +4,7 @@ from unittest import mock
 import pytest
 from exapi.api.hitbtc.base import HitbtcBaseResponseHandler
 from exapi.api.hitbtc.exceptions import HitbtcError
-from exapi.api.hitbtc.models import HitbtcErrorModel
+from exapi.models.hitbtc import HitbtcErrorModel
 
 
 @pytest.fixture(scope="module")

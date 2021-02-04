@@ -2,22 +2,21 @@
 
 from typing import Optional
 
-import aiohttp
-from exapi.requesters.hitbtc.base import HitbtcBaseRequester
-from exapi.requesters.hitbtc.typedefs import (CandlesPeriod, Currencies,
-                                              Currency, IntervalValue, SortBy,
-                                              SortDirection, Symbol, Symbols)
-from exapi.requesters.typedefs import RequesterResponse
+from exapi.models.hitbtc.typedefs import (CandlesPeriod, Currencies, Currency,
+                                          IntervalValue, SortBy, SortDirection,
+                                          Symbol, Symbols)
+from exapi.requesters.base import BaseRequester
+from exapi.requesters.typedefs import RequesterResponse, Session
 
 from .interface import IHitbtcMarketDataRequester
 from .request_creator.creator import HitbtcMarketDataRequestCreator
 from .request_creator.interface import IHitbtcMarketDataRequestCreator
 
 
-class HitbtcMarketDataRequester(HitbtcBaseRequester, IHitbtcMarketDataRequester):
+class HitbtcMarketDataRequester(BaseRequester, IHitbtcMarketDataRequester):
     """Has methods for market data requests making."""
 
-    def __init__(self, session: aiohttp.ClientSession,
+    def __init__(self, session: Session,
                  creator: Optional[IHitbtcMarketDataRequestCreator] = None
                  ) -> None:
         """Class initialization.

@@ -1,8 +1,7 @@
 """Has hitbtc api exceptions."""
 
 from exapi.api.exceptions import BaseExchangeError
-
-from .models.error import HitbtcErrorModel
+from exapi.models.hitbtc import HitbtcErrorModel
 
 
 class HitbtcError(BaseExchangeError):
