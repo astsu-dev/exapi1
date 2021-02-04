@@ -21,7 +21,6 @@ class HitbtcRawCurrencyModel(TypedDict):
     transferEnabled: bool
     delisted: bool
     payoutFee: str
-    payoutMinimalAmount: str
     precisionPayout: int
     precisionTransfer: int
 
@@ -42,7 +41,6 @@ class HitbtcCurrencyModel:
         transfer_enabled (bool)k
         delisted (bool)
         payout_fee (Decimal)
-        payout_minimal_amount (Decimal)
         precision_payout (int)
         precision_transfer (int)
     """
@@ -58,7 +56,6 @@ class HitbtcCurrencyModel:
     transfer_enabled: bool
     delisted: bool
     payout_fee: Decimal
-    payout_minimal_amount: Decimal
     precision_payout: int
     precision_transfer: int
 
