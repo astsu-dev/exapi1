@@ -2,13 +2,29 @@
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List, TypedDict
+from typing import List, Optional, TypedDict
 
 from .typedefs import Currency
 
 
 class HitbtcRawCurrencyModel(TypedDict):
-    """Currency json model."""
+    """Currency json model.
+
+    Args:
+        id (Currency)
+        fullName (str)
+        crypto (bool)
+        payinEnabled (bool)
+        payinPaymentId (bool)
+        payinConfirmations (int)
+        payoutEnabled (bool)
+        payoutIsPaymentId (bool)
+        transferEnabled (bool)
+        delisted (bool)
+        payoutFee (str, optional)
+        precisionPayout (int)
+        precisionTransfer (int)
+    """
 
     id: Currency
     fullName: str
@@ -40,9 +56,9 @@ class HitbtcCurrencyModel:
         payout_is_payment_id (bool)
         transfer_enabled (bool)k
         delisted (bool)
-        payout_fee (Decimal)
         precision_payout (int)
         precision_transfer (int)
+        payout_fee (Optional[Decimal]). Defaults to None.
     """
 
     id: Currency
@@ -55,9 +71,9 @@ class HitbtcCurrencyModel:
     payout_is_payment_id: bool
     transfer_enabled: bool
     delisted: bool
-    payout_fee: Decimal
     precision_payout: int
     precision_transfer: int
+    payout_fee: Optional[Decimal] = None
 
 
 HitbtcRawCurrencies = List[HitbtcRawCurrencyModel]

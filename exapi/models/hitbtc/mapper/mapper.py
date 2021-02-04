@@ -50,9 +50,11 @@ class HitbtcModelsMapper(HitbtcBaseModelsMapper):
         payout_is_payment_id = raw_currency["payoutIsPaymentId"]
         transfer_enabled = raw_currency["transferEnabled"]
         delisted = raw_currency["delisted"]
-        payout_fee = Decimal(raw_currency["payoutFee"])
         precision_payout = int(raw_currency["precisionPayout"])
         precision_transfer = int(raw_currency["precisionTransfer"])
+        raw_payout_fee = raw_currency.get("payoutFee")
+        payout_fee = Decimal(
+            raw_payout_fee) if raw_payout_fee is not None else raw_payout_fee
 
         currency = HitbtcCurrencyModel(
             id=id_,
