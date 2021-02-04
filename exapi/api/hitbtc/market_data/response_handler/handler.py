@@ -3,9 +3,7 @@
 from typing import Optional
 
 from exapi.api.hitbtc.base import HitbtcBaseResponseHandler
-from exapi.api.hitbtc.market_data import HitbtcMarketDataModelsMapper
-from exapi.api.hitbtc.market_data.models_mapper.interface import \
-    IHitbtcMarketDataModelsMapper
+from exapi.api.hitbtc.market_data import IHitbtcMarketDataModelsMapper
 from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
                                  HitbtcCurrencyModel, HitbtcOrderBookModel,
                                  HitbtcOrderBooks, HitbtcRawCandles,
@@ -18,6 +16,7 @@ from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
                                  HitbtcSymbolModel, HitbtcSymbols,
                                  HitbtcSymbolTrades, HitbtcTickerModel,
                                  HitbtcTickers, HitbtcTrades)
+from exapi.models.hitbtc.mapper import HitbtcModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
 from .interface import IHitbtcMarketDataResponseHandler
@@ -31,9 +30,9 @@ class HitbtcMarketDataResponseHandler(HitbtcBaseResponseHandler, IHitbtcMarketDa
     def __init__(self, models_mapper: Optional[IHitbtcMarketDataModelsMapper] = None,
                  json_content_type: Optional[str] = "application/json"
                  ) -> None:
-        self._models_mapper = (
-            models_mapper if models_mapper is not None else HitbtcMarketDataModelsMapper())
-        self._json_content_type = json_content_type
+        models_mapper = (
+            models_mapper if models_mapper is not None else HitbtcModelsMapper())
+        super().__init__(models_mapper, json_content_type)
 
     async def handle_get_currencies_response(
             self,

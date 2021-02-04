@@ -1,6 +1,5 @@
 """Has hitbtc market data models mapper interface."""
 
-from exapi.api.hitbtc.base import IHitbtcBaseModelsMapper
 from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcCurrencies, HitbtcCurrencyModel,
                                  HitbtcOrderBookModel,
@@ -17,6 +16,7 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcSymbolModel, HitbtcSymbols,
                                  HitbtcSymbolTrades, HitbtcTickerModel,
                                  HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
+from exapi.models.hitbtc.mapper.base import IHitbtcBaseModelsMapper
 
 
 class IHitbtcMarketDataModelsMapper(IHitbtcBaseModelsMapper):

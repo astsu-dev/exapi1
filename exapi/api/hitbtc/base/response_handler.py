@@ -6,9 +6,9 @@ from exapi.api.base import BaseResponseHandler
 from exapi.api.hitbtc.exceptions import HitbtcError
 from exapi.models.hitbtc import (HitbtcRawDetailedErrorModel,
                                  HitbtcRawErrorModel)
+from exapi.models.hitbtc.mapper.base import (HitbtcBaseModelsMapper,
+                                             IHitbtcBaseModelsMapper)
 from exapi.requesters.typedefs import RequesterResponse
-
-from .models_mapper import HitbtcBaseModelsMapper, IHitbtcBaseModelsMapper
 
 
 class HitbtcBaseResponseHandler(BaseResponseHandler):
@@ -23,6 +23,8 @@ class HitbtcBaseResponseHandler(BaseResponseHandler):
 
     def _check_response(self, response: RequesterResponse) -> Any:
         """Checks a response (http code, headers, ...).
+
+        Ignores http errors. Error must be handled in json checking.
 
         Args:
             response (RequesterResponse)

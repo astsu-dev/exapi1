@@ -35,7 +35,6 @@ async def test_handle_get_currencies_response(handler: HitbtcMarketDataResponseH
                 "transferEnabled": True,
                 "delisted": False,
                 "payoutFee": "0.002",
-                "payoutMinimalAmount": "0.001",
                 "precisionPayout": 5,
                 "precisionTransfer": 8
             },
@@ -51,7 +50,6 @@ async def test_handle_get_currencies_response(handler: HitbtcMarketDataResponseH
                 "transferEnabled": True,
                 "delisted": False,
                 "payoutFee": "0.003",
-                "payoutMinimalAmount": "0.001",
                 "precisionPayout": 5,
                 "precisionTransfer": 8
             }
@@ -63,7 +61,7 @@ async def test_handle_get_currencies_response(handler: HitbtcMarketDataResponseH
                 payin_confirmations=2, payout_enabled=False,
                 payout_is_payment_id=True, transfer_enabled=True,
                 delisted=False, payout_fee=Decimal("0.002"),
-                payout_minimal_amount=Decimal("0.001"), precision_payout=5,
+                precision_payout=5,
                 precision_transfer=8
             ),
             HitbtcCurrencyModel(
@@ -72,7 +70,7 @@ async def test_handle_get_currencies_response(handler: HitbtcMarketDataResponseH
                 payin_confirmations=2, payout_enabled=False,
                 payout_is_payment_id=True, transfer_enabled=True,
                 delisted=False, payout_fee=Decimal("0.003"),
-                payout_minimal_amount=Decimal("0.001"), precision_payout=5,
+                precision_payout=5,
                 precision_transfer=8
             )
         ]
@@ -94,7 +92,6 @@ async def test_handle_get_certain_currency_response(handler: HitbtcMarketDataRes
             "transferEnabled": True,
             "delisted": False,
             "payoutFee": "0.002",
-            "payoutMinimalAmount": "0.001",
             "precisionPayout": 5,
             "precisionTransfer": 8
         }
@@ -104,7 +101,7 @@ async def test_handle_get_certain_currency_response(handler: HitbtcMarketDataRes
             payin_confirmations=2, payout_enabled=False,
             payout_is_payment_id=True, transfer_enabled=True,
             delisted=False, payout_fee=Decimal("0.002"),
-            payout_minimal_amount=Decimal("0.001"), precision_payout=5,
+            precision_payout=5,
             precision_transfer=8
         )
         assert await handler.handle_get_certain_currency_response(

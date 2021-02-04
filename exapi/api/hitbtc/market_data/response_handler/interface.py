@@ -1,7 +1,6 @@
 """Has hitbtc market data response handler interface."""
 
-from typing import Protocol
-
+from exapi.api.base.response_handler import IBaseResponseHandler
 from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
                                  HitbtcCurrencyModel, HitbtcOrderBookModel,
                                  HitbtcOrderBooks, HitbtcSymbolCandles,
@@ -11,8 +10,8 @@ from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
 from exapi.requesters.typedefs import RequesterResponse
 
 
-class IHitbtcMarketDataResponseHandler(Protocol):
-    """Has methods for hanling hitbtc responses."""
+class IHitbtcMarketDataResponseHandler(IBaseResponseHandler):
+    """Has methods for handling hitbtc market data responses."""
 
     async def handle_get_currencies_response(
             self,

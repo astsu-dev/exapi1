@@ -1,4 +1,3 @@
-from .models_mapper import (HitbtcMarketDataModelsMapper,
-                            IHitbtcMarketDataModelsMapper)
+from .models_mapper import IHitbtcMarketDataModelsMapper
 from .response_handler import (HitbtcMarketDataResponseHandler,
                                IHitbtcMarketDataResponseHandler)
