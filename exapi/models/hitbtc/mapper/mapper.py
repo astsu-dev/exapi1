@@ -16,10 +16,16 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcRawSymbolModel, HitbtcRawSymbols,
                                  HitbtcRawSymbolTrades, HitbtcRawTickerModel,
                                  HitbtcRawTickers, HitbtcRawTradeModel,
-                                 HitbtcRawTrades, HitbtcSymbolCandles,
+                                 HitbtcRawTrades,
+                                 HitbtcRawTradingCurrencyBalanceModel,
+                                 HitbtcRawTradingCurrencyBalances,
+                                 HitbtcRawTradingFeeModel, HitbtcSymbolCandles,
                                  HitbtcSymbolModel, HitbtcSymbols,
                                  HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
+                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades,
+                                 HitbtcTradingCurrencyBalanceModel,
+                                 HitbtcTradingCurrencyBalances,
+                                 HitbtcTradingFeeModel)
 
 from .base import HitbtcBaseModelsMapper
 
@@ -409,4 +415,55 @@ class HitbtcModelsMapper(HitbtcBaseModelsMapper):
         """
 
         res = list(map(self.map_to_order, raw_orders))
+        return res
+
+    def map_to_trading_currency_balance(self, raw_balance: HitbtcRawTradingCurrencyBalanceModel
+                                        ) -> HitbtcTradingCurrencyBalanceModel:
+        """Maps trading currency balance json to trading currency balance.
+
+        Args:
+            raw_balance (HitbtcRawTradingCurrencyBalanceModel)
+
+        Returns:
+            HitbtcTradingCurrencyBalanceModel
+        """
+
+        currency = raw_balance["currency"]
+        available = Decimal(raw_balance["available"])
+        reserved = Decimal(raw_balance["reserved"])
+        res = HitbtcTradingCurrencyBalanceModel(
+            currency=currency,
+            available=available,
+            reserved=reserved)
+        return res
+
+    def map_to_trading_balance(self, raw_balance: HitbtcRawTradingCurrencyBalances
+                               ) -> HitbtcTradingCurrencyBalances:
+        """Maps trading balance json to trading balance.
+
+        Args:
+            raw_balance (HitbtcRawTradingCurrencyBalances)
+
+        Returns:
+            HitbtcTradingCurrencyBalances
+        """
+
+        res = list(map(self.map_to_trading_currency_balance, raw_balance))
+        return res
+
+    def map_to_trading_fee(self, raw_fee: HitbtcRawTradingFeeModel) -> HitbtcTradingFeeModel:
+        """Maps orders json to list of order.
+
+        Args:
+            raw_orders (HitbtcRawOrders)
+
+        Returns:
+            HitbtcOrders
+        """
+
+        take_liquidity_rate = Decimal(raw_fee["takeLiquidityRate"])
+        provide_liquidity_rate = Decimal(raw_fee["provideLiquidityRate"])
+        res = HitbtcTradingFeeModel(
+            take_liquidity_rate=take_liquidity_rate,
+            provide_liquidity_rate=provide_liquidity_rate)
         return res

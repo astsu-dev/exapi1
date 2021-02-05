@@ -17,10 +17,16 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcRawSymbolModel, HitbtcRawSymbols,
                                  HitbtcRawSymbolTrades, HitbtcRawTickerModel,
                                  HitbtcRawTickers, HitbtcRawTradeModel,
-                                 HitbtcRawTrades, HitbtcSymbolCandles,
+                                 HitbtcRawTrades,
+                                 HitbtcRawTradingCurrencyBalanceModel,
+                                 HitbtcRawTradingCurrencyBalances,
+                                 HitbtcRawTradingFeeModel, HitbtcSymbolCandles,
                                  HitbtcSymbolModel, HitbtcSymbols,
                                  HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
+                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades,
+                                 HitbtcTradingCurrencyBalanceModel,
+                                 HitbtcTradingCurrencyBalances,
+                                 HitbtcTradingFeeModel)
 
 from .base import IHitbtcBaseModelsMapper
 
@@ -205,6 +211,38 @@ class IHitbtcModelsMapper(IHitbtcBaseModelsMapper):
         """
 
     def map_to_orders(self, raw_orders: HitbtcRawOrders) -> HitbtcOrders:
+        """Maps orders json to list of order.
+
+        Args:
+            raw_orders (HitbtcRawOrders)
+
+        Returns:
+            HitbtcOrders
+        """
+
+    def map_to_trading_currency_balance(self, raw_balance: HitbtcRawTradingCurrencyBalanceModel
+                                        ) -> HitbtcTradingCurrencyBalanceModel:
+        """Maps trading currency balance json to trading currency balance.
+
+        Args:
+            raw_balance (HitbtcRawTradingCurrencyBalanceModel)
+
+        Returns:
+            HitbtcTradingCurrencyBalanceModel
+        """
+
+    def map_to_trading_balance(self, raw_balance: HitbtcRawTradingCurrencyBalances
+                               ) -> HitbtcTradingCurrencyBalances:
+        """Maps trading balance json to trading balance.
+
+        Args:
+            raw_balance (HitbtcRawTradingCurrencyBalances)
+
+        Returns:
+            HitbtcTradingCurrencyBalances
+        """
+
+    def map_to_trading_fee(self, raw_fee: HitbtcRawTradingFeeModel) -> HitbtcTradingFeeModel:
         """Maps orders json to list of order.
 
         Args:

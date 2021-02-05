@@ -14,8 +14,12 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCurrencyModel,
                                  HitbtcRawSymbols, HitbtcRawSymbolTrades,
                                  HitbtcRawTickerModel, HitbtcRawTickers,
                                  HitbtcRawTradeModel, HitbtcRawTrades,
-                                 HitbtcSymbolModel, HitbtcTickerModel,
-                                 HitbtcTradeModel)
+                                 HitbtcRawTradingCurrencyBalanceModel,
+                                 HitbtcRawTradingCurrencyBalances,
+                                 HitbtcRawTradingFeeModel, HitbtcSymbolModel,
+                                 HitbtcTickerModel, HitbtcTradeModel,
+                                 HitbtcTradingCurrencyBalanceModel,
+                                 HitbtcTradingFeeModel)
 from exapi.models.hitbtc.mapper import HitbtcModelsMapper
 from exapi.models.hitbtc.order import HitbtcRawOrders
 
@@ -916,3 +920,53 @@ def test_map_to_orders(mapper: HitbtcModelsMapper) -> None:
     ]
 
     assert mapper.map_to_orders(raw) == expected
+
+
+def test_map_to_trading_currency_balance(mapper: HitbtcModelsMapper) -> None:
+    expected = HitbtcTradingCurrencyBalanceModel(
+        currency="BTCUSDT",
+        available=Decimal("0.1"),
+        reserved=Decimal("0.05"))
+    raw: HitbtcRawTradingCurrencyBalanceModel = {
+        "currency": "BTCUSDT",
+        "available": "0.1",
+        "reserved": "0.05"
+    }
+    assert mapper.map_to_trading_currency_balance(raw) == expected
+
+
+def test_map_to_trading_balance(mapper: HitbtcModelsMapper) -> None:
+    expected = [
+        HitbtcTradingCurrencyBalanceModel(
+            currency="BTCUSDT",
+            available=Decimal("0.1"),
+            reserved=Decimal("0.05")),
+        HitbtcTradingCurrencyBalanceModel(
+            currency="ETHUSDT",
+            available=Decimal("0.3"),
+            reserved=Decimal("0.07"))
+    ]
+    raw: HitbtcRawTradingCurrencyBalances = [
+        {
+            "currency": "BTCUSDT",
+            "available": "0.1",
+            "reserved": "0.05"
+        },
+        {
+            "currency": "ETHUSDT",
+            "available": "0.3",
+            "reserved": "0.07"
+        }
+    ]
+    assert mapper.map_to_trading_balance(raw) == expected
+
+
+def test_map_to_trading_fee(mapper: HitbtcModelsMapper) -> None:
+    expected = HitbtcTradingFeeModel(
+        take_liquidity_rate=Decimal("0.0001"),
+        provide_liquidity_rate=Decimal("0.0002"))
+    raw: HitbtcRawTradingFeeModel = {
+        "takeLiquidityRate": "0.0001",
+        "provideLiquidityRate": "0.0002"
+    }
+    assert mapper.map_to_trading_fee(raw) == expected
