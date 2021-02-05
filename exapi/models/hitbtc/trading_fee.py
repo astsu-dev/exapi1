@@ -6,8 +6,8 @@ from typing import TypedDict
 class HitbtcRawTradingFeeModel(TypedDict):
     """Trading fee json model."""
 
-    take_liquidity_rate: str
-    provide_liquidity_rate: str
+    takeLiquidityRate: str
+    provideLiquidityRate: str
 
 
 @dataclass(frozen=True)

@@ -5,18 +5,28 @@ from typing import List, TypedDict
 from .typedefs import Currency
 
 
-class HitbtcRawCurrencyTradingBalanceModel(TypedDict):
+class HitbtcRawTradingCurrencyBalanceModel(TypedDict):
+    """Currency trading balance json model."""
+
     currency: Currency
     available: str
     reserved: str
 
 
 @dataclass(frozen=True)
-class HitbtcCurrencyTradingBalanceModel:
+class HitbtcTradingCurrencyBalanceModel:
+    """Currency trading balance model.
+
+    Args:
+        currency (Currency)
+        available (Decimal)
+        reserved (Decimal)
+    """
+
     currency: Currency
     available: Decimal
     reserved: Decimal
 
 
-HitbtcRawCurrencyTradingBalances = List[HitbtcRawCurrencyTradingBalanceModel]
-HitbtcCurrencyTradingBalances = List[HitbtcCurrencyTradingBalanceModel]
+HitbtcRawTradingCurrencyBalances = List[HitbtcRawTradingCurrencyBalanceModel]
+HitbtcTradingCurrencyBalances = List[HitbtcTradingCurrencyBalanceModel]

@@ -19,8 +19,8 @@ from .ticker import (HitbtcRawTickerModel, HitbtcRawTickers, HitbtcTickerModel,
 from .trade import (HitbtcRawSymbolTrades, HitbtcRawTradeModel,
                     HitbtcRawTrades, HitbtcSymbolTrades, HitbtcTradeModel,
                     HitbtcTrades)
-from .trading_balance import (HitbtcCurrencyTradingBalanceModel,
-                              HitbtcCurrencyTradingBalances,
-                              HitbtcRawCurrencyTradingBalanceModel,
-                              HitbtcRawCurrencyTradingBalances)
+from .trading_balance import (HitbtcRawTradingCurrencyBalanceModel,
+                              HitbtcRawTradingCurrencyBalances,
+                              HitbtcTradingCurrencyBalanceModel,
+                              HitbtcTradingCurrencyBalances)
 from .trading_fee import HitbtcRawTradingFeeModel, HitbtcTradingFeeModel
