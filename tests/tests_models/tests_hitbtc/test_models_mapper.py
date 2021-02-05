@@ -745,42 +745,43 @@ def test_map_to_orders(mapper: HitbtcModelsMapper) -> None:
             stop_price=Decimal("0.12"),
             expire_time="1234")
     ]
-    raw: HitbtcRawOrders = [{
-        "id": 5,
-        "clientOrderId": "234j3k242",
-        "symbol": "BTCUSDT",
-        "side": "sell",
-        "status": "new",
-        "type": "limit",
-        "timeInForce": "GTC",
-        "quantity": "0.001",
-        "price": "0.002",
-        "cumQuantity": "1.3",
-        "createdAt": "1234",
-        "updatedAt": "1234",
-        "postOnly": True,
-        "avgPrice": "0.56",
-        "stopPrice": "0.12",
-        "expireTime": "1234"
-    },
+    raw: HitbtcRawOrders = [
         {
-        "id": 5,
-        "clientOrderId": "234j3k242",
-        "symbol": "BTCUSDT",
-        "side": "sell",
-        "status": "new",
-        "type": "limit",
-        "timeInForce": "GTC",
-        "quantity": "0.001",
-        "price": "0.002",
-        "cumQuantity": "1.3",
-        "createdAt": "1234",
-        "updatedAt": "1234",
-        "postOnly": True,
-        "avgPrice": "0.56",
-        "stopPrice": "0.12",
-        "expireTime": "1234"
-    }
+            "id": 5,
+            "clientOrderId": "234j3k242",
+            "symbol": "BTCUSDT",
+            "side": "sell",
+            "status": "new",
+            "type": "limit",
+            "timeInForce": "GTC",
+            "quantity": "0.001",
+            "price": "0.002",
+            "cumQuantity": "1.3",
+            "createdAt": "1234",
+            "updatedAt": "1234",
+            "postOnly": True,
+            "avgPrice": "0.56",
+            "stopPrice": "0.12",
+            "expireTime": "1234"
+        },
+        {
+            "id": 5,
+            "clientOrderId": "234j3k242",
+            "symbol": "BTCUSDT",
+            "side": "sell",
+            "status": "new",
+            "type": "limit",
+            "timeInForce": "GTC",
+            "quantity": "0.001",
+            "price": "0.002",
+            "cumQuantity": "1.3",
+            "createdAt": "1234",
+            "updatedAt": "1234",
+            "postOnly": True,
+            "avgPrice": "0.56",
+            "stopPrice": "0.12",
+            "expireTime": "1234"
+        }
     ]
 
     assert mapper.map_to_orders(raw) == expected
