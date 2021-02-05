@@ -68,3 +68,7 @@ class HitbtcOrderModel:
     stop_price: Optional[Decimal] = None
     expire_time: Optional[Datetime] = None
     trades_report: Optional[List[HitbtcTradeModel]] = None
+
+
+HitbtcOrders = List[HitbtcOrderModel]
+HitbtcRawOrders = List[HitbtcRawOrderModel]

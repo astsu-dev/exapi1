@@ -7,7 +7,8 @@ from .currency import (HitbtcCurrencies, HitbtcCurrencyModel,
                        HitbtcRawCurrencies, HitbtcRawCurrencyModel)
 from .error import (HitbtcErrorModel, HitbtcRawDetailedErrorModel,
                     HitbtcRawErrorModel)
-from .order import HitbtcOrderModel, HitbtcRawOrderModel
+from .order import (HitbtcOrderModel, HitbtcOrders, HitbtcRawOrderModel,
+                    HitbtcRawOrders)
 from .order_book import (HitbtcOrderBookModel, HitbtcOrderBookOrderModel,
                          HitbtcOrderBooks, HitbtcRawOrderBookModel,
                          HitbtcRawOrderBookOrderModel, HitbtcRawOrderBooks)
