@@ -4,18 +4,20 @@ from typing import List
 import pytest
 from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCurrencyModel,
                                  HitbtcOrderBookModel,
-                                 HitbtcOrderBookOrderModel,
+                                 HitbtcOrderBookOrderModel, HitbtcOrderModel,
                                  HitbtcRawCandleModel, HitbtcRawCurrencies,
                                  HitbtcRawCurrencyModel,
                                  HitbtcRawOrderBookModel,
                                  HitbtcRawOrderBookOrderModel,
-                                 HitbtcRawOrderBooks, HitbtcRawSymbolCandles,
-                                 HitbtcRawSymbolModel, HitbtcRawSymbols,
-                                 HitbtcRawSymbolTrades, HitbtcRawTickerModel,
-                                 HitbtcRawTickers, HitbtcRawTradeModel,
-                                 HitbtcRawTrades, HitbtcSymbolModel,
-                                 HitbtcTickerModel, HitbtcTradeModel)
+                                 HitbtcRawOrderBooks, HitbtcRawOrderModel,
+                                 HitbtcRawSymbolCandles, HitbtcRawSymbolModel,
+                                 HitbtcRawSymbols, HitbtcRawSymbolTrades,
+                                 HitbtcRawTickerModel, HitbtcRawTickers,
+                                 HitbtcRawTradeModel, HitbtcRawTrades,
+                                 HitbtcSymbolModel, HitbtcTickerModel,
+                                 HitbtcTradeModel)
 from exapi.models.hitbtc.mapper import HitbtcModelsMapper
+from exapi.models.hitbtc.order import HitbtcRawOrders
 
 
 @pytest.fixture(scope="module")
@@ -592,3 +594,325 @@ def test_map_to_candles(mapper: HitbtcModelsMapper) -> None:
     }
 
     assert mapper.map_to_candles(raw) == expected
+
+
+def test_map_to_order(mapper: HitbtcModelsMapper) -> None:
+    expected = HitbtcOrderModel(
+        id=5,
+        client_order_id="234j3k242",
+        symbol="BTCUSDT",
+        side="sell",
+        status="new",
+        type="limit",
+        time_in_force="GTC",
+        quantity=Decimal("0.001"),
+        price=Decimal("0.002"),
+        cum_quantity=Decimal("1.3"),
+        created_at="1234",
+        updated_at="1234",
+        post_only=True,
+        avg_price=Decimal("0.56"),
+        stop_price=Decimal("0.12"),
+        expire_time="1234")
+    raw: HitbtcRawOrderModel = {
+        "id": 5,
+        "clientOrderId": "234j3k242",
+        "symbol": "BTCUSDT",
+        "side": "sell",
+        "status": "new",
+        "type": "limit",
+        "timeInForce": "GTC",
+        "quantity": "0.001",
+        "price": "0.002",
+        "cumQuantity": "1.3",
+        "createdAt": "1234",
+        "updatedAt": "1234",
+        "postOnly": True,
+        "avgPrice": "0.56",
+        "stopPrice": "0.12",
+        "expireTime": "1234"
+    }
+
+    assert mapper.map_to_order(raw) == expected
+
+    expected = HitbtcOrderModel(
+        id=5,
+        client_order_id="234j3k242",
+        symbol="BTCUSDT",
+        side="sell",
+        status="new",
+        type="limit",
+        time_in_force="GTC",
+        quantity=Decimal("0.001"),
+        price=Decimal("0.002"),
+        cum_quantity=Decimal("1.3"),
+        created_at="1234",
+        updated_at="1234",
+        post_only=True,
+        avg_price=Decimal("0.56"),
+        stop_price=Decimal("0.12"),
+        expire_time="1234",
+        trades_report=[
+            HitbtcTradeModel(
+                id=45,
+                price=Decimal("456.6"),
+                quantity=Decimal("234"),
+                side="sell",
+                timestamp="1234"),
+            HitbtcTradeModel(
+                id=46,
+                price=Decimal("456.6"),
+                quantity=Decimal("234"),
+                side="buy",
+                timestamp="1235")
+        ])
+    raw = {
+        "id": 5,
+        "clientOrderId": "234j3k242",
+        "symbol": "BTCUSDT",
+        "side": "sell",
+        "status": "new",
+        "type": "limit",
+        "timeInForce": "GTC",
+        "quantity": "0.001",
+        "price": "0.002",
+        "cumQuantity": "1.3",
+        "createdAt": "1234",
+        "updatedAt": "1234",
+        "postOnly": True,
+        "avgPrice": "0.56",
+        "stopPrice": "0.12",
+        "expireTime": "1234",
+        "tradesReport": [
+            {
+                "id": 45,
+                "price": "456.6",
+                "quantity": "234",
+                "side": "sell",
+                "timestamp": "1234"
+            },
+            {
+                "id": 46,
+                "price": "456.6",
+                "quantity": "234",
+                "side": "buy",
+                "timestamp": "1235"
+            }
+        ]
+    }
+
+    assert mapper.map_to_order(raw) == expected
+
+
+def test_map_to_orders(mapper: HitbtcModelsMapper) -> None:
+    expected = [
+        HitbtcOrderModel(
+            id=5,
+            client_order_id="234j3k242",
+            symbol="BTCUSDT",
+            side="sell",
+            status="new",
+            type="limit",
+            time_in_force="GTC",
+            quantity=Decimal("0.001"),
+            price=Decimal("0.002"),
+            cum_quantity=Decimal("1.3"),
+            created_at="1234",
+            updated_at="1234",
+            post_only=True,
+            avg_price=Decimal("0.56"),
+            stop_price=Decimal("0.12"),
+            expire_time="1234"),
+        HitbtcOrderModel(
+            id=5,
+            client_order_id="234j3k242",
+            symbol="BTCUSDT",
+            side="sell",
+            status="new",
+            type="limit",
+            time_in_force="GTC",
+            quantity=Decimal("0.001"),
+            price=Decimal("0.002"),
+            cum_quantity=Decimal("1.3"),
+            created_at="1234",
+            updated_at="1234",
+            post_only=True,
+            avg_price=Decimal("0.56"),
+            stop_price=Decimal("0.12"),
+            expire_time="1234")
+    ]
+    raw: HitbtcRawOrders = [{
+        "id": 5,
+        "clientOrderId": "234j3k242",
+        "symbol": "BTCUSDT",
+        "side": "sell",
+        "status": "new",
+        "type": "limit",
+        "timeInForce": "GTC",
+        "quantity": "0.001",
+        "price": "0.002",
+        "cumQuantity": "1.3",
+        "createdAt": "1234",
+        "updatedAt": "1234",
+        "postOnly": True,
+        "avgPrice": "0.56",
+        "stopPrice": "0.12",
+        "expireTime": "1234"
+    },
+        {
+        "id": 5,
+        "clientOrderId": "234j3k242",
+        "symbol": "BTCUSDT",
+        "side": "sell",
+        "status": "new",
+        "type": "limit",
+        "timeInForce": "GTC",
+        "quantity": "0.001",
+        "price": "0.002",
+        "cumQuantity": "1.3",
+        "createdAt": "1234",
+        "updatedAt": "1234",
+        "postOnly": True,
+        "avgPrice": "0.56",
+        "stopPrice": "0.12",
+        "expireTime": "1234"
+    }
+    ]
+
+    assert mapper.map_to_orders(raw) == expected
+
+    expected = [
+        HitbtcOrderModel(
+            id=5,
+            client_order_id="234j3k242",
+            symbol="BTCUSDT",
+            side="sell",
+            status="new",
+            type="limit",
+            time_in_force="GTC",
+            quantity=Decimal("0.001"),
+            price=Decimal("0.002"),
+            cum_quantity=Decimal("1.3"),
+            created_at="1234",
+            updated_at="1234",
+            post_only=True,
+            avg_price=Decimal("0.56"),
+            stop_price=Decimal("0.12"),
+            expire_time="1234",
+            trades_report=[
+                HitbtcTradeModel(
+                    id=45,
+                    price=Decimal("456.6"),
+                    quantity=Decimal("234"),
+                    side="sell",
+                    timestamp="1234"),
+                HitbtcTradeModel(
+                    id=46,
+                    price=Decimal("456.6"),
+                    quantity=Decimal("234"),
+                    side="buy",
+                    timestamp="1235")
+            ]),
+        HitbtcOrderModel(
+            id=5,
+            client_order_id="234j3k242",
+            symbol="BTCUSDT",
+            side="sell",
+            status="new",
+            type="limit",
+            time_in_force="GTC",
+            quantity=Decimal("0.001"),
+            price=Decimal("0.002"),
+            cum_quantity=Decimal("1.3"),
+            created_at="1234",
+            updated_at="1234",
+            post_only=True,
+            avg_price=Decimal("0.56"),
+            stop_price=Decimal("0.12"),
+            expire_time="1234",
+            trades_report=[
+                HitbtcTradeModel(
+                    id=45,
+                    price=Decimal("456.6"),
+                    quantity=Decimal("234"),
+                    side="sell",
+                    timestamp="1234"),
+                HitbtcTradeModel(
+                    id=46,
+                    price=Decimal("456.6"),
+                    quantity=Decimal("234"),
+                    side="buy",
+                    timestamp="1235")
+            ])]
+    raw = [
+        {
+            "id": 5,
+            "clientOrderId": "234j3k242",
+            "symbol": "BTCUSDT",
+            "side": "sell",
+            "status": "new",
+            "type": "limit",
+            "timeInForce": "GTC",
+            "quantity": "0.001",
+            "price": "0.002",
+            "cumQuantity": "1.3",
+            "createdAt": "1234",
+            "updatedAt": "1234",
+            "postOnly": True,
+            "avgPrice": "0.56",
+            "stopPrice": "0.12",
+            "expireTime": "1234",
+            "tradesReport": [
+                {
+                    "id": 45,
+                    "price": "456.6",
+                    "quantity": "234",
+                    "side": "sell",
+                    "timestamp": "1234"
+                },
+                {
+                    "id": 46,
+                    "price": "456.6",
+                    "quantity": "234",
+                    "side": "buy",
+                    "timestamp": "1235"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "clientOrderId": "234j3k242",
+            "symbol": "BTCUSDT",
+            "side": "sell",
+            "status": "new",
+            "type": "limit",
+            "timeInForce": "GTC",
+            "quantity": "0.001",
+            "price": "0.002",
+            "cumQuantity": "1.3",
+            "createdAt": "1234",
+            "updatedAt": "1234",
+            "postOnly": True,
+            "avgPrice": "0.56",
+            "stopPrice": "0.12",
+            "expireTime": "1234",
+            "tradesReport": [
+                {
+                    "id": 45,
+                    "price": "456.6",
+                    "quantity": "234",
+                    "side": "sell",
+                    "timestamp": "1234"
+                },
+                {
+                    "id": 46,
+                    "price": "456.6",
+                    "quantity": "234",
+                    "side": "buy",
+                    "timestamp": "1235"
+                }
+            ]
+        }
+    ]
+
+    assert mapper.map_to_orders(raw) == expected

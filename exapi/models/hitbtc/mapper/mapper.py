@@ -6,20 +6,20 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcCurrencies, HitbtcCurrencyModel,
                                  HitbtcOrderBookModel,
                                  HitbtcOrderBookOrderModel, HitbtcOrderBooks,
-                                 HitbtcOrderModel, HitbtcRawCandleModel,
-                                 HitbtcRawCandles, HitbtcRawCurrencies,
-                                 HitbtcRawCurrencyModel,
+                                 HitbtcOrderModel, HitbtcOrders,
+                                 HitbtcRawCandleModel, HitbtcRawCandles,
+                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel,
                                  HitbtcRawOrderBookModel,
                                  HitbtcRawOrderBookOrderModel,
                                  HitbtcRawOrderBooks, HitbtcRawOrderModel,
-                                 HitbtcRawSymbolCandles, HitbtcRawSymbolModel,
-                                 HitbtcRawSymbols, HitbtcRawSymbolTrades,
-                                 HitbtcRawTickerModel, HitbtcRawTickers,
-                                 HitbtcRawTradeModel, HitbtcRawTrades,
-                                 HitbtcSymbolCandles, HitbtcSymbolModel,
-                                 HitbtcSymbols, HitbtcSymbolTrades,
-                                 HitbtcTickerModel, HitbtcTickers,
-                                 HitbtcTradeModel, HitbtcTrades)
+                                 HitbtcRawOrders, HitbtcRawSymbolCandles,
+                                 HitbtcRawSymbolModel, HitbtcRawSymbols,
+                                 HitbtcRawSymbolTrades, HitbtcRawTickerModel,
+                                 HitbtcRawTickers, HitbtcRawTradeModel,
+                                 HitbtcRawTrades, HitbtcSymbolCandles,
+                                 HitbtcSymbolModel, HitbtcSymbols,
+                                 HitbtcSymbolTrades, HitbtcTickerModel,
+                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
 
 from .base import HitbtcBaseModelsMapper
 
@@ -396,4 +396,17 @@ class HitbtcModelsMapper(HitbtcBaseModelsMapper):
             expire_time=expire_time,
             trades_report=trades_report)
 
+        return res
+
+    def map_to_orders(self, raw_orders: HitbtcRawOrders) -> HitbtcOrders:
+        """Maps orders json to list of order.
+
+        Args:
+            raw_orders (HitbtcRawOrders)
+
+        Returns:
+            HitbtcOrders
+        """
+
+        res = list(map(self.map_to_order, raw_orders))
         return res

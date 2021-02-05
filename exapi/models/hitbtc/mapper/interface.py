@@ -6,12 +6,14 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcCurrencies, HitbtcCurrencyModel,
                                  HitbtcErrorModel, HitbtcOrderBookModel,
                                  HitbtcOrderBookOrderModel, HitbtcOrderBooks,
+                                 HitbtcOrderModel, HitbtcOrders,
                                  HitbtcRawCandleModel, HitbtcRawCandles,
                                  HitbtcRawCurrencies, HitbtcRawCurrencyModel,
                                  HitbtcRawDetailedErrorModel,
                                  HitbtcRawErrorModel, HitbtcRawOrderBookModel,
                                  HitbtcRawOrderBookOrderModel,
-                                 HitbtcRawOrderBooks, HitbtcRawSymbolCandles,
+                                 HitbtcRawOrderBooks, HitbtcRawOrderModel,
+                                 HitbtcRawOrders, HitbtcRawSymbolCandles,
                                  HitbtcRawSymbolModel, HitbtcRawSymbols,
                                  HitbtcRawSymbolTrades, HitbtcRawTickerModel,
                                  HitbtcRawTickers, HitbtcRawTradeModel,
@@ -190,4 +192,24 @@ class IHitbtcModelsMapper(IHitbtcBaseModelsMapper):
 
         Returns:
             HitbtcSymbolCandles
+        """
+
+    def map_to_order(self, raw_order: HitbtcRawOrderModel) -> HitbtcOrderModel:
+        """Maps order json to order model.
+
+        Args:
+            raw_order (HitbtcRawOrderModel)
+
+        Returns:
+            HitbtcOrderModel
+        """
+
+    def map_to_orders(self, raw_orders: HitbtcRawOrders) -> HitbtcOrders:
+        """Maps orders json to list of order.
+
+        Args:
+            raw_orders (HitbtcRawOrders)
+
+        Returns:
+            HitbtcOrders
         """
