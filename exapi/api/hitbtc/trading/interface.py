@@ -3,8 +3,8 @@
 from decimal import Decimal
 from typing import Optional, Protocol
 
-from exapi.models.hitbtc import (HitbtcCurrencyTradingBalances,
-                                 HitbtcOrderModel, HitbtcOrders,
+from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
+                                 HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
 from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
                                           Symbol, TimeInForce)
@@ -13,13 +13,13 @@ from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
 class IHitbtcTradingAPI(Protocol):
     """Has methods for making requests to hitbtc trading api."""
 
-    async def get_trading_balance(self) -> HitbtcCurrencyTradingBalances:
+    async def get_trading_balance(self) -> HitbtcTradingCurrencyBalances:
         """Returns the user's trading balance.
 
         Requires the "Orderbook, History, Trading balance" API key Access Right.
 
         Returns:
-            HitbtcCurrencyTradingBalances
+            HitbtcTradingCurrencyBalances
         """
 
     async def get_active_orders(self, symbol: Optional[Symbol] = None) -> HitbtcOrders:
