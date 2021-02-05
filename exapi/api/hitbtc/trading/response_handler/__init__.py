@@ -1,1 +1,2 @@
-from .interface import IHitbtcTradingResponsHandler
+from .handler import HitbtcTradingResponseHandler
+from .interface import IHitbtcTradingResponseHandler
