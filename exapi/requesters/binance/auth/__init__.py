@@ -1,1 +1,1 @@
-from .key import IBinanceKeyAuth
+from .key import BinanceKeyAuth, IBinanceKeyAuth
