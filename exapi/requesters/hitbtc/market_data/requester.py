@@ -27,7 +27,7 @@ class HitbtcMarketDataRequester(BaseRequester, IHitbtcMarketDataRequester):
                 Defaults to None.
         """
 
-        self._session = session
+        super().__init__(session)
         self._creator = creator if creator is not None else HitbtcMarketDataRequestCreator()
 
     async def get_currencies(self, currencies: Optional[Currencies] = None) -> RequesterResponse:
