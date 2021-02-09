@@ -1,5 +1,14 @@
 from typing import Literal
 
+SymbolStatus = Literal[
+    "TRADING",
+    "PRE_TRADING",
+    "POST_TRADING",
+    "END_OF_DAY",
+    "HALT",
+    "AUCTION_MATCH",
+    "BREAK"
+]
 Interval = Literal[
     "1m",
     "3m",
