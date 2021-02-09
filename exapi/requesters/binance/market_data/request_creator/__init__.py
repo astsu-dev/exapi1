@@ -1,1 +1,2 @@
+from .creator import BinanceMarketDataRequestCreator
 from .interface import IBinanceMarketDataRequestCreator
