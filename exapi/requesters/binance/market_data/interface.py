@@ -195,12 +195,12 @@ class IBinanceMarketDataRequester(IBaseRequester):
             RequesterResponse
         """
 
-    def get_aggregate_trades(self, symbol: str,
-                             from_id: Optional[int] = None,
-                             start_time: Optional[int] = None,
-                             end_time: Optional[int] = None,
-                             limit: Optional[int] = None
-                             ) -> RequesterResponse:
+    async def get_aggregate_trades(self, symbol: str,
+                                   from_id: Optional[int] = None,
+                                   start_time: Optional[int] = None,
+                                   end_time: Optional[int] = None,
+                                   limit: Optional[int] = None
+                                   ) -> RequesterResponse:
         """Get compressed, aggregate trades for a certain symbol.
         Trades that fill at the time, from the same order,
         with the same price will have the quantity aggregated.
