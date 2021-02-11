@@ -1,15 +1,31 @@
-from typing import Literal
+from typing import List, Literal
 
-SymbolStatus = Literal[
-    "TRADING",
-    "PRE_TRADING",
-    "POST_TRADING",
-    "END_OF_DAY",
-    "HALT",
-    "AUCTION_MATCH",
-    "BREAK"
+OrderType = Literal[
+    "LIMIT",
+    "MARKET",
+    "STOP_LOSS",
+    "STOP_LOSS_LIMIT",
+    "TAKE_PROFIT",
+    "TAKE_PROFIT_LIMIT",
+    "LIMIT_MAKER"
 ]
-Interval = Literal[
+OrderTypes = List[OrderType]
+OrderStatus = Literal[
+    "NEW",
+    "PARTIALLY_FILLED",
+    "FILLED",
+    "CANCELED",
+    "PENDING_CANCEL",
+    "REJECTED",
+    "EXPIRED"
+]
+OrderSide = Literal["BUY", "SELL"]
+TimeInForce = Literal[
+    "GTC",
+    "IOC",
+    "FOK"
+]
+CandleInterval = Literal[
     "1m",
     "3m",
     "5m",
@@ -26,3 +42,20 @@ Interval = Literal[
     "1w",
     "1M"
 ]
+SymbolPermission = Literal["SPOT", "MARGIN"]
+SymbolPermissions = List[SymbolPermission]
+SymbolStatus = Literal[
+    "TRADING",
+    "PRE_TRADING",
+    "POST_TRADING",
+    "END_OF_DAY",
+    "HALT",
+    "AUCTION_MATCH",
+    "BREAK"
+]
+RateLimitInterval = Literal[
+    "SECOND",
+    "MINUTE",
+    "DAY"
+]
+AccountType = Literal["SPOT"]
