@@ -1,6 +1,6 @@
 from typing import Optional
 
-from exapi.models.binance.typedefs import Interval
+from exapi.models.binance.typedefs import CandleInterval
 from exapi.requesters.base import IBaseRequester
 from exapi.requesters.typedefs import RequesterResponse
 
@@ -241,7 +241,7 @@ class IBinanceMarketDataRequester(IBaseRequester):
         """
 
     async def get_candles(self, symbol: str,
-                          interval: Interval,
+                          interval: CandleInterval,
                           start_time: Optional[int] = None,
                           end_time: Optional[int] = None,
                           limit: Optional[int] = None
@@ -273,7 +273,7 @@ class IBinanceMarketDataRequester(IBaseRequester):
 
         Args:
             symbol (str): certain symbol.
-            interval (Interval)
+            interval (CandleInterval)
             start_time (Optional[int], optional)
             end_time (Optional[int], optional)
             limit (Optional[int], optional): Default 500; max 1000.

@@ -1,7 +1,7 @@
 from typing import Final
 
 import pytest
-from exapi.models.binance.typedefs import Interval
+from exapi.models.binance.typedefs import CandleInterval
 from exapi.requesters.binance.auth import BinanceKeyAuth
 from exapi.requesters.binance.market_data.request_creator import \
     BinanceMarketDataRequestCreator
@@ -201,7 +201,7 @@ def test_create_get_candles_request(creator: BinanceMarketDataRequestCreator) ->
     url = URL("https://api.binance.com/api/v3/klines")
 
     symbol = "BTCUSDT"
-    interval: Interval = "1m"
+    interval: CandleInterval = "1m"
     url = url.with_query(
         {
             "symbol": symbol,
