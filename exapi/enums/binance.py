@@ -108,3 +108,65 @@ class BinanceAccountType:
     """Binance account types."""
 
     SPOT: Final[Literal["SPOT"]] = "SPOT"
+
+
+class BinanceErrorCode:
+    """Binance error codes."""
+
+    UNKNOWN: Final[Literal[-1000]] = -1000
+    DISCONNECTED: Final[Literal[-1001]] = -1001
+    UNAUTHORIZED: Final[Literal[-1002]] = -1002
+    TOO_MANY_REQUESTS: Final[Literal[-1003]] = -1003
+    SERVER_BUSY: Final[Literal[-1004]] = -1004
+    UNEXPECTED_RESP: Final[Literal[-1006]] = -1006
+    TIMEOUT: Final[Literal[-1007]] = -1007
+    UNKNOWN_ORDER_COMPOSITION: Final[Literal[-1014]] = -1014
+    TOO_MANY_ORDERS: Final[Literal[-1015]] = -1015
+    SERVICE_SHUTTING_DOWN: Final[Literal[-1016]] = -1016
+    UNSUPPORTED_OPERATION: Final[Literal[-1020]] = -1020
+    INVALID_TIMESTAMP: Final[Literal[-1021]] = -1021
+    INVALID_SIGNATURE: Final[Literal[-1022]] = -1022
+    # TODO -1099
+    # 11xx - 2xxx Request issues
+    ILLEGAL_CHARS: Final[Literal[-1100]] = -1100
+    TOO_MANY_PARAMETERS: Final[Literal[-1101]] = -1101
+    MANDATORY_PARAM_EMPTY_OR_MALFORMED: Final[Literal[-1102]] = -1102
+    UNKNOWN_PARAM: Final[Literal[-1103]] = -1103
+    UNREAD_PARAMETERS: Final[Literal[-1104]] = -1104
+    PARAM_EMPTY: Final[Literal[-1105]] = -1105
+    PARAM_NOT_REQUIRED: Final[Literal[-1106]] = -1106
+    BAD_PRECISION: Final[Literal[-1111]] = -1111
+    NO_DEPTH: Final[Literal[-1112]] = -1112
+    TIF_NOT_REQUIRED: Final[Literal[-1114]] = -1114
+    INVALID_TIF: Final[Literal[-1115]] = -1115
+    INVALID_ORDER_TYPE: Final[Literal[-1116]] = -1116
+    INVALID_SIDE: Final[Literal[-1117]] = -1117
+    EMPTY_NEW_CL_ORD_ID: Final[Literal[-1118]] = -1118
+    EMPTY_ORG_CL_ORD_ID: Final[Literal[-1119]] = -1119
+    BAD_CANDLE_INTERVAL: Final[Literal[-1120]] = -1120
+    BAD_SYMBOL: Final[Literal[-1121]] = -1121
+    INVALID_LISTEN_KEY: Final[Literal[-1125]] = -1125
+    MORE_THAN_XX_HOURS: Final[Literal[-1127]] = -1127
+    OPTIONAL_PARAMS_BAD_COMBO: Final[Literal[-1128]] = -1128
+    INVALID_PARAMETER: Final[Literal[-1130]] = -1130
+    BAD_RECV_WINDOW: Final[Literal[-1131]] = -1131
+    NEW_ORDER_REJECTED: Final[Literal[-2010]] = -2010
+    CANCEL_REJECTED: Final[Literal[-2011]] = -2011
+    NO_SUCH_ORDER: Final[Literal[-2013]] = -2013
+    BAD_API_KEY_FMT: Final[Literal[-2014]] = -2014
+    REJECTED_MBX_KEY: Final[Literal[-2015]] = -2015
+    NO_TRADING_WINDOW: Final[Literal[-2016]] = -2016
+    # 3xxx - 5xxx SAPI-specific issues
+    INNER_FAILURE: Final[Literal[-3000]] = -3000
+    NEED_ENABLE_2FA: Final[Literal[-3001]] = -3001
+    ASSET_DEFICIENCY: Final[Literal[-3002]] = -3002
+    NO_OPENED_MARGIN_ACCOUNT: Final[Literal[-3003]] = -3003
+    TRADE_NOT_ALLOWED: Final[Literal[-3004]] = -3004
+    TRANSFER_OUT_NOT_ALLOWED: Final[Literal[-3005]] = -3005
+    EXCEED_MAX_BORROWABLE: Final[Literal[-3006]] = -3006
+    HAS_PENDING_TRANSACTION: Final[Literal[-3007]] = -3007
+    BORROW_NOT_ALLOWED: Final[Literal[-3008]] = -3008
+    VALIDATION_FAILED: Final[Literal[-3026]] = -3026
+    LISTEN_KEY_NOT_FOUND: Final[Literal[-3038]] = -3038
+    BALANCE_IS_NOT_ENOUGH: Final[Literal[-3041]] = -3041
+    SYSTEM_BUSY: Final[Literal[-3044]] = -3044
