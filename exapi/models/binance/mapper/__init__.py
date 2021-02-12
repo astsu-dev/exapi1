@@ -1,1 +1,1 @@
-from .base import IBinanceBaseModelsMapper
+from .base import BinanceBaseModelsMapper, IBinanceBaseModelsMapper
