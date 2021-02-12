@@ -2,6 +2,7 @@ from .account_info import BinanceAccountInfoJson, BinanceAccountInfoModel
 from .average_price import BinanceAveragePriceJson, BinanceAveragePriceModel
 from .candle import (BinanceCandleJson, BinanceCandleModel, BinanceCandles,
                      BinanceCandlesJson)
+from .error import BinanceErrorJson, BinanceErrorModel
 from .exchange_info import (BinanceExchangeFilterJson,
                             BinanceExchangeFilterModel, BinanceExchangeFilters,
                             BinanceExchangeFiltersJson,
