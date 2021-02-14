@@ -1,6 +1,7 @@
 """Has binance trade model."""
 
 from dataclasses import dataclass
+from decimal import Decimal
 from typing import List, TypedDict
 
 
@@ -20,18 +21,18 @@ class BinanceTradeModel:
 
     Args:
         id (int)
-        price (str)
-        qty (str)
-        quote_qty (str)
+        price (Decimal)
+        qty (Decimal)
+        quote_qty (Decimal)
         time (int)
         is_buyer_maker (bool)
         is_best_match (bool)
     """
 
     id: int
-    price: str
-    qty: str
-    quote_qty: str
+    price: Decimal
+    qty: Decimal
+    quote_qty: Decimal
     time: int
     is_buyer_maker: bool
     is_best_match: bool
@@ -67,8 +68,8 @@ class BinanceAggregateTradeModel:
 
     Args:
         id (int)
-        price (str)
-        qty (str)
+        price (Decimal)
+        qty (Decimal)
         first_id (int): first trade id
         last_id (int): last trade id
         time (int): timestamp
@@ -77,8 +78,8 @@ class BinanceAggregateTradeModel:
     """
 
     id: int
-    price: str
-    qty: str
+    price: Decimal
+    qty: Decimal
     first_id: int
     last_id: int
     time: int

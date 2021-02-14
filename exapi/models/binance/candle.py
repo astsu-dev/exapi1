@@ -1,13 +1,22 @@
 """Has binance candle model."""
 
 from dataclasses import dataclass
-from typing import List, Union
+from decimal import Decimal
+from typing import List, Tuple
 
-BinanceCandleJson = List[
-    Union[
-        int,
-        str
-    ]
+BinanceCandleJson = Tuple[
+    int,
+    str,
+    str,
+    str,
+    str,
+    str,
+    int,
+    str,
+    int,
+    str,
+    str,
+    str
 ]
 
 
@@ -17,31 +26,31 @@ class BinanceCandleModel:
 
     Args:
         open_time (int)
-        open (str)
-        high (str)
-        low (str)
-        close (str)
-        volume (str)
+        open (Decimal)
+        high (Decimal)
+        low (Decimal)
+        close (Decimal)
+        volume (Decimal)
         close_time (int)
-        quote_volume (str)
+        quote_volume (Decimal)
         trades_num (int)
-        taker_buy_base_volume (str)
-        taker_buy_quote_voluem (str)
-        ignore (str)
+        taker_buy_base_volume (Decimal)
+        taker_buy_quote_volume (Decimal)
+        ignore (Decimal)
     """
 
     open_time: int
-    open: str
-    high: str
-    low: str
-    close: str
-    volume: str
+    open: Decimal
+    high: Decimal
+    low: Decimal
+    close: Decimal
+    volume: Decimal
     close_time: int
-    quote_volume: str
+    quote_volume: Decimal
     trades_num: int
-    taker_buy_base_volume: str
-    taker_buy_quote_voluem: str
-    ignore: str
+    taker_buy_base_volume: Decimal
+    taker_buy_quote_volume: Decimal
+    ignore: Decimal
 
 
 BinanceCandlesJson = List[BinanceCandleJson]
