@@ -46,8 +46,11 @@ from .exchange_info import (BinanceExchangeFilterJson,
 from .order import (BinanceAckOrderJson, BinanceFilledOrderJson,
                     BinanceFilledOrderModel, BinanceFilledOrders,
                     BinanceFilledOrdersJson, BinanceFullOrderJson,
-                    BinanceOrderModel, BinanceResultOrderJson)
-from .order_book import BinanceOrderBookJson, BinanceOrderBookModel
+                    BinanceOrderJson, BinanceOrderModel, BinanceOrders,
+                    BinanceOrdersJson, BinanceResultOrderJson)
+from .order_book import (BinanceOrderBookJson, BinanceOrderBookModel,
+                         BinanceOrderBookOrderJson, BinanceOrderBookOrderModel,
+                         BinanceOrderBookOrders, BinanceOrderBookOrdersJson)
 from .order_book_ticker import (BinanceOrderBookTickerJson,
                                 BinanceOrderBookTickerModel,
                                 BinanceOrderBookTickers,

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List, Optional, TypedDict
+from typing import List, Optional, TypedDict, Union
 
 from exapi.models.binance.typedefs import (OrderSide, OrderStatus, OrderType,
                                            TimeInForce)
@@ -92,3 +92,12 @@ class BinanceOrderModel:
     type: Optional[OrderType] = None
     side: Optional[OrderSide] = None
     fills: Optional[BinanceFilledOrders] = None
+
+
+BinanceOrderJson = Union[
+    BinanceAckOrderJson,
+    BinanceResultOrderJson,
+    BinanceFullOrderJson
+]
+BinanceOrdersJson = List[BinanceOrderJson]
+BinanceOrders = List[BinanceOrderModel]
