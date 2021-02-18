@@ -82,7 +82,7 @@ class BinanceLotSizeSymbolFilterModel:
     There are 3 parts:
         - minQty defines the minimum quantity/icebergQty allowed.
         - maxQty defines the maximum quantity/icebergQty allowed.
-        - stepSize defines the intervals that a quantity/icebergQty 
+        - stepSize defines the intervals that a quantity/icebergQty
             can be increased/decreased by.
 
     In order to pass the lot size, the following must be true for quantity/icebergQty:
@@ -132,7 +132,7 @@ class BinanceMinNotionalSymbolFilterModel:
     """
 
     filter_type: Literal["MIN_NOTIONAL"]
-    min_notional: str
+    min_notional: Decimal
     apply_to_market: bool
     avg_price_mins: int
 
