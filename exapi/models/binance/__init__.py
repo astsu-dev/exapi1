@@ -1,4 +1,8 @@
-from .account_info import BinanceAccountInfoJson, BinanceAccountInfoModel
+from .account_info import (BinanceAccountInfoJson, BinanceAccountInfoModel,
+                           BinanceCurrencyBalanceJson,
+                           BinanceCurrencyBalanceModel,
+                           BinanceCurrencyBalances,
+                           BinanceCurrencyBalancesJson)
 from .average_price import BinanceAveragePriceJson, BinanceAveragePriceModel
 from .candle import (BinanceCandleJson, BinanceCandleModel, BinanceCandles,
                      BinanceCandlesJson)

@@ -1,9 +1,22 @@
 """Has binance models mapper interface."""
 
-from exapi.models.binance import (BinanceAveragePriceJson,
+from exapi.models.binance import (BinanceAccountInfoJson,
+                                  BinanceAccountInfoModel,
+                                  BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandleJson,
                                   BinanceCandleModel, BinanceCandles,
-                                  BinanceCandlesJson, BinanceFilledOrderJson,
+                                  BinanceCandlesJson,
+                                  BinanceCurrencyBalanceJson,
+                                  BinanceCurrencyBalanceModel,
+                                  BinanceCurrencyBalances,
+                                  BinanceCurrencyBalancesJson,
+                                  BinanceExchangeFilterJson,
+                                  BinanceExchangeFilterModel,
+                                  BinanceExchangeFilters,
+                                  BinanceExchangeFiltersJson,
+                                  BinanceExchangeInfoJson,
+                                  BinanceExchangeInfoModel,
+                                  BinanceFilledOrderJson,
                                   BinanceFilledOrderModel, BinanceFilledOrders,
                                   BinanceFilledOrdersJson,
                                   BinanceOrderBookJson, BinanceOrderBookModel,
@@ -21,8 +34,16 @@ from exapi.models.binance import (BinanceAveragePriceJson,
                                   BinancePriceTickerJson,
                                   BinancePriceTickerModel, BinancePriceTickers,
                                   BinancePriceTickersJson,
+                                  BinanceRateLimitJson, BinanceRateLimitModel,
+                                  BinanceRateLimits, BinanceRateLimitsJson,
                                   BinanceServerTimeJson,
                                   BinanceServerTimeModel,
+                                  BinanceSymbolFilterJson,
+                                  BinanceSymbolFilterModel,
+                                  BinanceSymbolFilters,
+                                  BinanceSymbolFiltersJson, BinanceSymbolJson,
+                                  BinanceSymbolModel, BinanceSymbols,
+                                  BinanceSymbolsJson,
                                   BinanceTickerPriceChangeStatJson,
                                   BinanceTickerPriceChangeStatModel,
                                   BinanceTickersPriceChangeStat,
@@ -245,4 +266,124 @@ class IBinanceModelsMapper(IBinanceBaseModelsMapper):
 
         Returns:
             BinanceTrades
+        """
+
+    def map_to_symbol_filter(self, json: BinanceSymbolFilterJson) -> BinanceSymbolFilterModel:
+        """Maps symbol filter json to symbol filter model.
+
+        Args:
+            json (BinanceSymbolFilterJson)
+
+        Returns:
+            BinanceSymbolFilterModel
+        """
+
+    def map_to_symbol_filters(self, json: BinanceSymbolFiltersJson) -> BinanceSymbolFilters:
+        """Maps symbol filters json to symbol filters model.
+
+        Args:
+            json (BinanceSymbolFiltersJson)
+
+        Returns:
+            BinanceSymbolFilters
+        """
+
+    def map_to_symbol(self, json: BinanceSymbolJson) -> BinanceSymbolModel:
+        """Maps symbol json to symbol model.
+
+        Args:
+            json (BinanceSymbolJson)
+
+        Returns:
+            BinanceSymbolModel
+        """
+
+    def map_to_symbols(self, json: BinanceSymbolsJson) -> BinanceSymbols:
+        """Maps symbols json to symbols model.
+
+        Args:
+            json (BinanceSymbolsJson)
+
+        Returns:
+            BinanceSymbols
+        """
+
+    def map_to_exchange_filter(self, json: BinanceExchangeFilterJson) -> BinanceExchangeFilterModel:
+        """Maps exchnage filter json to exchnage filter model.
+
+        Args:
+            json (BinanceExchangeFilterJson)
+
+        Returns:
+            BinanceExchangeFilterModel
+        """
+
+    def map_to_exchange_filters(self, json: BinanceExchangeFiltersJson) -> BinanceExchangeFilters:
+        """Maps exchnage filters json to exchnage filters model.
+
+        Args:
+            json (BinanceExchangeFilterJson)
+
+        Returns:
+            BinanceExchangeFilterModel
+        """
+
+    def map_to_rate_limit(self, json: BinanceRateLimitJson) -> BinanceRateLimitModel:
+        """Maps rate limit json to rate limit model.
+
+        Args:
+            json (BinanceRateLimitJson)
+
+        Returns:
+            BinanceRateLimitModel
+        """
+
+    def map_to_rate_limits(self, json: BinanceRateLimitsJson) -> BinanceRateLimits:
+        """Maps rate limits json to rate limits model.
+
+        Args:
+            json (BinanceRateLimitsJson)
+
+        Returns:
+            BinanceRateLimits
+        """
+
+    def map_to_exchange_info(self, json: BinanceExchangeInfoJson) -> BinanceExchangeInfoModel:
+        """Maps exchange info json to exchange info model.
+
+        Args:
+            json (BinanceExchangeInfoJson)
+
+        Returns:
+            BinanceExchangeInfoModel
+        """
+
+    def map_to_balance(self, json: BinanceCurrencyBalanceJson) -> BinanceCurrencyBalanceModel:
+        """Maps balance json to balance model.
+
+        Args:
+            json (BinanceCurrencyBalanceJson)
+
+        Returns:
+            BinanceCurrencyBalanceModel
+        """
+
+    def map_to_balances(self, json: BinanceCurrencyBalancesJson) -> BinanceCurrencyBalances:
+        """Maps balances json to balances model.
+
+        Args:
+            json (BinanceCurrencyBalancesJson)
+
+        Returns:
+            BinanceCurrencyBalances
+        """
+
+    def map_to_account_info(self, json: BinanceAccountInfoJson) -> BinanceAccountInfoModel:
+        """Maps account info json to account info model.
+
+        Args:
+            json (BinanceAccountInfoJson)
+
+        Returns:
+            BinanceAccountInfoModel
         """
