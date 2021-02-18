@@ -2,10 +2,24 @@
 
 from decimal import Decimal
 
-from exapi.models.binance import (BinanceAveragePriceJson,
+from exapi.enums.binance import BinanceSymbolFilterType
+from exapi.models.binance import (BinanceAccountInfoJson,
+                                  BinanceAccountInfoModel,
+                                  BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandleJson,
                                   BinanceCandleModel, BinanceCandles,
-                                  BinanceCandlesJson, BinanceFilledOrderJson,
+                                  BinanceCandlesJson,
+                                  BinanceCurrencyBalanceJson,
+                                  BinanceCurrencyBalanceModel,
+                                  BinanceCurrencyBalances,
+                                  BinanceCurrencyBalancesJson,
+                                  BinanceExchangeFilterJson,
+                                  BinanceExchangeFilterModel,
+                                  BinanceExchangeFilters,
+                                  BinanceExchangeFiltersJson,
+                                  BinanceExchangeInfoJson,
+                                  BinanceExchangeInfoModel,
+                                  BinanceFilledOrderJson,
                                   BinanceFilledOrderModel, BinanceFilledOrders,
                                   BinanceFilledOrdersJson,
                                   BinanceOrderBookJson, BinanceOrderBookModel,
@@ -23,14 +37,36 @@ from exapi.models.binance import (BinanceAveragePriceJson,
                                   BinancePriceTickerJson,
                                   BinancePriceTickerModel, BinancePriceTickers,
                                   BinancePriceTickersJson,
+                                  BinanceRateLimitJson, BinanceRateLimitModel,
+                                  BinanceRateLimits, BinanceRateLimitsJson,
                                   BinanceServerTimeJson,
                                   BinanceServerTimeModel,
+                                  BinanceSymbolFilterJson,
+                                  BinanceSymbolFilterModel,
+                                  BinanceSymbolFilters,
+                                  BinanceSymbolFiltersJson, BinanceSymbolJson,
+                                  BinanceSymbolModel, BinanceSymbols,
+                                  BinanceSymbolsJson,
                                   BinanceTickerPriceChangeStatJson,
                                   BinanceTickerPriceChangeStatModel,
                                   BinanceTickersPriceChangeStat,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTradeJson, BinanceTradeModel,
                                   BinanceTrades, BinanceTradesJson)
+from exapi.models.binance.exchange_info.filters import (
+    BinanceIcebergPartsSymbolFilterJson, BinanceIcebergPartsSymbolFilterModel,
+    BinanceLotSizeSymbolFilterJson, BinanceLotSizeSymbolFilterModel,
+    BinanceMarketLotSizeSymbolFilterJson,
+    BinanceMarketLotSizeSymbolFilterModel,
+    BinanceMaxNumAlgoOrdersSymbolFilterJson,
+    BinanceMaxNumAlgoOrdersSymbolFilterModel,
+    BinanceMaxNumIcebergOrdersSymbolFilterJson,
+    BinanceMaxNumIcebergOrdersSymbolFilterModel,
+    BinanceMaxNumOrdersSymbolFilterJson, BinanceMaxNumOrdersSymbolFilterModel,
+    BinanceMaxPositionSymbolFilterJson, BinanceMaxPositionSymbolFilterModel,
+    BinanceMinNotionalSymbolFilterJson, BinanceMinNotionalSymbolFilterModel,
+    BinancePercentPriceSymbolFilterJson, BinancePercentPriceSymbolFilterModel,
+    BinancePriceSymbolFilterJson, BinancePriceSymbolFilterModel)
 
 
 class BinanceModelsMapper:
@@ -397,3 +433,220 @@ class BinanceModelsMapper:
 
         res = list(map(self.map_to_trade, json))
         return res
+
+    def map_to_price_symbol_filter(self, json: BinancePriceSymbolFilterJson
+                                   ) -> BinancePriceSymbolFilterModel:
+        """Maps price symbol filter json to price symbol filter model.
+
+        Args:
+            json (BinancePriceSymbolFilterJson)
+
+        Returns:
+            BinancePriceSymbolFilterModel
+        """
+
+        res = BinancePriceSymbolFilterModel(
+            filter_type=json["filterType"],
+            min_price=Decimal(json["minPrice"]),
+            max_price=Decimal(json["maxPrice"]),
+            tick_size=Decimal(json["tickSize"]))
+        return res
+
+    def map_to_percent_price_symbol_filter(self, json: BinancePercentPriceSymbolFilterJson
+                                           ) -> BinancePercentPriceSymbolFilterModel:
+        """Maps percent price symbol filter json to percent price symbol filter model.
+
+        Args:
+            json (BinancePercentPriceSymbolFilterJson)
+
+        Returns:
+            BinancePercentPriceSymbolFilterModel
+        """
+
+        res = BinancePercentPriceSymbolFilterModel(
+            filter_type=json["filterType"],
+            multiplier_up=Decimal(json["multiplierUp"]),
+            multiplier_down=Decimal(json["multiplierDown"]),
+            avg_price_mins=json["avgPriceMins"])
+        return res
+
+    def map_to_lot_size_symbol_filter(self, json: BinanceLotSizeSymbolFilterJson
+                                      ) -> BinanceLotSizeSymbolFilterModel:
+        """Maps lot size symbol filter json to lot size symbol filter model.
+
+        Args:
+            json (BinanceLotSizeSymbolFilterJson)
+
+        Returns:
+            BinanceLotSizeSymbolFilterModel
+        """
+
+        res = BinanceLotSizeSymbolFilterModel(
+            filter_type=json["filterType"],
+            min_qty=Decimal(json["minQty"]),
+            max_qty=Decimal(json["maxQty"]),
+            step_size=Decimal(json["stepSize"]))
+        return res
+
+    def map_to_min_notional_symbol_filter(self, json: BinanceMinNotionalSymbolFilterJson
+                                          ) -> BinanceMinNotionalSymbolFilterModel:
+        """Maps min notional symbol filter json to min notional symbol filter model.
+
+        Args:
+            json (BinanceMinNotionalSymbolFilterJson)
+
+        Returns:
+            BinanceMinNotionalSymbolFilterModel
+        """
+
+        res = BinanceMinNotionalSymbolFilterModel(
+            filter_type=json["filterType"],
+            min_notional=Decimal(json["minNotional"]),
+            apply_to_market=json["applyToMarket"],
+            avg_price_mins=json["avgPriceMins"])
+        return res
+
+    def map_to_market_lot_size_symbol_filter(self, json: BinanceMarketLotSizeSymbolFilterJson
+                                             ) -> BinanceMarketLotSizeSymbolFilterModel:
+        """Maps market lot size symbol filter json to market lot size symbol filter model.
+
+        Args:
+            json (BinanceMarketLotSizeSymbolFilterJson)
+
+        Returns:
+            BinanceMarketLotSizeSymbolFilterModel
+        """
+
+        res = BinanceMarketLotSizeSymbolFilterModel(
+            filter_type=json["filterType"],
+            min_qty=Decimal(json["minQty"]),
+            max_qty=Decimal(json["maxQty"]),
+            step_size=Decimal(json["stepSize"]))
+        return res
+
+    def map_to_max_position_symbol_filter(self, json: BinanceMaxPositionSymbolFilterJson
+                                          ) -> BinanceMaxPositionSymbolFilterModel:
+        """Maps max position symbol filter json to max position symbol filter model.
+
+        Args:
+            json (BinanceMaxPositionSymbolFilterJson)
+
+        Returns:
+            BinanceMaxPositionSymbolFilterModel
+        """
+
+        res = BinanceMaxPositionSymbolFilterModel(
+            filter_type=json["filterType"],
+            max_position=Decimal(json["maxPosition"]))
+        return res
+
+    def map_to_iceberg_parts_symbol_filter(self, json: BinanceIcebergPartsSymbolFilterJson
+                                           ) -> BinanceIcebergPartsSymbolFilterModel:
+        """Maps iceberg parts symbol filter json to iceberg parts symbol filter model.
+
+        Args:
+            json (BinanceIcebergPartsSymbolFilterJson)
+
+        Returns:
+            BinanceIcebergPartsSymbolFilterModel
+        """
+
+        res = BinanceIcebergPartsSymbolFilterModel(
+            filter_type=json["filterType"],
+            limit=json["limit"])
+        return res
+
+    def map_to_max_num_orders_symbol_filter(self, json: BinanceMaxNumOrdersSymbolFilterJson
+                                            ) -> BinanceMaxNumOrdersSymbolFilterModel:
+        """Maps max num orders symbol filter json to max num orders symbol filter model.
+
+        Args:
+            json (BinanceMaxNumOrdersSymbolFilterJson)
+
+        Returns:
+            BinanceMaxNumOrdersSymbolFilterModel
+        """
+
+        res = BinanceMaxNumOrdersSymbolFilterModel(
+            filter_type=json["filterType"],
+            max_num_orders=json["maxNumOrders"])
+        return res
+
+    def map_to_max_num_algo_orders_symbol_filter(self, json: BinanceMaxNumAlgoOrdersSymbolFilterJson
+                                                 ) -> BinanceMaxNumAlgoOrdersSymbolFilterModel:
+        """Maps max num algo orders symbol filter json to max num algo orders symbol filter model.
+
+        Args:
+            json (BinanceMaxNumAlgoOrdersSymbolFilterJson)
+
+        Returns:
+            BinanceMaxNumAlgoOrdersSymbolFilterModel
+        """
+
+        res = BinanceMaxNumAlgoOrdersSymbolFilterModel(
+            filter_type=json["filterType"],
+            max_num_algo_orders=json["maxNumAlgoOrders"])
+        return res
+
+    def map_to_max_num_iceberg_orders_symbol_filter(
+            self,
+            json: BinanceMaxNumIcebergOrdersSymbolFilterJson
+    ) -> BinanceMaxNumIcebergOrdersSymbolFilterModel:
+        """Maps max num iceberg orders symbol filter json
+        to max num iceberg orders symbol filter model.
+
+        Args:
+            json (BinanceMaxNumIcebergOrdersSymbolFilterJson)
+
+        Returns:
+            BinanceMaxNumIcebergOrdersSymbolFilterModel
+        """
+
+        res = BinanceMaxNumIcebergOrdersSymbolFilterModel(
+            filter_type=json["filterType"],
+            max_num_iceberg_orders=json["maxNumIcebergOrders"])
+        return res
+
+    def map_to_symbol_filter(self, json: BinanceSymbolFilterJson) -> BinanceSymbolFilterModel:
+        """Maps symbol filter json to symbol filter model.
+
+        Args:
+            json (BinanceSymbolFilterJson)
+
+        Returns:
+            BinanceSymbolFilterModel
+        """
+
+        filter_type = json["filterType"]
+
+        if filter_type == BinanceSymbolFilterType.PRICE:
+            return self.map_to_price_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.PERCENT_PRICE:
+            return self.map_to_percent_price_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.LOT_SIZE:
+            return self.map_to_lot_size_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.MIN_NOTIONAL:
+            return self.map_to_min_notional_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.MARKET_LOT_SIZE:
+            return self.map_to_market_lot_size_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.MAX_POSITION:
+            return self.map_to_max_position_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.ICEBERG_PARTS:
+            return self.map_to_iceberg_parts_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.MAX_NUM_ORDERS:
+            return self.map_to_max_num_orders_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.MAX_NUM_ALGO_ORDERS:
+            return self.map_to_max_num_algo_orders_symbol_filter(json)
+
+        elif filter_type == BinanceSymbolFilterType.MAX_NUM_ICEBERG_ORDERS:
+            return self.map_to_max_num_iceberg_orders_symbol_filter(json)
+
+        assert False, f"Unhandled symbol filter: {json}"
