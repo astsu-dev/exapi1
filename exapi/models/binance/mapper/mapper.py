@@ -650,3 +650,16 @@ class BinanceModelsMapper:
             return self.map_to_max_num_iceberg_orders_symbol_filter(json)
 
         assert False, f"Unhandled symbol filter: {json}"
+
+    def map_to_symbol_filters(self, json: BinanceSymbolFiltersJson) -> BinanceSymbolFilters:
+        """Maps symbol filters json to symbol filters.
+
+        Args:
+            json (BinanceSymbolFiltersJson)
+
+        Returns:
+            BinanceSymbolFilters
+        """
+
+        res = list(map(self.map_to_symbol_filter, json))
+        return res

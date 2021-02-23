@@ -30,6 +30,21 @@ from exapi.models.binance import (BinanceAveragePriceJson,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTradeJson, BinanceTradeModel,
                                   BinanceTrades, BinanceTradesJson)
+from exapi.models.binance.exchange_info.filters.symbol import (
+    BinanceIcebergPartsSymbolFilterJson, BinanceIcebergPartsSymbolFilterModel,
+    BinanceLotSizeSymbolFilterJson, BinanceLotSizeSymbolFilterModel,
+    BinanceMarketLotSizeSymbolFilterJson,
+    BinanceMarketLotSizeSymbolFilterModel,
+    BinanceMaxNumAlgoOrdersSymbolFilterJson,
+    BinanceMaxNumAlgoOrdersSymbolFilterModel,
+    BinanceMaxNumIcebergOrdersSymbolFilterJson,
+    BinanceMaxNumIcebergOrdersSymbolFilterModel,
+    BinanceMaxNumOrdersSymbolFilterJson, BinanceMaxNumOrdersSymbolFilterModel,
+    BinanceMaxPositionSymbolFilterJson, BinanceMaxPositionSymbolFilterModel,
+    BinanceMinNotionalSymbolFilterJson, BinanceMinNotionalSymbolFilterModel,
+    BinancePercentPriceSymbolFilterJson, BinancePercentPriceSymbolFilterModel,
+    BinanceSymbolFilterJson, BinanceSymbolFilterModel, BinanceSymbolFilters,
+    BinanceSymbolFiltersJson)
 from exapi.models.binance.mapper import BinanceModelsMapper
 
 
@@ -749,3 +764,325 @@ def test_map_to_trades(mapper: BinanceModelsMapper) -> None:
         }
     ]
     assert mapper.map_to_trades(json) == expected
+
+
+def test_map_to_percent_price_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinancePercentPriceSymbolFilterModel(
+        filter_type="PERCENT_PRICE",
+        multiplier_up=Decimal("20.4"),
+        multiplier_down=Decimal("20.3"),
+        avg_price_mins=10)
+    json: BinancePercentPriceSymbolFilterJson = {
+        "filterType": "PERCENT_PRICE",
+        "multiplierUp": "20.4",
+        "multiplierDown": "20.3",
+        "avgPriceMins": 10
+    }
+    assert mapper.map_to_percent_price_symbol_filter(json) == expected
+
+
+def test_map_to_lot_size_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceLotSizeSymbolFilterModel(
+        filter_type="LOT_SIZE",
+        min_qty=Decimal("20.4"),
+        max_qty=Decimal("20.3"),
+        step_size=Decimal("5.3"))
+    json: BinanceLotSizeSymbolFilterJson = {
+        "filterType": "LOT_SIZE",
+        "minQty": "20.4",
+        "maxQty": "20.3",
+        "stepSize": "5.3"
+    }
+    assert mapper.map_to_lot_size_symbol_filter(json) == expected
+
+
+def test_map_to_min_notional_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMinNotionalSymbolFilterModel(
+        filter_type="MIN_NOTIONAL",
+        min_notional=Decimal("10.3"),
+        apply_to_market=True,
+        avg_price_mins=10)
+    json: BinanceMinNotionalSymbolFilterJson = {
+        "filterType": "MIN_NOTIONAL",
+        "minNotional": "10.3",
+        "applyToMarket": True,
+        "avgPriceMins": 10
+    }
+    assert mapper.map_to_min_notional_symbol_filter(json) == expected
+
+
+def test_map_to_iceberg_parts_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceIcebergPartsSymbolFilterModel(
+        filter_type="ICEBERG_PARTS",
+        limit=10)
+    json: BinanceIcebergPartsSymbolFilterJson = {
+        "filterType": "ICEBERG_PARTS",
+        "limit": 10
+    }
+    assert mapper.map_to_iceberg_parts_symbol_filter(json) == expected
+
+
+def test_map_to_market_lot_size_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMarketLotSizeSymbolFilterModel(
+        filter_type="MARKET_LOT_SIZE",
+        min_qty=Decimal("20.4"),
+        max_qty=Decimal("20.3"),
+        step_size=Decimal("5.3"))
+    json: BinanceMarketLotSizeSymbolFilterJson = {
+        "filterType": "MARKET_LOT_SIZE",
+        "minQty": "20.4",
+        "maxQty": "20.3",
+        "stepSize": "5.3"
+    }
+    assert mapper.map_to_market_lot_size_symbol_filter(json) == expected
+
+
+def test_map_to_max_num_orders_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMaxNumOrdersSymbolFilterModel(
+        filter_type="MAX_NUM_ORDERS",
+        max_num_orders=10)
+    json: BinanceMaxNumOrdersSymbolFilterJson = {
+        "filterType": "MAX_NUM_ORDERS",
+        "maxNumOrders": 10
+    }
+    assert mapper.map_to_max_num_orders_symbol_filter(json) == expected
+
+
+def test_map_to_max_num_algo_orders_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMaxNumAlgoOrdersSymbolFilterModel(
+        filter_type="MAX_NUM_ALGO_ORDERS",
+        max_num_algo_orders=10)
+    json: BinanceMaxNumAlgoOrdersSymbolFilterJson = {
+        "filterType": "MAX_NUM_ALGO_ORDERS",
+        "maxNumAlgoOrders": 10
+    }
+    assert mapper.map_to_max_num_algo_orders_symbol_filter(json) == expected
+
+
+def test_map_to_max_num_iceberg_orders_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMaxNumIcebergOrdersSymbolFilterModel(
+        filter_type="MAX_NUM_ICEBERG_ORDERS",
+        max_num_iceberg_orders=10)
+    json: BinanceMaxNumIcebergOrdersSymbolFilterJson = {
+        "filterType": "MAX_NUM_ICEBERG_ORDERS",
+        "maxNumIcebergOrders": 10
+    }
+    assert mapper.map_to_max_num_iceberg_orders_symbol_filter(json) == expected
+
+
+def test_map_to_max_position_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMaxPositionSymbolFilterModel(
+        filter_type="MAX_POSITION",
+        max_position=Decimal("10.3"))
+    json: BinanceMaxPositionSymbolFilterJson = {
+        "filterType": "MAX_POSITION",
+        "maxPosition": "10.3"
+    }
+    assert mapper.map_to_max_position_symbol_filter(json) == expected
+
+
+def test_map_symbol_filter(mapper: BinanceModelsMapper) -> None:
+    expected: BinanceSymbolFilterModel
+    json: BinanceSymbolFilterJson
+
+    expected = BinancePercentPriceSymbolFilterModel(
+        filter_type="PERCENT_PRICE",
+        multiplier_up=Decimal("20.4"),
+        multiplier_down=Decimal("20.3"),
+        avg_price_mins=10)
+    json = {
+        "filterType": "PERCENT_PRICE",
+        "multiplierUp": "20.4",
+        "multiplierDown": "20.3",
+        "avgPriceMins": 10
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceLotSizeSymbolFilterModel(
+        filter_type="LOT_SIZE",
+        min_qty=Decimal("20.4"),
+        max_qty=Decimal("20.3"),
+        step_size=Decimal("5.3"))
+    json = {
+        "filterType": "LOT_SIZE",
+        "minQty": "20.4",
+        "maxQty": "20.3",
+        "stepSize": "5.3"
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceMinNotionalSymbolFilterModel(
+        filter_type="MIN_NOTIONAL",
+        min_notional=Decimal("10.3"),
+        apply_to_market=True,
+        avg_price_mins=10)
+    json = {
+        "filterType": "MIN_NOTIONAL",
+        "minNotional": "10.3",
+        "applyToMarket": True,
+        "avgPriceMins": 10
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceIcebergPartsSymbolFilterModel(
+        filter_type="ICEBERG_PARTS",
+        limit=10)
+    json = {
+        "filterType": "ICEBERG_PARTS",
+        "limit": 10
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceMarketLotSizeSymbolFilterModel(
+        filter_type="MARKET_LOT_SIZE",
+        min_qty=Decimal("20.4"),
+        max_qty=Decimal("20.3"),
+        step_size=Decimal("5.3"))
+    json = {
+        "filterType": "MARKET_LOT_SIZE",
+        "minQty": "20.4",
+        "maxQty": "20.3",
+        "stepSize": "5.3"
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceMaxNumOrdersSymbolFilterModel(
+        filter_type="MAX_NUM_ORDERS",
+        max_num_orders=10)
+    json = {
+        "filterType": "MAX_NUM_ORDERS",
+        "maxNumOrders": 10
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceMaxNumAlgoOrdersSymbolFilterModel(
+        filter_type="MAX_NUM_ALGO_ORDERS",
+        max_num_algo_orders=10)
+    json = {
+        "filterType": "MAX_NUM_ALGO_ORDERS",
+        "maxNumAlgoOrders": 10
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceMaxNumIcebergOrdersSymbolFilterModel(
+        filter_type="MAX_NUM_ICEBERG_ORDERS",
+        max_num_iceberg_orders=10)
+    json = {
+        "filterType": "MAX_NUM_ICEBERG_ORDERS",
+        "maxNumIcebergOrders": 10
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    expected = BinanceMaxPositionSymbolFilterModel(
+        filter_type="MAX_POSITION",
+        max_position=Decimal("10.3"))
+    json = {
+        "filterType": "MAX_POSITION",
+        "maxPosition": "10.3"
+    }
+    assert mapper.map_to_symbol_filter(json) == expected
+
+    json = {
+        "filterType": "AA"
+    }
+    with pytest.raises(AssertionError):
+        mapper.map_to_symbol_filter(json)
+
+
+def test_map_symbol_filters(mapper: BinanceModelsMapper) -> None:
+    expected: BinanceSymbolFilters
+    json: BinanceSymbolFiltersJson
+
+    expected = [
+        BinancePercentPriceSymbolFilterModel(
+            filter_type="PERCENT_PRICE",
+            multiplier_up=Decimal("20.4"),
+            multiplier_down=Decimal("20.3"),
+            avg_price_mins=10),
+        BinanceLotSizeSymbolFilterModel(
+            filter_type="LOT_SIZE",
+            min_qty=Decimal("20.4"),
+            max_qty=Decimal("20.3"),
+            step_size=Decimal("5.3")),
+        BinanceMinNotionalSymbolFilterModel(
+            filter_type="MIN_NOTIONAL",
+            min_notional=Decimal("10.3"),
+            apply_to_market=True,
+            avg_price_mins=10),
+        BinanceIcebergPartsSymbolFilterModel(
+            filter_type="ICEBERG_PARTS",
+            limit=10),
+        BinanceMarketLotSizeSymbolFilterModel(
+            filter_type="MARKET_LOT_SIZE",
+            min_qty=Decimal("20.4"),
+            max_qty=Decimal("20.3"),
+            step_size=Decimal("5.3")),
+        BinanceMaxNumOrdersSymbolFilterModel(
+            filter_type="MAX_NUM_ORDERS",
+            max_num_orders=10),
+        BinanceMaxNumAlgoOrdersSymbolFilterModel(
+            filter_type="MAX_NUM_ALGO_ORDERS",
+            max_num_algo_orders=10),
+        BinanceMaxNumIcebergOrdersSymbolFilterModel(
+            filter_type="MAX_NUM_ICEBERG_ORDERS",
+            max_num_iceberg_orders=10),
+        BinanceMaxPositionSymbolFilterModel(
+            filter_type="MAX_POSITION",
+            max_position=Decimal("10.3"))
+    ]
+    json = [
+        {
+            "filterType": "PERCENT_PRICE",
+            "multiplierUp": "20.4",
+            "multiplierDown": "20.3",
+            "avgPriceMins": 10
+        },
+        {
+            "filterType": "LOT_SIZE",
+            "minQty": "20.4",
+            "maxQty": "20.3",
+            "stepSize": "5.3"
+        },
+        {
+            "filterType": "MIN_NOTIONAL",
+            "minNotional": "10.3",
+            "applyToMarket": True,
+            "avgPriceMins": 10
+        },
+        {
+            "filterType": "ICEBERG_PARTS",
+            "limit": 10
+        },
+        {
+            "filterType": "MARKET_LOT_SIZE",
+            "minQty": "20.4",
+            "maxQty": "20.3",
+            "stepSize": "5.3"
+        },
+        {
+            "filterType": "MAX_NUM_ORDERS",
+            "maxNumOrders": 10
+        },
+        {
+            "filterType": "MAX_NUM_ALGO_ORDERS",
+            "maxNumAlgoOrders": 10
+        },
+        {
+            "filterType": "MAX_NUM_ICEBERG_ORDERS",
+            "maxNumIcebergOrders": 10
+        },
+        {
+            "filterType": "MAX_POSITION",
+            "maxPosition": "10.3"
+        }
+    ]
+
+    assert mapper.map_to_symbol_filters(json) == expected
+
+    json = [
+        {
+            "filterType": "AA"
+        }
+    ]
+    with pytest.raises(AssertionError):
+        mapper.map_to_symbol_filters(json)
