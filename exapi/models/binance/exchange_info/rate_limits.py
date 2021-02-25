@@ -14,7 +14,7 @@ class BinanceRequestWeightRateLimitJson(TypedDict):
 
 
 @dataclass(frozen=True)
-class BinanceRequestWeightRateLimitModel(TypedDict):
+class BinanceRequestWeightRateLimitModel:
     """Request weight rate limit.
 
     Args:
