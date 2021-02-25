@@ -1,5 +1,6 @@
 """Has binance symbol model."""
 
+from dataclasses import dataclass
 from typing import List, TypedDict
 
 from exapi.models.binance.typedefs import (OrderTypes, SymbolPermissions,
@@ -19,13 +20,14 @@ class BinanceSymbolJson(TypedDict):
     orderTypes: OrderTypes
     icebergAllowed: bool
     ocoAllowed: bool
-    isSpotTradinAllowed: bool
+    isSpotTradingAllowed: bool
     isMarginTradingAllowed: bool
     filters: BinanceSymbolFiltersJson
     permissions: SymbolPermissions
 
 
-class BinanceSymbolModel(TypedDict):
+@dataclass(frozen=True)
+class BinanceSymbolModel:
     """Binance symbol model.
 
     Args:
