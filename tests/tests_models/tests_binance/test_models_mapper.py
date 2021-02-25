@@ -45,6 +45,8 @@ from exapi.models.binance.exchange_info.filters.symbol import (
     BinancePercentPriceSymbolFilterJson, BinancePercentPriceSymbolFilterModel,
     BinanceSymbolFilterJson, BinanceSymbolFilterModel, BinanceSymbolFilters,
     BinanceSymbolFiltersJson)
+from exapi.models.binance.exchange_info.symbol import (BinanceSymbolJson,
+                                                       BinanceSymbolModel)
 from exapi.models.binance.mapper import BinanceModelsMapper
 
 
@@ -1086,3 +1088,67 @@ def test_map_symbol_filters(mapper: BinanceModelsMapper) -> None:
     ]
     with pytest.raises(AssertionError):
         mapper.map_to_symbol_filters(json)
+
+    json = []
+    expected = []
+    assert mapper.map_to_symbol_filters(json) == expected
+
+
+def test_map_to_symbol(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceSymbolModel(
+        symbol="BTCUSDT",
+        status="TRADING",
+        base_asset="BTC",
+        base_asset_precision=8,
+        quote_asset="USDT",
+        quote_precision=2,
+        quote_asset_precision=4,
+        order_types=["LIMIT", "STOP_LOSS"],
+        iceberg_allowed=False,
+        oco_allowed=False,
+        is_spot_trading_allowed=True,
+        is_margin_trading_allowed=True,
+        filters=[
+            BinancePercentPriceSymbolFilterModel(
+                filter_type="PERCENT_PRICE",
+                multiplier_down=Decimal("10.3"),
+                multiplier_up=Decimal("10.4"),
+                avg_price_mins=10),
+            BinanceLotSizeSymbolFilterModel(
+                filter_type="LOT_SIZE",
+                min_qty=Decimal("10.1"),
+                max_qty=Decimal("10.4"),
+                step_size=Decimal("1.2"))
+        ],
+        permissions=["SPOT", "MARGIN"])
+    json: BinanceSymbolJson = {
+        "symbol": "BTCUSDT",
+        "status": "TRADING",
+        "baseAsset": "BTC",
+        "baseAssetPrecision": 8,
+        "quoteAsset": "USDT",
+        "quotePrecision": 2,
+        "quoteAssetPrecision": 4,
+        "orderTypes": ["LIMIT", "STOP_LOSS"],
+        "icebergAllowed": False,
+        "ocoAllowed": False,
+        "isSpotTradingAllowed": True,
+        "isMarginTradingAllowed": True,
+        "filters": [
+            {
+                "filterType": "PERCENT_PRICE",
+                "multiplierDown": "10.3",
+                "multiplierUp": "10.4",
+                "avgPriceMins": 10
+            },
+            {
+                "filterType": "LOT_SIZE",
+                "minQty": "10.1",
+                "maxQty": "10.4",
+                "stepSize": "1.2"
+            }
+        ],
+        "permissions": ["SPOT", "MARGIN"]
+    }
+
+    assert mapper.map_to_symbol(json) == expected
