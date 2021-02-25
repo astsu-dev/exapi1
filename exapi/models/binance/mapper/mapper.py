@@ -663,3 +663,43 @@ class BinanceModelsMapper:
 
         res = list(map(self.map_to_symbol_filter, json))
         return res
+
+    def map_to_symbol(self, json: BinanceSymbolJson) -> BinanceSymbolModel:
+        """Maps symbol json to symbol model.
+
+        Args:
+            json (BinanceSymbolJson)
+
+        Returns:
+            BinanceSymbolModel
+        """
+
+        res = BinanceSymbolModel(
+            symbol=json["symbol"],
+            status=json["status"],
+            base_asset=json["baseAsset"],
+            base_asset_precision=json["baseAssetPrecision"],
+            quote_asset=json["quoteAsset"],
+            quote_precision=json["quotePrecision"],
+            quote_asset_precision=json["quoteAssetPrecision"],
+            order_types=json["orderTypes"],
+            iceberg_allowed=json["icebergAllowed"],
+            oco_allowed=json["ocoAllowed"],
+            is_spot_trading_allowed=json["isSpotTradingAllowed"],
+            is_margin_trading_allowed=json["isMarginTradingAllowed"],
+            filters=self.map_to_symbol_filters(json["filters"]),
+            permissions=json["permissions"])
+        return res
+
+    def map_to_symbols(self, json: BinanceSymbolsJson) -> BinanceSymbols:
+        """Maps symbols json to symbols.
+
+        Args:
+            json (BinanceSymbolsJson)
+
+        Returns:
+            BinanceSymbols
+        """
+
+        res = list(map(self.map_to_symbol, json))
+        return res
