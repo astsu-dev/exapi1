@@ -6,7 +6,7 @@ from typing import TypedDict
 from .filters.exchange import (BinanceExchangeFilters,
                                BinanceExchangeFiltersJson)
 from .rate_limits import BinanceRateLimits, BinanceRateLimitsJson
-from .symbol import BinanceSymbols
+from .symbol import BinanceSymbols, BinanceSymbolsJson
 
 
 class BinanceExchangeInfoJson(TypedDict):
@@ -14,7 +14,7 @@ class BinanceExchangeInfoJson(TypedDict):
     serverTime: int
     rateLimits: BinanceRateLimitsJson
     exchangeFilters: BinanceExchangeFiltersJson
-    symbols: BinanceSymbols
+    symbols: BinanceSymbolsJson
 
 
 @dataclass(frozen=True)
@@ -30,7 +30,7 @@ class BinanceExchangeInfoModel:
     """
 
     timezone: str
-    serverTime: int
-    rateLimits: BinanceRateLimits
-    exchangeFilters: BinanceExchangeFilters
+    server_time: int
+    rate_limits: BinanceRateLimits
+    exchange_filters: BinanceExchangeFilters
     symbols: BinanceSymbols
