@@ -30,6 +30,17 @@ from exapi.models.binance import (BinanceAveragePriceJson,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTradeJson, BinanceTradeModel,
                                   BinanceTrades, BinanceTradesJson)
+from exapi.models.binance.account_info.balance import (
+    BinanceCurrencyBalanceJson, BinanceCurrencyBalanceModel,
+    BinanceCurrencyBalancesJson)
+from exapi.models.binance.account_info.model import (BinanceAccountInfoJson,
+                                                     BinanceAccountInfoModel)
+from exapi.models.binance.exchange_info.filters.exchange import (
+    BinanceExchangeFilterJson, BinanceExchangeFilterModel,
+    BinanceExchangeFilters, BinanceExchangeFiltersJson,
+    BinanceMaxNumAlgoOrdersExchangeFilterModel,
+    BinanceMaxNumOrdersExchangeFilterJson,
+    BinanceMaxNumOrdersExchangeFilterModel)
 from exapi.models.binance.exchange_info.filters.symbol import (
     BinanceIcebergPartsSymbolFilterJson, BinanceIcebergPartsSymbolFilterModel,
     BinanceLotSizeSymbolFilterJson, BinanceLotSizeSymbolFilterModel,
@@ -45,8 +56,16 @@ from exapi.models.binance.exchange_info.filters.symbol import (
     BinancePercentPriceSymbolFilterJson, BinancePercentPriceSymbolFilterModel,
     BinanceSymbolFilterJson, BinanceSymbolFilterModel, BinanceSymbolFilters,
     BinanceSymbolFiltersJson)
+from exapi.models.binance.exchange_info.model import (BinanceExchangeInfoJson,
+                                                      BinanceExchangeInfoModel)
+from exapi.models.binance.exchange_info.rate_limits import (
+    BinanceOrdersRateLimitJson, BinanceOrdersRateLimitModel,
+    BinanceRateLimitJson, BinanceRateLimitModel,
+    BinanceRawRequestsRateLimitJson, BinanceRawRequestsRateLimitModel,
+    BinanceRequestWeightRateLimitJson, BinanceRequestWeightRateLimitModel)
 from exapi.models.binance.exchange_info.symbol import (BinanceSymbolJson,
-                                                       BinanceSymbolModel)
+                                                       BinanceSymbolModel,
+                                                       BinanceSymbolsJson)
 from exapi.models.binance.mapper import BinanceModelsMapper
 
 
@@ -1152,3 +1171,620 @@ def test_map_to_symbol(mapper: BinanceModelsMapper) -> None:
     }
 
     assert mapper.map_to_symbol(json) == expected
+
+
+def test_map_to_symbols(mapper: BinanceModelsMapper) -> None:
+    expected = [
+        BinanceSymbolModel(
+            symbol="BTCUSDT",
+            status="TRADING",
+            base_asset="BTC",
+            base_asset_precision=8,
+            quote_asset="USDT",
+            quote_precision=2,
+            quote_asset_precision=4,
+            order_types=["LIMIT", "STOP_LOSS"],
+            iceberg_allowed=False,
+            oco_allowed=False,
+            is_spot_trading_allowed=True,
+            is_margin_trading_allowed=True,
+            filters=[
+                BinancePercentPriceSymbolFilterModel(
+                    filter_type="PERCENT_PRICE",
+                    multiplier_down=Decimal("10.3"),
+                    multiplier_up=Decimal("10.4"),
+                    avg_price_mins=10),
+                BinanceLotSizeSymbolFilterModel(
+                    filter_type="LOT_SIZE",
+                    min_qty=Decimal("10.1"),
+                    max_qty=Decimal("10.4"),
+                    step_size=Decimal("1.2"))
+            ],
+            permissions=["SPOT", "MARGIN"]),
+        BinanceSymbolModel(
+            symbol="BTCUSDT",
+            status="TRADING",
+            base_asset="BTC",
+            base_asset_precision=8,
+            quote_asset="USDT",
+            quote_precision=2,
+            quote_asset_precision=4,
+            order_types=["LIMIT", "STOP_LOSS"],
+            iceberg_allowed=False,
+            oco_allowed=False,
+            is_spot_trading_allowed=True,
+            is_margin_trading_allowed=True,
+            filters=[
+                BinancePercentPriceSymbolFilterModel(
+                    filter_type="PERCENT_PRICE",
+                    multiplier_down=Decimal("10.3"),
+                    multiplier_up=Decimal("10.4"),
+                    avg_price_mins=10),
+                BinanceLotSizeSymbolFilterModel(
+                    filter_type="LOT_SIZE",
+                    min_qty=Decimal("10.1"),
+                    max_qty=Decimal("10.4"),
+                    step_size=Decimal("1.2"))
+            ],
+            permissions=["SPOT", "MARGIN"])
+    ]
+    json: BinanceSymbolsJson = [
+        {
+            "symbol": "BTCUSDT",
+            "status": "TRADING",
+            "baseAsset": "BTC",
+            "baseAssetPrecision": 8,
+            "quoteAsset": "USDT",
+            "quotePrecision": 2,
+            "quoteAssetPrecision": 4,
+            "orderTypes": ["LIMIT", "STOP_LOSS"],
+            "icebergAllowed": False,
+            "ocoAllowed": False,
+            "isSpotTradingAllowed": True,
+            "isMarginTradingAllowed": True,
+            "filters": [
+                {
+                    "filterType": "PERCENT_PRICE",
+                    "multiplierDown": "10.3",
+                    "multiplierUp": "10.4",
+                    "avgPriceMins": 10
+                },
+                {
+                    "filterType": "LOT_SIZE",
+                    "minQty": "10.1",
+                    "maxQty": "10.4",
+                    "stepSize": "1.2"
+                }
+            ],
+            "permissions": ["SPOT", "MARGIN"]
+        },
+        {
+            "symbol": "BTCUSDT",
+            "status": "TRADING",
+            "baseAsset": "BTC",
+            "baseAssetPrecision": 8,
+            "quoteAsset": "USDT",
+            "quotePrecision": 2,
+            "quoteAssetPrecision": 4,
+            "orderTypes": ["LIMIT", "STOP_LOSS"],
+            "icebergAllowed": False,
+            "ocoAllowed": False,
+            "isSpotTradingAllowed": True,
+            "isMarginTradingAllowed": True,
+            "filters": [
+                {
+                    "filterType": "PERCENT_PRICE",
+                    "multiplierDown": "10.3",
+                    "multiplierUp": "10.4",
+                    "avgPriceMins": 10
+                },
+                {
+                    "filterType": "LOT_SIZE",
+                    "minQty": "10.1",
+                    "maxQty": "10.4",
+                    "stepSize": "1.2"
+                }
+            ],
+            "permissions": ["SPOT", "MARGIN"]
+        }
+    ]
+
+    assert mapper.map_to_symbols(json) == expected
+
+    expected = []
+    json = []
+
+    assert mapper.map_to_symbols(json) == expected
+
+
+def test_map_to_max_num_orders_exchange_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMaxNumOrdersExchangeFilterModel(
+        filter_type="EXCHANGE_MAX_NUM_ORDERS",
+        max_num_orders=10)
+    json: BinanceMaxNumOrdersExchangeFilterJson = {
+        "filterType": "EXCHANGE_MAX_NUM_ORDERS",
+        "maxNumOrders": 10
+    }
+
+    assert mapper.map_to_max_num_orders_exchange_filter(json) == expected
+
+
+def test_map_to_max_num_algo_orders_exchange_filter(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceMaxNumAlgoOrdersExchangeFilterModel(
+        filter_type="EXCHANGE_MAX_ALGO_ORDERS",
+        max_num_algo_orders=10)
+    json: BinanceMaxNumAlgoOrdersExchangeFilterModel = {
+        "filterType": "EXCHANGE_MAX_ALGO_ORDERS",
+        "maxNumAlgoOrders": 10
+    }
+
+    assert mapper.map_to_max_num_algo_orders_exchange_filter(json) == expected
+
+
+def test_map_to_exchange_filter(mapper: BinanceModelsMapper) -> None:
+    expected: BinanceExchangeFilterModel
+    json: BinanceExchangeFilterJson
+
+    expected = BinanceMaxNumOrdersExchangeFilterModel(
+        filter_type="EXCHANGE_MAX_NUM_ORDERS",
+        max_num_orders=10)
+    json = {
+        "filterType": "EXCHANGE_MAX_NUM_ORDERS",
+        "maxNumOrders": 10
+    }
+    assert mapper.map_to_exchange_filter(json) == expected
+
+    expected = BinanceMaxNumAlgoOrdersExchangeFilterModel(
+        filter_type="EXCHANGE_MAX_ALGO_ORDERS",
+        max_num_algo_orders=10)
+    json = {
+        "filterType": "EXCHANGE_MAX_ALGO_ORDERS",
+        "maxNumAlgoOrders": 10
+    }
+    assert mapper.map_to_exchange_filter(json) == expected
+
+    json = {"filterType": "aa"}
+    with pytest.raises(AssertionError):
+        mapper.map_to_exchange_filter(json)
+
+
+def test_map_to_exchange_filters(mapper: BinanceModelsMapper) -> None:
+    expected: BinanceExchangeFilters
+    json: BinanceExchangeFiltersJson
+
+    expected = [
+        BinanceMaxNumOrdersExchangeFilterModel(
+            filter_type="EXCHANGE_MAX_NUM_ORDERS",
+            max_num_orders=10),
+        BinanceMaxNumAlgoOrdersExchangeFilterModel(
+            filter_type="EXCHANGE_MAX_ALGO_ORDERS",
+            max_num_algo_orders=10)
+    ]
+    json = [
+        {
+            "filterType": "EXCHANGE_MAX_NUM_ORDERS",
+            "maxNumOrders": 10
+        },
+        {
+            "filterType": "EXCHANGE_MAX_ALGO_ORDERS",
+            "maxNumAlgoOrders": 10
+        }
+    ]
+    assert mapper.map_to_exchange_filters(json) == expected
+
+    expected = []
+    json = []
+    assert mapper.map_to_exchange_filters(json) == expected
+
+
+def test_map_to_request_weight_rate_limit(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceRequestWeightRateLimitModel(
+        rate_limit_type="REQUEST_WEIGHT",
+        interval="SECOND",
+        interval_num=10,
+        limit=20)
+    json: BinanceRequestWeightRateLimitJson = {
+        "rateLimitType": "REQUEST_WEIGHT",
+        "interval": "SECOND",
+        "intervalNum": 10,
+        "limit": 20
+    }
+
+    assert mapper.map_to_request_weight_rate_limit(json) == expected
+
+
+def test_map_to_orders_rate_limit(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceOrdersRateLimitModel(
+        rate_limit_type="ORDERS",
+        interval="SECOND",
+        interval_num=10,
+        limit=20)
+    json: BinanceOrdersRateLimitJson = {
+        "rateLimitType": "ORDERS",
+        "interval": "SECOND",
+        "intervalNum": 10,
+        "limit": 20
+    }
+
+    assert mapper.map_to_orders_rate_limit(json) == expected
+
+
+def test_map_to_raw_requests_rate_limit(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceRawRequestsRateLimitModel(
+        rate_limit_type="RAW_REQUESTS",
+        interval="SECOND",
+        interval_num=10,
+        limit=20)
+    json: BinanceRawRequestsRateLimitJson = {
+        "rateLimitType": "RAW_REQUESTS",
+        "interval": "SECOND",
+        "intervalNum": 10,
+        "limit": 20
+    }
+
+    assert mapper.map_to_raw_requests_rate_limit(json) == expected
+
+
+def test_map_to_rate_limit(mapper: BinanceModelsMapper) -> None:
+    expected: BinanceRateLimitModel
+    json: BinanceRateLimitJson
+
+    expected = BinanceRequestWeightRateLimitModel(
+        rate_limit_type="REQUEST_WEIGHT",
+        interval="SECOND",
+        interval_num=10,
+        limit=20)
+    json = {
+        "rateLimitType": "REQUEST_WEIGHT",
+        "interval": "SECOND",
+        "intervalNum": 10,
+        "limit": 20
+    }
+    assert mapper.map_to_rate_limit(json) == expected
+
+    expected = BinanceOrdersRateLimitModel(
+        rate_limit_type="ORDERS",
+        interval="SECOND",
+        interval_num=10,
+        limit=20)
+    json = {
+        "rateLimitType": "ORDERS",
+        "interval": "SECOND",
+        "intervalNum": 10,
+        "limit": 20
+    }
+    assert mapper.map_to_rate_limit(json) == expected
+
+    expected = BinanceRawRequestsRateLimitModel(
+        rate_limit_type="RAW_REQUESTS",
+        interval="SECOND",
+        interval_num=10,
+        limit=20)
+    json = {
+        "rateLimitType": "RAW_REQUESTS",
+        "interval": "SECOND",
+        "intervalNum": 10,
+        "limit": 20
+    }
+    assert mapper.map_to_rate_limit(json) == expected
+
+
+def test_map_to_rate_limits(mapper: BinanceModelsMapper) -> None:
+    expected: BinanceRateLimitModel
+    json: BinanceRateLimitJson
+
+    expected = [
+        BinanceRequestWeightRateLimitModel(
+            rate_limit_type="REQUEST_WEIGHT",
+            interval="SECOND",
+            interval_num=10,
+            limit=20),
+        BinanceOrdersRateLimitModel(
+            rate_limit_type="ORDERS",
+            interval="SECOND",
+            interval_num=10,
+            limit=20),
+        BinanceRawRequestsRateLimitModel(
+            rate_limit_type="RAW_REQUESTS",
+            interval="SECOND",
+            interval_num=10,
+            limit=20)
+    ]
+    json = [
+        {
+            "rateLimitType": "REQUEST_WEIGHT",
+            "interval": "SECOND",
+            "intervalNum": 10,
+            "limit": 20
+        },
+        {
+            "rateLimitType": "ORDERS",
+            "interval": "SECOND",
+            "intervalNum": 10,
+            "limit": 20
+        },
+        {
+            "rateLimitType": "RAW_REQUESTS",
+            "interval": "SECOND",
+            "intervalNum": 10,
+            "limit": 20
+        }
+    ]
+    assert mapper.map_to_rate_limits(json) == expected
+
+    expected = []
+    json = []
+    assert mapper.map_to_rate_limits(json) == expected
+
+
+def test_map_to_exchange_info(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceExchangeInfoModel(
+        timezone="UTC",
+        server_time=500,
+        rate_limits=[
+            BinanceRequestWeightRateLimitModel(
+                rate_limit_type="REQUEST_WEIGHT",
+                interval="SECOND",
+                interval_num=10,
+                limit=20),
+            BinanceOrdersRateLimitModel(
+                rate_limit_type="ORDERS",
+                interval="SECOND",
+                interval_num=10,
+                limit=20),
+            BinanceRawRequestsRateLimitModel(
+                rate_limit_type="RAW_REQUESTS",
+                interval="SECOND",
+                interval_num=10,
+                limit=20)
+        ],
+        exchange_filters=[
+            BinanceMaxNumOrdersExchangeFilterModel(
+                filter_type="EXCHANGE_MAX_NUM_ORDERS",
+                max_num_orders=10),
+            BinanceMaxNumAlgoOrdersExchangeFilterModel(
+                filter_type="EXCHANGE_MAX_ALGO_ORDERS",
+                max_num_algo_orders=10)
+        ],
+        symbols=[
+            BinanceSymbolModel(
+                symbol="BTCUSDT",
+                status="TRADING",
+                base_asset="BTC",
+                base_asset_precision=8,
+                quote_asset="USDT",
+                quote_precision=2,
+                quote_asset_precision=4,
+                order_types=["LIMIT", "STOP_LOSS"],
+                iceberg_allowed=False,
+                oco_allowed=False,
+                is_spot_trading_allowed=True,
+                is_margin_trading_allowed=True,
+                filters=[
+                    BinancePercentPriceSymbolFilterModel(
+                        filter_type="PERCENT_PRICE",
+                        multiplier_down=Decimal("10.3"),
+                        multiplier_up=Decimal("10.4"),
+                        avg_price_mins=10),
+                    BinanceLotSizeSymbolFilterModel(
+                        filter_type="LOT_SIZE",
+                        min_qty=Decimal("10.1"),
+                        max_qty=Decimal("10.4"),
+                        step_size=Decimal("1.2"))
+                ],
+                permissions=["SPOT", "MARGIN"]),
+            BinanceSymbolModel(
+                symbol="BTCUSDT",
+                status="TRADING",
+                base_asset="BTC",
+                base_asset_precision=8,
+                quote_asset="USDT",
+                quote_precision=2,
+                quote_asset_precision=4,
+                order_types=["LIMIT", "STOP_LOSS"],
+                iceberg_allowed=False,
+                oco_allowed=False,
+                is_spot_trading_allowed=True,
+                is_margin_trading_allowed=True,
+                filters=[
+                    BinancePercentPriceSymbolFilterModel(
+                        filter_type="PERCENT_PRICE",
+                        multiplier_down=Decimal("10.3"),
+                        multiplier_up=Decimal("10.4"),
+                        avg_price_mins=10),
+                    BinanceLotSizeSymbolFilterModel(
+                        filter_type="LOT_SIZE",
+                        min_qty=Decimal("10.1"),
+                        max_qty=Decimal("10.4"),
+                        step_size=Decimal("1.2"))
+                ],
+                permissions=["SPOT", "MARGIN"])
+        ])
+    json: BinanceExchangeInfoJson = {
+        "timezone": "UTC",
+        "serverTime": 500,
+        "rateLimits": [
+            {
+                "rateLimitType": "REQUEST_WEIGHT",
+                "interval": "SECOND",
+                "intervalNum": 10,
+                "limit": 20
+            },
+            {
+                "rateLimitType": "ORDERS",
+                "interval": "SECOND",
+                "intervalNum": 10,
+                "limit": 20
+            },
+            {
+                "rateLimitType": "RAW_REQUESTS",
+                "interval": "SECOND",
+                "intervalNum": 10,
+                "limit": 20
+            }
+        ],
+        "exchangeFilters": [
+            {
+                "filterType": "EXCHANGE_MAX_NUM_ORDERS",
+                "maxNumOrders": 10
+            },
+            {
+                "filterType": "EXCHANGE_MAX_ALGO_ORDERS",
+                "maxNumAlgoOrders": 10
+            }
+        ],
+        "symbols": [
+            {
+                "symbol": "BTCUSDT",
+                "status": "TRADING",
+                "baseAsset": "BTC",
+                "baseAssetPrecision": 8,
+                "quoteAsset": "USDT",
+                "quotePrecision": 2,
+                "quoteAssetPrecision": 4,
+                "orderTypes": ["LIMIT", "STOP_LOSS"],
+                "icebergAllowed": False,
+                "ocoAllowed": False,
+                "isSpotTradingAllowed": True,
+                "isMarginTradingAllowed": True,
+                "filters": [
+                    {
+                        "filterType": "PERCENT_PRICE",
+                        "multiplierDown": "10.3",
+                        "multiplierUp": "10.4",
+                        "avgPriceMins": 10
+                    },
+                    {
+                        "filterType": "LOT_SIZE",
+                        "minQty": "10.1",
+                        "maxQty": "10.4",
+                        "stepSize": "1.2"
+                    }
+                ],
+                "permissions": ["SPOT", "MARGIN"]
+            },
+            {
+                "symbol": "BTCUSDT",
+                "status": "TRADING",
+                "baseAsset": "BTC",
+                "baseAssetPrecision": 8,
+                "quoteAsset": "USDT",
+                "quotePrecision": 2,
+                "quoteAssetPrecision": 4,
+                "orderTypes": ["LIMIT", "STOP_LOSS"],
+                "icebergAllowed": False,
+                "ocoAllowed": False,
+                "isSpotTradingAllowed": True,
+                "isMarginTradingAllowed": True,
+                "filters": [
+                    {
+                        "filterType": "PERCENT_PRICE",
+                        "multiplierDown": "10.3",
+                        "multiplierUp": "10.4",
+                        "avgPriceMins": 10
+                    },
+                    {
+                        "filterType": "LOT_SIZE",
+                        "minQty": "10.1",
+                        "maxQty": "10.4",
+                        "stepSize": "1.2"
+                    }
+                ],
+                "permissions": ["SPOT", "MARGIN"]
+            }
+        ]
+    }
+
+    assert mapper.map_to_exchange_info(json) == expected
+
+
+def test_map_to_balance(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceCurrencyBalanceModel(
+        asset="BTC",
+        free=Decimal("10.2"),
+        locked=Decimal("1.1"))
+    json: BinanceCurrencyBalanceJson = {
+        "asset": "BTC",
+        "free": "10.2",
+        "locked": "1.1"
+    }
+    assert mapper.map_to_balance(json) == expected
+
+
+def test_map_to_balances(mapper: BinanceModelsMapper) -> None:
+    expected = [
+        BinanceCurrencyBalanceModel(
+            asset="BTC",
+            free=Decimal("10.2"),
+            locked=Decimal("1.1")),
+        BinanceCurrencyBalanceModel(
+            asset="ETH",
+            free=Decimal("10.2"),
+            locked=Decimal("1.1"))
+    ]
+    json: BinanceCurrencyBalancesJson = [
+        {
+            "asset": "BTC",
+            "free": "10.2",
+            "locked": "1.1"
+        },
+        {
+            "asset": "ETH",
+            "free": "10.2",
+            "locked": "1.1"
+        }
+    ]
+    assert mapper.map_to_balances(json) == expected
+
+    expected = []
+    json = []
+    assert mapper.map_to_balances(json) == expected
+
+
+def test_map_to_account_info(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceAccountInfoModel(
+        maker_commission=10,
+        taker_commission=15,
+        buyer_commission=11,
+        seller_commission=12,
+        can_trade=True,
+        can_withdraw=True,
+        can_deposit=False,
+        update_time=500,
+        account_type="SPOT",
+        balances=[
+            BinanceCurrencyBalanceModel(
+                asset="BTC",
+                free=Decimal("10.2"),
+                locked=Decimal("1.1")),
+            BinanceCurrencyBalanceModel(
+                asset="ETH",
+                free=Decimal("10.2"),
+                locked=Decimal("1.1"))
+        ]
+    )
+    json: BinanceAccountInfoJson = {
+        "makerCommission": 10,
+        "takerCommission": 15,
+        "buyerCommission": 11,
+        "sellerCommission": 12,
+        "canTrade": True,
+        "canWithdraw": True,
+        "canDeposit": False,
+        "updateTime": 500,
+        "accountType": "SPOT",
+        "balances": [
+            {
+                "asset": "BTC",
+                "free": "10.2",
+                "locked": "1.1"
+            },
+            {
+                "asset": "ETH",
+                "free": "10.2",
+                "locked": "1.1"
+            }
+        ]
+    }
+
+    assert mapper.map_to_account_info(json) == expected

@@ -2,7 +2,8 @@
 
 from decimal import Decimal
 
-from exapi.enums.binance import BinanceSymbolFilterType
+from exapi.enums.binance import (BinanceExchangeFilterType,
+                                 BinanceRateLimitType, BinanceSymbolFilterType)
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
                                   BinanceAveragePriceJson,
@@ -22,6 +23,26 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceFilledOrderJson,
                                   BinanceFilledOrderModel, BinanceFilledOrders,
                                   BinanceFilledOrdersJson,
+                                  BinanceIcebergPartsSymbolFilterJson,
+                                  BinanceIcebergPartsSymbolFilterModel,
+                                  BinanceLotSizeSymbolFilterJson,
+                                  BinanceLotSizeSymbolFilterModel,
+                                  BinanceMarketLotSizeSymbolFilterJson,
+                                  BinanceMarketLotSizeSymbolFilterModel,
+                                  BinanceMaxNumAlgoOrdersExchangeFilterJson,
+                                  BinanceMaxNumAlgoOrdersExchangeFilterModel,
+                                  BinanceMaxNumAlgoOrdersSymbolFilterJson,
+                                  BinanceMaxNumAlgoOrdersSymbolFilterModel,
+                                  BinanceMaxNumIcebergOrdersSymbolFilterJson,
+                                  BinanceMaxNumIcebergOrdersSymbolFilterModel,
+                                  BinanceMaxNumOrdersExchangeFilterJson,
+                                  BinanceMaxNumOrdersExchangeFilterModel,
+                                  BinanceMaxNumOrdersSymbolFilterJson,
+                                  BinanceMaxNumOrdersSymbolFilterModel,
+                                  BinanceMaxPositionSymbolFilterJson,
+                                  BinanceMaxPositionSymbolFilterModel,
+                                  BinanceMinNotionalSymbolFilterJson,
+                                  BinanceMinNotionalSymbolFilterModel,
                                   BinanceOrderBookJson, BinanceOrderBookModel,
                                   BinanceOrderBookOrderJson,
                                   BinanceOrderBookOrderModel,
@@ -33,7 +54,11 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceOrderBookTickersJson,
                                   BinanceOrderJson, BinanceOrderModel,
                                   BinanceOrders, BinanceOrdersJson,
+                                  BinancePercentPriceSymbolFilterJson,
+                                  BinancePercentPriceSymbolFilterModel,
                                   BinancePingJson, BinancePingModel,
+                                  BinancePriceSymbolFilterJson,
+                                  BinancePriceSymbolFilterModel,
                                   BinancePriceTickerJson,
                                   BinancePriceTickerModel, BinancePriceTickers,
                                   BinancePriceTickersJson,
@@ -53,20 +78,10 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTradeJson, BinanceTradeModel,
                                   BinanceTrades, BinanceTradesJson)
-from exapi.models.binance.exchange_info.filters import (
-    BinanceIcebergPartsSymbolFilterJson, BinanceIcebergPartsSymbolFilterModel,
-    BinanceLotSizeSymbolFilterJson, BinanceLotSizeSymbolFilterModel,
-    BinanceMarketLotSizeSymbolFilterJson,
-    BinanceMarketLotSizeSymbolFilterModel,
-    BinanceMaxNumAlgoOrdersSymbolFilterJson,
-    BinanceMaxNumAlgoOrdersSymbolFilterModel,
-    BinanceMaxNumIcebergOrdersSymbolFilterJson,
-    BinanceMaxNumIcebergOrdersSymbolFilterModel,
-    BinanceMaxNumOrdersSymbolFilterJson, BinanceMaxNumOrdersSymbolFilterModel,
-    BinanceMaxPositionSymbolFilterJson, BinanceMaxPositionSymbolFilterModel,
-    BinanceMinNotionalSymbolFilterJson, BinanceMinNotionalSymbolFilterModel,
-    BinancePercentPriceSymbolFilterJson, BinancePercentPriceSymbolFilterModel,
-    BinancePriceSymbolFilterJson, BinancePriceSymbolFilterModel)
+from exapi.models.binance.exchange_info.rate_limits import (
+    BinanceOrdersRateLimitJson, BinanceOrdersRateLimitModel,
+    BinanceRawRequestsRateLimitJson, BinanceRawRequestsRateLimitModel,
+    BinanceRequestWeightRateLimitJson, BinanceRequestWeightRateLimitModel)
 
 
 class BinanceModelsMapper:
@@ -702,4 +717,230 @@ class BinanceModelsMapper:
         """
 
         res = list(map(self.map_to_symbol, json))
+        return res
+
+    def map_to_max_num_orders_exchange_filter(
+            self,
+            json: BinanceMaxNumOrdersExchangeFilterJson
+    ) -> BinanceMaxNumOrdersExchangeFilterModel:
+        """Maps max num orders exchnage filter json to
+        max num orders exchange filter model.
+
+        Args:
+            json (BinanceMaxNumOrdersExchangeFilterJson)
+
+        Returns:
+            BinanceMaxNumOrdersExchangeFilterModel
+        """
+
+        res = BinanceMaxNumOrdersExchangeFilterModel(
+            filter_type=json["filterType"],
+            max_num_orders=json["maxNumOrders"])
+        return res
+
+    def map_to_max_num_algo_orders_exchange_filter(
+            self,
+            json: BinanceMaxNumAlgoOrdersExchangeFilterJson
+    ) -> BinanceMaxNumAlgoOrdersExchangeFilterModel:
+        """Maps max num algo orders exchnage filter json to
+        max num algo orders exchange filter model.
+
+        Args:
+            json (BinanceMaxNumAlgoOrdersExchangeFilterJson)
+
+        Returns:
+            BinanceMaxNumAlgoOrdersExchangeFilterModel
+        """
+
+        res = BinanceMaxNumAlgoOrdersExchangeFilterModel(
+            filter_type=json["filterType"],
+            max_num_algo_orders=json["maxNumAlgoOrders"])
+        return res
+
+    def map_to_exchange_filter(self, json: BinanceExchangeFilterJson) -> BinanceExchangeFilterModel:
+        """Maps exchange filter json to exchange filter model.
+
+        Args:
+            json (BinanceExchangeFilterJson)
+
+        Returns:
+            BinanceExchangeFilterModel
+        """
+
+        filter_type = json["filterType"]
+        if filter_type == BinanceExchangeFilterType.MAX_NUM_ORDERS:
+            return self.map_to_max_num_orders_exchange_filter(json)
+        elif filter_type == BinanceExchangeFilterType.MAX_NUM_ALGO_ORDERS:
+            return self.map_to_max_num_algo_orders_exchange_filter(json)
+
+        assert False, f"Unhandled exchange filter: {json}"
+
+    def map_to_exchange_filters(self, json: BinanceExchangeFiltersJson) -> BinanceExchangeFilters:
+        """Maps exchange filters json to exchange filters model.
+
+        Args:
+            json (BinanceExchangeFilterJson)
+
+        Returns:
+            BinanceExchangeFilterModel
+        """
+
+        res = list(map(self.map_to_exchange_filter, json))
+        return res
+
+    def map_to_request_weight_rate_limit(self, json: BinanceRequestWeightRateLimitJson
+                                         ) -> BinanceRequestWeightRateLimitModel:
+        """Maps request weight rate limit json to request weight rate limit model.
+
+        Args:
+            json (BinanceRequestWeightRateLimitJson)
+
+        Returns:
+            BinanceRequestWeightRateLimitModel
+        """
+
+        res = BinanceRequestWeightRateLimitModel(
+            rate_limit_type=json["rateLimitType"],
+            interval=json["interval"],
+            interval_num=json["intervalNum"],
+            limit=json["limit"])
+        return res
+
+    def map_to_orders_rate_limit(self, json: BinanceOrdersRateLimitJson
+                                 ) -> BinanceOrdersRateLimitModel:
+        """Maps orders rate limit json to orders rate limit model.
+
+        Args:
+            json (BinanceOrdersRateLimitJson)
+
+        Returns:
+            BinanceOrdersRateLimitModel
+        """
+
+        res = BinanceOrdersRateLimitModel(
+            rate_limit_type=json["rateLimitType"],
+            interval=json["interval"],
+            interval_num=json["intervalNum"],
+            limit=json["limit"])
+        return res
+
+    def map_to_raw_requests_rate_limit(self, json: BinanceRawRequestsRateLimitJson
+                                       ) -> BinanceRawRequestsRateLimitModel:
+        """Maps raw requests rate limit json to raw requests rate limit model.
+
+        Args:
+            json (BinanceRawRequestsRateLimitJson)
+
+        Returns:
+            BinanceRawRequestsRateLimitModel
+        """
+
+        res = BinanceRawRequestsRateLimitModel(
+            rate_limit_type=json["rateLimitType"],
+            interval=json["interval"],
+            interval_num=json["intervalNum"],
+            limit=json["limit"])
+        return res
+
+    def map_to_rate_limit(self, json: BinanceRateLimitJson) -> BinanceRateLimitModel:
+        """Maps rate limit json to rate limit model.
+
+        Args:
+            json (BinanceRateLimitJson)
+
+        Returns:
+            BinanceRateLimitModel
+        """
+
+        rate_limit_type = json["rateLimitType"]
+
+        if rate_limit_type == BinanceRateLimitType.REQUEST_WEIGHT:
+            return self.map_to_request_weight_rate_limit(json)
+        elif rate_limit_type == BinanceRateLimitType.ORDERS:
+            return self.map_to_orders_rate_limit(json)
+        elif rate_limit_type == BinanceRateLimitType.RAW_REQUESTS:
+            return self.map_to_raw_requests_rate_limit(json)
+
+    def map_to_rate_limits(self, json: BinanceRateLimitsJson) -> BinanceRateLimits:
+        """Maps rate limits json to rate limits model.
+
+        Args:
+            json (BinanceRateLimitsJson)
+
+        Returns:
+            BinanceRateLimits
+        """
+
+        res = list(map(self.map_to_rate_limit, json))
+        return res
+
+    def map_to_exchange_info(self, json: BinanceExchangeInfoJson) -> BinanceExchangeInfoModel:
+        """Maps exchange info json to exchange info model.
+
+        Args:
+            json (BinanceExchangeInfoJson)
+
+        Returns:
+            BinanceExchangeInfoModel
+        """
+
+        res = BinanceExchangeInfoModel(
+            timezone=json["timezone"],
+            server_time=json["serverTime"],
+            rate_limits=self.map_to_rate_limits(json["rateLimits"]),
+            exchange_filters=self.map_to_exchange_filters(
+                json["exchangeFilters"]),
+            symbols=self.map_to_symbols(json["symbols"]))
+        return res
+
+    def map_to_balance(self, json: BinanceCurrencyBalanceJson) -> BinanceCurrencyBalanceModel:
+        """Maps balance json to balance model.
+
+        Args:
+            json (BinanceCurrencyBalanceJson)
+
+        Returns:
+            BinanceCurrencyBalanceModel
+        """
+
+        res = BinanceCurrencyBalanceModel(
+            asset=json["asset"],
+            free=Decimal(json["free"]),
+            locked=Decimal(json["locked"]))
+        return res
+
+    def map_to_balances(self, json: BinanceCurrencyBalancesJson) -> BinanceCurrencyBalances:
+        """Maps balances json to balances model.
+
+        Args:
+            json (BinanceCurrencyBalancesJson)
+
+        Returns:
+            BinanceCurrencyBalances
+        """
+
+        res = list(map(self.map_to_balance, json))
+        return res
+
+    def map_to_account_info(self, json: BinanceAccountInfoJson) -> BinanceAccountInfoModel:
+        """Maps account info json to account info model.
+
+        Args:
+            json (BinanceAccountInfoJson)
+
+        Returns:
+            BinanceAccountInfoModel
+        """
+
+        res = BinanceAccountInfoModel(
+            maker_commission=json["makerCommission"],
+            taker_commission=json["takerCommission"],
+            buyer_commission=json["buyerCommission"],
+            seller_commission=json["sellerCommission"],
+            can_trade=json["canTrade"],
+            can_withdraw=json["canWithdraw"],
+            can_deposit=json["canDeposit"],
+            update_time=json["updateTime"],
+            account_type=json["accountType"],
+            balances=self.map_to_balances(json["balances"]))
         return res
