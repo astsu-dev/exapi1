@@ -19,7 +19,7 @@ from exapi.requesters.typedefs import RequesterResponse
 class IBinanceMarketDataResponseHandler(Protocol):
     """Has methods for handling binance market data responses."""
 
-    def handle_get_ping_response(self, res: RequesterResponse) -> BinancePingModel:
+    async def handle_get_ping_response(self, res: RequesterResponse) -> BinancePingModel:
         """Handles get ping response.
 
         Args:
@@ -29,7 +29,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinancePingModel
         """
 
-    def handle_get_server_time_response(self, res: RequesterResponse
+    async def handle_get_server_time_response(self, res: RequesterResponse
                                         ) -> BinanceServerTimeModel:
         """Handles get server time response.
 
@@ -40,7 +40,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceServerTimeModel
         """
 
-    def handle_get_average_price_response(self, res: RequesterResponse
+    async def handle_get_average_price_response(self, res: RequesterResponse
                                           ) -> BinanceAveragePriceModel:
         """Handles get average price response.
 
@@ -51,7 +51,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceAveragePriceModel
         """
 
-    def handle_get_candles_response(self, res: RequesterResponse) -> BinanceCandles:
+    async def handle_get_candles_response(self, res: RequesterResponse) -> BinanceCandles:
         """Handles get candles response.
 
         Args:
@@ -61,7 +61,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceCandles
         """
 
-    def handle_get_exchange_info_response(self, res: RequesterResponse
+    async def handle_get_exchange_info_response(self, res: RequesterResponse
                                           ) -> BinanceExchangeInfoModel:
         """Handles get exchange info response.
 
@@ -72,7 +72,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceExchangeInfoModel
         """
 
-    def handle_get_order_book_ticker_response(self, res: RequesterResponse
+    async def handle_get_order_book_ticker_response(self, res: RequesterResponse
                                               ) -> BinanceOrderBookTickerModel:
         """Handles get order book ticker response.
 
@@ -83,7 +83,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceOrderBookTickerModel
         """
 
-    def handle_get_order_book_tickers_response(self, res: RequesterResponse
+    async def handle_get_order_book_tickers_response(self, res: RequesterResponse
                                                ) -> BinanceOrderBookTickers:
         """Handles get order book tickers response.
 
@@ -94,7 +94,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceOrderBookTickers
         """
 
-    def handle_get_order_book_response(self, res: RequesterResponse
+    async def handle_get_order_book_response(self, res: RequesterResponse
                                        ) -> BinanceOrderBookModel:
         """Handles get order book response.
 
@@ -105,7 +105,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceOrderBookModel
         """
 
-    def handle_get_order_response(self, res: RequesterResponse) -> BinanceOrderModel:
+    async def handle_get_order_response(self, res: RequesterResponse) -> BinanceOrderModel:
         """Handles get order response.
 
         Args:
@@ -115,7 +115,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceOrderModel
         """
 
-    def handle_get_orders_response(self, res: RequesterResponse) -> BinanceOrders:
+    async def handle_get_orders_response(self, res: RequesterResponse) -> BinanceOrders:
         """Handles get orders response.
 
         Args:
@@ -125,7 +125,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceOrders
         """
 
-    def handle_get_price_ticker_response(self, json: BinancePriceTickerJson
+    async def handle_get_price_ticker_response(self, json: BinancePriceTickerJson
                                          ) -> BinancePriceTickerModel:
         """Handles get price ticker response.
 
@@ -136,7 +136,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinancePriceTickerModel
         """
 
-    def handle_get_price_tickers_response(self, res: RequesterResponse
+    async def handle_get_price_tickers_response(self, res: RequesterResponse
                                           ) -> BinancePriceTickers:
         """Handles get price tickers response.
 
@@ -147,7 +147,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinancePriceTickers
         """
 
-    def handle_get_ticker_price_change_stat_response(self, res: RequesterResponse
+    async def handle_get_ticker_price_change_stat_response(self, res: RequesterResponse
                                                      ) -> BinanceTickerPriceChangeStatModel:
         """Handles get ticker price 24hr change statistics response.
 
@@ -158,7 +158,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceTickerPriceChangeStatModel
         """
 
-    def handle_get_tickers_price_change_stat_response(self, res: RequesterResponse
+    async def handle_get_tickers_price_change_stat_response(self, res: RequesterResponse
                                                       ) -> BinanceTickersPriceChangeStat:
         """Handles get tickers price 24hr change statistics response.
 
@@ -169,7 +169,7 @@ class IBinanceMarketDataResponseHandler(Protocol):
             BinanceTickersPriceChangeStat
         """
 
-    def handle_get_trades_response(self, res: RequesterResponse) -> BinanceTrades:
+    async def handle_get_trades_response(self, res: RequesterResponse) -> BinanceTrades:
         """Handles get trades response.
 
         Args:
