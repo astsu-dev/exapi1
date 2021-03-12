@@ -1,1 +1,2 @@
+from .handler import BinanceMarketDataResponseHandler
 from .interface import IBinanceMarketDataResponseHandler
