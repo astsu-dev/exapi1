@@ -1,71 +1,76 @@
 from decimal import Decimal
 
 import pytest
-from exapi.models.binance import (BinanceAveragePriceJson,
+from exapi.models.binance import (BinanceAccountInfoJson,
+                                  BinanceAccountInfoModel,
+                                  BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandleJson,
-                                  BinanceCandleModel, BinanceCandles,
-                                  BinanceCandlesJson, BinanceFilledOrderJson,
-                                  BinanceFilledOrderModel, BinanceFilledOrders,
+                                  BinanceCandleModel, BinanceCandlesJson,
+                                  BinanceCurrencyBalanceJson,
+                                  BinanceCurrencyBalanceModel,
+                                  BinanceCurrencyBalancesJson,
+                                  BinanceExchangeFilterJson,
+                                  BinanceExchangeFilterModel,
+                                  BinanceExchangeFilters,
+                                  BinanceExchangeFiltersJson,
+                                  BinanceExchangeInfoJson,
+                                  BinanceExchangeInfoModel,
+                                  BinanceFilledOrderJson,
+                                  BinanceFilledOrderModel,
                                   BinanceFilledOrdersJson,
+                                  BinanceIcebergPartsSymbolFilterJson,
+                                  BinanceIcebergPartsSymbolFilterModel,
+                                  BinanceLotSizeSymbolFilterJson,
+                                  BinanceLotSizeSymbolFilterModel,
+                                  BinanceMarketLotSizeSymbolFilterJson,
+                                  BinanceMarketLotSizeSymbolFilterModel,
+                                  BinanceMaxNumAlgoOrdersExchangeFilterModel,
+                                  BinanceMaxNumAlgoOrdersSymbolFilterJson,
+                                  BinanceMaxNumAlgoOrdersSymbolFilterModel,
+                                  BinanceMaxNumIcebergOrdersSymbolFilterJson,
+                                  BinanceMaxNumIcebergOrdersSymbolFilterModel,
+                                  BinanceMaxNumOrdersExchangeFilterJson,
+                                  BinanceMaxNumOrdersExchangeFilterModel,
+                                  BinanceMaxNumOrdersSymbolFilterJson,
+                                  BinanceMaxNumOrdersSymbolFilterModel,
+                                  BinanceMaxPositionSymbolFilterJson,
+                                  BinanceMaxPositionSymbolFilterModel,
+                                  BinanceMinNotionalSymbolFilterJson,
+                                  BinanceMinNotionalSymbolFilterModel,
                                   BinanceOrderBookJson, BinanceOrderBookModel,
                                   BinanceOrderBookOrderJson,
                                   BinanceOrderBookOrderModel,
-                                  BinanceOrderBookOrders,
                                   BinanceOrderBookOrdersJson,
                                   BinanceOrderBookTickerJson,
                                   BinanceOrderBookTickerModel,
-                                  BinanceOrderBookTickers,
                                   BinanceOrderBookTickersJson,
                                   BinanceOrderJson, BinanceOrderModel,
-                                  BinanceOrders, BinanceOrdersJson,
+                                  BinanceOrdersJson,
+                                  BinanceOrdersRateLimitJson,
+                                  BinanceOrdersRateLimitModel,
+                                  BinancePercentPriceSymbolFilterJson,
+                                  BinancePercentPriceSymbolFilterModel,
                                   BinancePingJson, BinancePingModel,
                                   BinancePriceTickerJson,
-                                  BinancePriceTickerModel, BinancePriceTickers,
+                                  BinancePriceTickerModel,
                                   BinancePriceTickersJson,
+                                  BinanceRateLimitJson, BinanceRateLimitModel,
+                                  BinanceRawRequestsRateLimitJson,
+                                  BinanceRawRequestsRateLimitModel,
+                                  BinanceRequestWeightRateLimitJson,
+                                  BinanceRequestWeightRateLimitModel,
                                   BinanceServerTimeJson,
                                   BinanceServerTimeModel,
+                                  BinanceSymbolFilterJson,
+                                  BinanceSymbolFilterModel,
+                                  BinanceSymbolFilters,
+                                  BinanceSymbolFiltersJson, BinanceSymbolJson,
+                                  BinanceSymbolModel, BinanceSymbolsJson,
                                   BinanceTickerPriceChangeStatJson,
                                   BinanceTickerPriceChangeStatModel,
-                                  BinanceTickersPriceChangeStat,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTradeJson, BinanceTradeModel,
-                                  BinanceTrades, BinanceTradesJson)
-from exapi.models.binance.account_info.balance import (
-    BinanceCurrencyBalanceJson, BinanceCurrencyBalanceModel,
-    BinanceCurrencyBalancesJson)
-from exapi.models.binance.account_info.model import (BinanceAccountInfoJson,
-                                                     BinanceAccountInfoModel)
-from exapi.models.binance.exchange_info.filters.exchange import (
-    BinanceExchangeFilterJson, BinanceExchangeFilterModel,
-    BinanceExchangeFilters, BinanceExchangeFiltersJson,
-    BinanceMaxNumAlgoOrdersExchangeFilterModel,
-    BinanceMaxNumOrdersExchangeFilterJson,
-    BinanceMaxNumOrdersExchangeFilterModel)
-from exapi.models.binance.exchange_info.filters.symbol import (
-    BinanceIcebergPartsSymbolFilterJson, BinanceIcebergPartsSymbolFilterModel,
-    BinanceLotSizeSymbolFilterJson, BinanceLotSizeSymbolFilterModel,
-    BinanceMarketLotSizeSymbolFilterJson,
-    BinanceMarketLotSizeSymbolFilterModel,
-    BinanceMaxNumAlgoOrdersSymbolFilterJson,
-    BinanceMaxNumAlgoOrdersSymbolFilterModel,
-    BinanceMaxNumIcebergOrdersSymbolFilterJson,
-    BinanceMaxNumIcebergOrdersSymbolFilterModel,
-    BinanceMaxNumOrdersSymbolFilterJson, BinanceMaxNumOrdersSymbolFilterModel,
-    BinanceMaxPositionSymbolFilterJson, BinanceMaxPositionSymbolFilterModel,
-    BinanceMinNotionalSymbolFilterJson, BinanceMinNotionalSymbolFilterModel,
-    BinancePercentPriceSymbolFilterJson, BinancePercentPriceSymbolFilterModel,
-    BinanceSymbolFilterJson, BinanceSymbolFilterModel, BinanceSymbolFilters,
-    BinanceSymbolFiltersJson)
-from exapi.models.binance.exchange_info.model import (BinanceExchangeInfoJson,
-                                                      BinanceExchangeInfoModel)
-from exapi.models.binance.exchange_info.rate_limits import (
-    BinanceOrdersRateLimitJson, BinanceOrdersRateLimitModel,
-    BinanceRateLimitJson, BinanceRateLimitModel,
-    BinanceRawRequestsRateLimitJson, BinanceRawRequestsRateLimitModel,
-    BinanceRequestWeightRateLimitJson, BinanceRequestWeightRateLimitModel)
-from exapi.models.binance.exchange_info.symbol import (BinanceSymbolJson,
-                                                       BinanceSymbolModel,
-                                                       BinanceSymbolsJson)
+                                  BinanceTradesJson)
 from exapi.models.binance.mapper import BinanceModelsMapper
 
 
@@ -95,37 +100,6 @@ def test_map_to_average_price(mapper: BinanceModelsMapper) -> None:
         "price": "1500.2"
     }
     assert mapper.map_to_average_price(json) == expected
-
-
-def test_map_to_candle(mapper: BinanceModelsMapper) -> None:
-    expected = BinanceCandleModel(
-        open_time=1500,
-        open=Decimal("1500.5"),
-        high=Decimal("1500.6"),
-        low=Decimal("1500.7"),
-        close=Decimal("1500.8"),
-        volume=Decimal("1500.9"),
-        close_time=1600,
-        quote_volume=Decimal("1500.0"),
-        trades_num=150,
-        taker_buy_base_volume=Decimal("1500.4"),
-        taker_buy_quote_volume=Decimal("1500.3"),
-        ignore=Decimal("1500.2"))
-    json: BinanceCandleJson = [
-        1500,
-        "1500.5",
-        "1500.6",
-        "1500.7",
-        "1500.8",
-        "1500.9",
-        1600,
-        "1500.0",
-        150,
-        "1500.4",
-        "1500.3",
-        "1500.2"
-    ]
-    assert mapper.map_to_candle(json) == expected
 
 
 def test_map_to_candle(mapper: BinanceModelsMapper) -> None:
