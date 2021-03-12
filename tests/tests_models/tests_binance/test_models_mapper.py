@@ -9,6 +9,7 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceCurrencyBalanceJson,
                                   BinanceCurrencyBalanceModel,
                                   BinanceCurrencyBalancesJson,
+                                  BinanceErrorJson, BinanceErrorModel,
                                   BinanceExchangeFilterJson,
                                   BinanceExchangeFilterModel,
                                   BinanceExchangeFilters,
@@ -77,6 +78,15 @@ from exapi.models.binance.mapper import BinanceModelsMapper
 @pytest.fixture(scope="module")
 def mapper() -> BinanceModelsMapper:
     return BinanceModelsMapper()
+
+
+def test_map_to_error(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceErrorModel(code=-1001, msg="Not enough money.")
+    json: BinanceErrorJson = {
+        "code": -1001,
+        "msg": "Not enough money."
+    }
+    assert mapper.map_to_error(json) == expected
 
 
 def test_map_to_ping(mapper: BinanceModelsMapper) -> None:
