@@ -3,6 +3,10 @@ from decimal import Decimal
 import pytest
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
+                                  BinanceAggregateTradeJson,
+                                  BinanceAggregateTradeModel,
+                                  BinanceAggregateTrades,
+                                  BinanceAggregateTradesJson,
                                   BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandleJson,
                                   BinanceCandleModel, BinanceCandlesJson,
@@ -126,7 +130,7 @@ def test_map_to_candle(mapper: BinanceModelsMapper) -> None:
         taker_buy_base_volume=Decimal("1500.4"),
         taker_buy_quote_volume=Decimal("1500.3"),
         ignore=Decimal("1500.2"))
-    json: BinanceCandleJson = [
+    json: BinanceCandleJson = (
         1500,
         "1500.5",
         "1500.6",
@@ -139,7 +143,7 @@ def test_map_to_candle(mapper: BinanceModelsMapper) -> None:
         "1500.4",
         "1500.3",
         "1500.2"
-    ]
+    )
     assert mapper.map_to_candle(json) == expected
 
 
@@ -260,10 +264,10 @@ def test_map_to_order_book_order(mapper: BinanceModelsMapper) -> None:
     expected = BinanceOrderBookOrderModel(
         price=Decimal("1200.5"),
         quantity=Decimal("399.6"))
-    json: BinanceOrderBookOrderJson = [
+    json: BinanceOrderBookOrderJson = (
         "1200.5",
         "399.6"
-    ]
+    )
     assert mapper.map_to_order_book_order(json) == expected
 
 
@@ -769,6 +773,75 @@ def test_map_to_trades(mapper: BinanceModelsMapper) -> None:
         }
     ]
     assert mapper.map_to_trades(json) == expected
+
+
+def test_map_to_aggregate_trade(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceAggregateTradeModel(
+        id=5,
+        price=Decimal("10.5"),
+        qty=Decimal("10.3"),
+        first_id=52,
+        last_id=57,
+        time=1005,
+        is_buyer_maker=True,
+        is_best_match=False)
+    json: BinanceAggregateTradeJson = {
+        "a": 5,
+        "p": "10.5",
+        "q": "10.3",
+        "f": 52,
+        "l": 57,
+        "T": 1005,
+        "m": True,
+        "M": False
+    }
+    assert mapper.map_to_aggregate_trade(json) == expected
+
+
+def test_map_to_aggregate_trades(mapper: BinanceModelsMapper) -> None:
+    expected = [
+        BinanceAggregateTradeModel(
+            id=5,
+            price=Decimal("10.5"),
+            qty=Decimal("10.3"),
+            first_id=52,
+            last_id=57,
+            time=1005,
+            is_buyer_maker=True,
+            is_best_match=False),
+        BinanceAggregateTradeModel(
+            id=6,
+            price=Decimal("10.5"),
+            qty=Decimal("10.3"),
+            first_id=52,
+            last_id=57,
+            time=1005,
+            is_buyer_maker=True,
+            is_best_match=False)
+    ]
+    json: BinanceAggregateTradesJson = [
+        {
+            "a": 5,
+            "p": "10.5",
+            "q": "10.3",
+            "f": 52,
+            "l": 57,
+            "T": 1005,
+            "m": True,
+            "M": False
+        },
+        {
+            "a": 6,
+            "p": "10.5",
+            "q": "10.3",
+            "f": 52,
+            "l": 57,
+            "T": 1005,
+            "m": True,
+            "M": False
+        }
+    ]
+    assert mapper.map_to_aggregate_trades(json) == expected
 
 
 def test_map_to_percent_price_symbol_filter(mapper: BinanceModelsMapper) -> None:

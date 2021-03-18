@@ -6,6 +6,10 @@ from exapi.enums.binance import (BinanceExchangeFilterType,
                                  BinanceRateLimitType, BinanceSymbolFilterType)
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
+                                  BinanceAggregateTradeJson,
+                                  BinanceAggregateTradeModel,
+                                  BinanceAggregateTrades,
+                                  BinanceAggregateTradesJson,
                                   BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandleJson,
                                   BinanceCandleModel, BinanceCandles,
@@ -450,6 +454,42 @@ class BinanceModelsMapper(IBinanceModelsMapper, BinanceBaseModelsMapper):
         """
 
         res = list(map(self.map_to_trade, json))
+        return res
+
+    def map_to_aggregate_trade(self, json: BinanceAggregateTradeJson
+                               ) -> BinanceAggregateTradeModel:
+        """Maps aggregate trade json to aggregate trade model.
+
+        Args:
+            json (BinanceAggregateTradeJson)
+
+        Returns:
+            BinanceAggregateTradeModel
+        """
+
+        res = BinanceAggregateTradeModel(
+            id=json["a"],
+            price=Decimal(json["p"]),
+            qty=Decimal(json["q"]),
+            first_id=json["f"],
+            last_id=json["l"],
+            time=json["T"],
+            is_buyer_maker=json["m"],
+            is_best_match=json["M"])
+        return res
+
+    def map_to_aggregate_trades(self, json: BinanceAggregateTradesJson
+                                ) -> BinanceAggregateTrades:
+        """Maps aggregate trades json to aggregate trades model.
+
+        Args:
+            json (BinanceAggregateTradesJson)
+
+        Returns:
+            BinanceAggregateTrades
+        """
+
+        res = list(map(self.map_to_aggregate_trade, json))
         return res
 
     def map_to_price_symbol_filter(self, json: BinancePriceSymbolFilterJson

@@ -1,6 +1,8 @@
 """Has binance market data models mapper interface."""
 
-from exapi.models.binance import (BinanceAveragePriceJson,
+from exapi.models.binance import (BinanceAggregateTrades,
+                                  BinanceAggregateTradesJson,
+                                  BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandles,
                                   BinanceCandlesJson, BinanceExchangeInfoJson,
                                   BinanceExchangeInfoModel,
@@ -20,6 +22,7 @@ from exapi.models.binance import (BinanceAveragePriceJson,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTrades, BinanceTradesJson)
 from exapi.models.binance.mapper.base import IBinanceBaseModelsMapper
+from exapi.models.binance.trade import BinanceAggregateTradeModel
 
 
 class IBinanceMarketDataModelsMapper(IBinanceBaseModelsMapper):
@@ -152,6 +155,16 @@ class IBinanceMarketDataModelsMapper(IBinanceBaseModelsMapper):
 
         Returns:
             BinanceTrades
+        """
+
+    def map_to_aggregate_trades(self, json: BinanceAggregateTradesJson) -> BinanceAggregateTrades:
+        """Maps aggregate trades json to aggregate trades model.
+
+        Args:
+            json (BinanceAggregateTradesJson)
+
+        Returns:
+            BinanceAggregateTrades
         """
 
     def map_to_exchange_info(self, json: BinanceExchangeInfoJson) -> BinanceExchangeInfoModel:
