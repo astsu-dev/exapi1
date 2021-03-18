@@ -5,7 +5,8 @@ from unittest import mock
 import pytest
 from exapi.api.binance.market_data.response_handler import \
     BinanceMarketDataResponseHandler
-from exapi.models.binance import (BinanceAveragePriceModel, BinanceCandleModel,
+from exapi.models.binance import (BinanceAggregateTradeModel,
+                                  BinanceAveragePriceModel, BinanceCandleModel,
                                   BinanceExchangeInfoModel,
                                   BinanceLotSizeSymbolFilterModel,
                                   BinanceMaxNumAlgoOrdersExchangeFilterModel,
@@ -20,9 +21,8 @@ from exapi.models.binance import (BinanceAveragePriceModel, BinanceCandleModel,
                                   BinanceRawRequestsRateLimitModel,
                                   BinanceRequestWeightRateLimitModel,
                                   BinanceServerTimeModel, BinanceSymbolModel,
-                                  BinanceSymbolsJson,
                                   BinanceTickerPriceChangeStatModel,
-                                  BinanceTradeJson, BinanceTradeModel)
+                                  BinanceTradeModel)
 from exapi.models.binance.mapper import BinanceModelsMapper
 from exapi.models.binance.mapper.market_data.interface import \
     IBinanceMarketDataModelsMapper
@@ -612,3 +612,51 @@ async def test_handle_get_trades_response(handler: BinanceMarketDataResponseHand
             }
         ]
         assert await handler.handle_get_trades_response(mock.Mock()) == expected
+
+
+@pytest.mark.asyncio
+async def test_handle_get_aggregate_trades_response(handler: BinanceMarketDataResponseHandler) -> None:
+    expected = [
+        BinanceAggregateTradeModel(
+            id=5,
+            price=Decimal("10.5"),
+            qty=Decimal("10.3"),
+            first_id=52,
+            last_id=57,
+            time=1005,
+            is_buyer_maker=True,
+            is_best_match=False),
+        BinanceAggregateTradeModel(
+            id=6,
+            price=Decimal("10.5"),
+            qty=Decimal("10.3"),
+            first_id=52,
+            last_id=57,
+            time=1005,
+            is_buyer_maker=True,
+            is_best_match=False)
+    ]
+    with mock.patch(HANDLE_RESPONSE_PATH) as handle_response:
+        handle_response.return_value = [
+            {
+                "a": 5,
+                "p": "10.5",
+                "q": "10.3",
+                "f": 52,
+                "l": 57,
+                "T": 1005,
+                "m": True,
+                "M": False
+            },
+            {
+                "a": 6,
+                "p": "10.5",
+                "q": "10.3",
+                "f": 52,
+                "l": 57,
+                "T": 1005,
+                "m": True,
+                "M": False
+            }
+        ]
+        assert await handler.handle_get_aggregate_trades_response(mock.Mock()) == expected

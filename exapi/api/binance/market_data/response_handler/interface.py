@@ -11,6 +11,7 @@ from exapi.models.binance import (BinanceAveragePriceModel, BinanceCandles,
                                   BinanceServerTimeModel,
                                   BinanceTickerPriceChangeStatModel,
                                   BinanceTickersPriceChangeStat, BinanceTrades)
+from exapi.models.binance.trade import BinanceAggregateTrades
 from exapi.requesters.typedefs import RequesterResponse
 
 
@@ -155,4 +156,16 @@ class IBinanceMarketDataResponseHandler(Protocol):
 
         Returns:
             BinanceTrades
+        """
+
+    async def handle_get_aggregate_trades_response(self,
+                                                   res: RequesterResponse
+                                                   ) -> BinanceAggregateTrades:
+        """Handles get aggregate trades response.
+
+        Args:
+            res (RequesterResponse)
+
+        Returns:
+            BinanceAggregateTrades
         """

@@ -3,7 +3,9 @@
 from typing import Optional
 
 from exapi.api.binance.base import BinanceBaseResponseHandler
-from exapi.models.binance import (BinanceAveragePriceJson,
+from exapi.models.binance import (BinanceAggregateTrades,
+                                  BinanceAggregateTradesJson,
+                                  BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandles,
                                   BinanceCandlesJson, BinanceExchangeInfoJson,
                                   BinanceExchangeInfoModel,
@@ -219,3 +221,18 @@ class BinanceMarketDataResponseHandler(BinanceBaseResponseHandler, IBinanceMarke
 
         json_res: BinanceTradesJson = await self.handle_response(res)
         return self._models_mapper.map_to_trades(json_res)
+
+    async def handle_get_aggregate_trades_response(self,
+                                                   res: RequesterResponse
+                                                   ) -> BinanceAggregateTrades:
+        """Handles get aggregate trades response.
+
+        Args:
+            res (RequesterResponse)
+
+        Returns:
+            BinanceAggregateTrades
+        """
+
+        json_res: BinanceAggregateTradesJson = await self.handle_response(res)
+        return self._models_mapper.map_to_aggregate_trades(json_res)
