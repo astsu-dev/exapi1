@@ -17,6 +17,10 @@ from exapi.models.binance.ticker_price_change_stat import \
 from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
 from exapi.models.binance.typedefs import CandleInterval
 
+from .typedefs import (BinanceOrderBookTickerModelOrTickers,
+                       BinancePriceTickerModelOrTickers,
+                       BinanceTickerPriceChangeStatModelOrTickers)
+
 
 class IBinanceMarketDataAPI(Protocol):
     """Binance markte data api interface.
@@ -400,7 +404,7 @@ class IBinanceMarketDataAPI(Protocol):
     async def get_ticker_price_change_stat(
             self,
             symbol: Optional[str] = None
-    ) -> Union[BinanceTickerPriceChangeStatModel, BinanceTickersPriceChangeStat]:
+    ) -> BinanceTickerPriceChangeStatModelOrTickers:
         """24 hour rolling window price change statistics.
         Careful when accessing this with no symbol.
 
@@ -517,7 +521,7 @@ class IBinanceMarketDataAPI(Protocol):
     async def get_price_ticker(
             self,
             symbol: Optional[str] = None
-    ) -> Union[BinancePriceTickerModel, BinancePriceTickers]:
+    ) -> BinancePriceTickerModelOrTickers:
         """Latest price for a symbol or symbols.
 
         Request weight: 1 for a single symbol;
@@ -607,7 +611,7 @@ class IBinanceMarketDataAPI(Protocol):
     async def get_order_book_ticker(
             self,
             symbol: Optional[str] = None
-    ) -> Union[BinanceOrderBookTickerModel, BinanceOrderBookTickers]:
+    ) -> BinanceOrderBookTickerModelOrTickers:
         """Best price/qty on the order book for a `symbol` or all symbols.
 
         Request weight: 1 for a single symbol;
