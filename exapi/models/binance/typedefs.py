@@ -20,6 +20,7 @@ OrderStatus = Literal[
     "EXPIRED"
 ]
 OrderSide = Literal["BUY", "SELL"]
+OrderResponseType = Literal["ACK", "RESULT", "FULL"]
 TimeInForce = Literal[
     "GTC",
     "IOC",
