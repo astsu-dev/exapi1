@@ -35,6 +35,14 @@ class BinanceOrderSide:
     SELL: Final[Literal["SELL"]] = "SELL"
 
 
+class BinanceOrderResponseType:
+    """Binance order response type."""
+
+    ACK: Final[Literal["ACK"]] = "ACK"
+    RESULT: Final[Literal["RESULT"]] = "RESULT"
+    FULL: Final[Literal["FULL"]] = "FULL"
+
+
 class BinanceTimeInForce:
     """Binance time in force."""
 
