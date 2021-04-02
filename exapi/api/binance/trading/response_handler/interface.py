@@ -1,10 +1,11 @@
 """Has binance trading response handler interface."""
 
-from typing import Any, Dict, Protocol
+from typing import Protocol
 
 from exapi.models.binance import (BinanceAccountInfoModel,
                                   BinanceOrderInfoModel, BinanceOrderInfos,
-                                  BinanceOrderModel, BinanceOrders)
+                                  BinanceOrderModel, BinanceOrders,
+                                  BinanceTestOrderModel)
 from exapi.models.binance.account_trade import BinanceAccountTrades
 from exapi.requesters.typedefs import RequesterResponse
 
@@ -12,14 +13,14 @@ from exapi.requesters.typedefs import RequesterResponse
 class IBinanceTradingResponseHandler(Protocol):
     """Has methods for handling binance trading responses."""
 
-    async def handle_new_test_order_response(self, res: RequesterResponse) -> Dict[Any, Any]:
+    async def handle_new_test_order_response(self, res: RequesterResponse) -> BinanceTestOrderModel:
         """Handles new test order response.
 
         Args:
-            res (RequesterResponse): [description]
+            res (RequesterResponse)
 
         Returns:
-            Dict[Any, Any]
+            BinanceTestOrderModel
         """
 
     async def handle_new_order_response(self, res: RequesterResponse) -> BinanceOrderModel:
