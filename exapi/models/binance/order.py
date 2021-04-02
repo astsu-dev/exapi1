@@ -76,6 +76,10 @@ class BinanceOrderInfoJson(TypedDict):
     fills: BinanceFilledOrdersJson
 
 
+class BinanceTestOrderJson(TypedDict):
+    ...
+
+
 @dataclass(frozen=True)
 class BinanceOrderModel:
     """Binance order model.
@@ -154,6 +158,11 @@ class BinanceOrderInfoModel:
     side: Optional[OrderSide] = None
     orig_quote_order_qty: Optional[Decimal] = None
     fills: Optional[BinanceFilledOrders] = None
+
+
+@dataclass(frozen=True)
+class BinanceTestOrderModel:
+    ...
 
 
 BinanceOrderJson = Union[

@@ -55,7 +55,8 @@ from .order import (BinanceAckOrderJson, BinanceFilledOrderJson,
                     BinanceOrderInfoJson, BinanceOrderInfoModel,
                     BinanceOrderInfos, BinanceOrderInfosJson, BinanceOrderJson,
                     BinanceOrderModel, BinanceOrders, BinanceOrdersJson,
-                    BinanceResultOrderJson)
+                    BinanceResultOrderJson, BinanceTestOrderJson,
+                    BinanceTestOrderModel)
 from .order_book import (BinanceOrderBookJson, BinanceOrderBookModel,
                          BinanceOrderBookOrderJson, BinanceOrderBookOrderModel,
                          BinanceOrderBookOrders, BinanceOrderBookOrdersJson)
