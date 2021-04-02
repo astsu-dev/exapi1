@@ -81,7 +81,8 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceSymbolFilters,
                                   BinanceSymbolFiltersJson, BinanceSymbolJson,
                                   BinanceSymbolModel, BinanceSymbols,
-                                  BinanceSymbolsJson,
+                                  BinanceSymbolsJson, BinanceTestOrderJson,
+                                  BinanceTestOrderModel,
                                   BinanceTickerPriceChangeStatJson,
                                   BinanceTickerPriceChangeStatModel,
                                   BinanceTickersPriceChangeStat,
@@ -351,6 +352,19 @@ class BinanceModelsMapper(IBinanceModelsMapper, BinanceBaseModelsMapper):
         """
 
         res = list(map(self.map_to_order, json))
+        return res
+
+    def map_to_test_order(self, json: BinanceTestOrderJson) -> BinanceTestOrderModel:
+        """Maps test order json to test order model.
+
+        Args:
+            json (BinanceTestOrderJson)
+
+        Returns:
+            BinanceTestOrderModel
+        """
+
+        res = BinanceTestOrderModel()
         return res
 
     def map_to_order_info(self, json: BinanceOrderInfoJson) -> BinanceOrderInfoModel:

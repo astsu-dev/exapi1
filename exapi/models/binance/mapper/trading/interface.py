@@ -7,7 +7,8 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceOrderInfoJson, BinanceOrderInfoModel,
                                   BinanceOrderInfos, BinanceOrderInfosJson,
                                   BinanceOrderJson, BinanceOrderModel,
-                                  BinanceOrders, BinanceOrdersJson)
+                                  BinanceOrders, BinanceOrdersJson,
+                                  BinanceTestOrderJson, BinanceTestOrderModel)
 from exapi.models.binance.mapper.base import IBinanceBaseModelsMapper
 
 
@@ -16,6 +17,16 @@ class IBinanceTradingModelsMapper(IBinanceBaseModelsMapper):
 
     Maps json to models.
     """
+
+    def map_to_test_order(self, json: BinanceTestOrderJson) -> BinanceTestOrderModel:
+        """Maps test order json to test order model.
+
+        Args:
+            json (BinanceTestOrderJson)
+
+        Returns:
+            BinanceTestOrderModel
+        """
 
     def map_to_order(self, json: BinanceOrderJson) -> BinanceOrderModel:
         """Maps order json to order model.

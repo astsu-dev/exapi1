@@ -80,6 +80,8 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceTradeJson, BinanceTradeModel,
                                   BinanceTradesJson)
 from exapi.models.binance.mapper import BinanceModelsMapper
+from exapi.models.binance.order import (BinanceOrderJson, BinanceTestOrderJson,
+                                        BinanceTestOrderModel)
 
 
 @pytest.fixture(scope="module")
@@ -401,7 +403,7 @@ def test_map_to_order(mapper: BinanceModelsMapper) -> None:
                 commission_asset="ETH")
         ]
     )
-    json: BinanceOrderInfoJson = {
+    json: BinanceOrderJson = {
         "symbol": "BTCUSDT",
         "orderId": 1234,
         "orderListId": 1235,
@@ -551,6 +553,12 @@ def test_map_to_orders(mapper: BinanceModelsMapper) -> None:
         }
     ]
     assert mapper.map_to_orders(json) == expected
+
+
+def test_map_to_test_order(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceTestOrderModel()
+    json: BinanceTestOrderJson = {}
+    assert mapper.map_to_test_order(json) == expected
 
 
 def test_map_to_price_ticker(mapper: BinanceModelsMapper) -> None:
