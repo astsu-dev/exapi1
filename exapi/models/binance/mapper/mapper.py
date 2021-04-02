@@ -6,6 +6,10 @@ from exapi.enums.binance import (BinanceExchangeFilterType,
                                  BinanceRateLimitType, BinanceSymbolFilterType)
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
+                                  BinanceAccountTradeJson,
+                                  BinanceAccountTradeModel,
+                                  BinanceAccountTrades,
+                                  BinanceAccountTradesJson,
                                   BinanceAggregateTradeJson,
                                   BinanceAggregateTradeModel,
                                   BinanceAggregateTrades,
@@ -56,6 +60,8 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceOrderBookTickerModel,
                                   BinanceOrderBookTickers,
                                   BinanceOrderBookTickersJson,
+                                  BinanceOrderInfoJson, BinanceOrderInfoModel,
+                                  BinanceOrderInfos, BinanceOrderInfosJson,
                                   BinanceOrderJson, BinanceOrderModel,
                                   BinanceOrders, BinanceOrdersJson,
                                   BinancePercentPriceSymbolFilterJson,
@@ -345,6 +351,76 @@ class BinanceModelsMapper(IBinanceModelsMapper, BinanceBaseModelsMapper):
         """
 
         res = list(map(self.map_to_order, json))
+        return res
+
+    def map_to_order_info(self, json: BinanceOrderInfoJson) -> BinanceOrderInfoModel:
+        """Maps order info json to order info model.
+
+        Args:
+            json (BinanceOrderInfoJson)
+
+        Returns:
+            BinanceOrderInfoModel
+        """
+
+        raw_price = json.get("price")
+        price = Decimal(raw_price) if raw_price is not None else raw_price
+
+        raw_orig_qty = json.get("origQty")
+        orig_qty = Decimal(
+            raw_orig_qty) if raw_orig_qty is not None else raw_orig_qty
+
+        raw_executed_qty = json.get("executedQty")
+        executed_qty = Decimal(
+            raw_executed_qty) if raw_executed_qty is not None else raw_executed_qty
+
+        raw_cummulative_quote_qty = json.get("cummulativeQuoteQty")
+        cummulative_quote_qty = (Decimal(raw_cummulative_quote_qty) if raw_cummulative_quote_qty is not None
+                                 else raw_cummulative_quote_qty)
+
+        status = json.get("status")
+        time_in_force = json.get("timeInForce")
+        type_ = json.get("type")
+        side = json.get("side")
+
+        raw_orig_quote_order_qty = json.get("origQuoteOrderQty")
+        orig_quote_order_qty = (Decimal(raw_orig_quote_order_qty)
+                                if raw_orig_quote_order_qty is not None else raw_orig_quote_order_qty)
+
+        raw_fills = json.get("fills")
+        fills = self.map_to_filled_orders(
+            raw_fills) if raw_fills is not None else raw_fills
+
+        res = BinanceOrderInfoModel(
+            symbol=json["symbol"],
+            order_id=json["orderId"],
+            order_list_id=json["orderListId"],
+            client_order_id=json["clientOrderId"],
+            is_working=json["isWorking"],
+            update_time=json["updateTime"],
+            price=price,
+            orig_qty=orig_qty,
+            executed_qty=executed_qty,
+            cummulative_quote_qty=cummulative_quote_qty,
+            status=status,
+            time_in_force=time_in_force,
+            type=type_,
+            side=side,
+            orig_quote_order_qty=orig_quote_order_qty,
+            fills=fills)
+        return res
+
+    def map_to_order_infos(self, json: BinanceOrderInfosJson) -> BinanceOrderInfos:
+        """Maps order infos json to order infos model.
+
+        Args:
+            json (BinanceOrderInfosJson)
+
+        Returns:
+            BinanceOrderInfos
+        """
+
+        res = list(map(self.map_to_order_info, json))
         return res
 
     def map_to_price_ticker(self, json: BinancePriceTickerJson) -> BinancePriceTickerModel:
@@ -986,4 +1062,43 @@ class BinanceModelsMapper(IBinanceModelsMapper, BinanceBaseModelsMapper):
             update_time=json["updateTime"],
             account_type=json["accountType"],
             balances=self.map_to_balances(json["balances"]))
+        return res
+
+    def map_to_account_trade(self, json: BinanceAccountTradeJson) -> BinanceAccountTradeModel:
+        """Maps account trade json to account trade model.
+
+        Args:
+            json (BinanceAccountTradeJson)
+
+        Returns:
+            BinanceAccountTradeModel
+        """
+
+        res = BinanceAccountTradeModel(
+            symbol=json["symbol"],
+            id=json["id"],
+            order_id=json["orderId"],
+            order_list_id=json["orderListId"],
+            price=Decimal(json["price"]),
+            qty=Decimal(json["qty"]),
+            quote_qty=Decimal(json["quoteQty"]),
+            commission=Decimal(json["commission"]),
+            commission_asset=json["commissionAsset"],
+            time=json["time"],
+            is_buyer=json["isBuyer"],
+            is_maker=json["isMaker"],
+            is_best_match=json["isBestMatch"])
+        return res
+
+    def map_to_account_trades(self, json: BinanceAccountTradesJson) -> BinanceAccountTrades:
+        """Maps account trades json to account trades models.
+
+        Args:
+            json (BinanceAccountTradesJson)
+
+        Returns:
+            BinanceAccountTrades
+        """
+
+        res = list(map(self.map_to_account_trade, json))
         return res

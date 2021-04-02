@@ -3,9 +3,11 @@ from decimal import Decimal
 import pytest
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
+                                  BinanceAccountTradeJson,
+                                  BinanceAccountTradeModel,
+                                  BinanceAccountTradesJson,
                                   BinanceAggregateTradeJson,
                                   BinanceAggregateTradeModel,
-                                  BinanceAggregateTrades,
                                   BinanceAggregateTradesJson,
                                   BinanceAveragePriceJson,
                                   BinanceAveragePriceModel, BinanceCandleJson,
@@ -49,7 +51,8 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceOrderBookTickerJson,
                                   BinanceOrderBookTickerModel,
                                   BinanceOrderBookTickersJson,
-                                  BinanceOrderJson, BinanceOrderModel,
+                                  BinanceOrderInfoJson, BinanceOrderInfoModel,
+                                  BinanceOrderInfosJson, BinanceOrderModel,
                                   BinanceOrdersJson,
                                   BinanceOrdersRateLimitJson,
                                   BinanceOrdersRateLimitModel,
@@ -398,7 +401,7 @@ def test_map_to_order(mapper: BinanceModelsMapper) -> None:
                 commission_asset="ETH")
         ]
     )
-    json: BinanceOrderJson = {
+    json: BinanceOrderInfoJson = {
         "symbol": "BTCUSDT",
         "orderId": 1234,
         "orderListId": 1235,
@@ -1845,3 +1848,476 @@ def test_map_to_account_info(mapper: BinanceModelsMapper) -> None:
     }
 
     assert mapper.map_to_account_info(json) == expected
+
+
+def test_map_to_order_info(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7")
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8")
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9")
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0")
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0"),
+        status="NEW"
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0",
+        "status": "NEW"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0"),
+        status="NEW",
+        time_in_force="GTC"
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0",
+        "status": "NEW",
+        "timeInForce": "GTC"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0"),
+        status="NEW",
+        time_in_force="GTC",
+        type="LIMIT"
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0",
+        "status": "NEW",
+        "timeInForce": "GTC",
+        "type": "LIMIT"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0"),
+        status="NEW",
+        time_in_force="GTC",
+        type="LIMIT",
+        side="BUY"
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0",
+        "status": "NEW",
+        "timeInForce": "GTC",
+        "type": "LIMIT",
+        "side": "BUY"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0"),
+        status="NEW",
+        time_in_force="GTC",
+        type="LIMIT",
+        side="BUY",
+        orig_quote_order_qty=Decimal("15000")
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0",
+        "status": "NEW",
+        "timeInForce": "GTC",
+        "type": "LIMIT",
+        "side": "BUY",
+        "origQuoteOrderQty": "15000"
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+    expected = BinanceOrderInfoModel(
+        symbol="BTCUSDT",
+        order_id=1234,
+        order_list_id=1235,
+        client_order_id="11cc",
+        is_working=True,
+        update_time=1500,
+        price=Decimal("18.7"),
+        orig_qty=Decimal("18.8"),
+        executed_qty=Decimal("18.9"),
+        cummulative_quote_qty=Decimal("18.0"),
+        status="NEW",
+        time_in_force="GTC",
+        type="LIMIT",
+        side="BUY",
+        orig_quote_order_qty=Decimal("15000"),
+        fills=[
+            BinanceFilledOrderModel(
+                price=Decimal("127.8"),
+                qty=Decimal("700.7"),
+                commission=Decimal("10.8"),
+                commission_asset="BTC"),
+            BinanceFilledOrderModel(
+                price=Decimal("127.8"),
+                qty=Decimal("700.7"),
+                commission=Decimal("10.8"),
+                commission_asset="ETH")
+        ]
+    )
+    json: BinanceOrderInfoJson = {
+        "symbol": "BTCUSDT",
+        "orderId": 1234,
+        "orderListId": 1235,
+        "clientOrderId": "11cc",
+        "isWorking": True,
+        "updateTime": 1500,
+        "price": "18.7",
+        "origQty": "18.8",
+        "executedQty": "18.9",
+        "cummulativeQuoteQty": "18.0",
+        "status": "NEW",
+        "timeInForce": "GTC",
+        "type": "LIMIT",
+        "side": "BUY",
+        "origQuoteOrderQty": "15000",
+        "fills": [
+            {
+                "price": "127.8",
+                "qty": "700.7",
+                "commission": "10.8",
+                "commissionAsset": "BTC"
+            },
+            {
+                "price": "127.8",
+                "qty": "700.7",
+                "commission": "10.8",
+                "commissionAsset": "ETH"
+            }
+        ]
+    }
+    assert mapper.map_to_order_info(json) == expected
+
+
+def test_map_to_order_infos(mapper: BinanceModelsMapper) -> None:
+    expected = [
+        BinanceOrderInfoModel(
+            symbol="BTCUSDT",
+            order_id=1234,
+            order_list_id=1235,
+            client_order_id="11cc",
+            is_working=True,
+            update_time=1500),
+        BinanceOrderInfoModel(
+            symbol="ETHUSDT",
+            order_id=1234,
+            order_list_id=1235,
+            client_order_id="11cc",
+            is_working=True,
+            update_time=1500)
+    ]
+    json: BinanceOrderInfosJson = [
+        {
+            "symbol": "BTCUSDT",
+            "orderId": 1234,
+            "orderListId": 1235,
+            "clientOrderId": "11cc",
+            "isWorking": True,
+            "updateTime": 1500
+        },
+        {
+            "symbol": "ETHUSDT",
+            "orderId": 1234,
+            "orderListId": 1235,
+            "clientOrderId": "11cc",
+            "isWorking": True,
+            "updateTime": 1500
+        }
+    ]
+    assert mapper.map_to_order_infos(json) == expected
+
+
+def test_map_to_account_trade(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceAccountTradeModel(
+        symbol="BTCUSDT",
+        id=5,
+        order_id=10,
+        order_list_id=-1,
+        price=Decimal("60000"),
+        qty=Decimal("0.01"),
+        quote_qty=Decimal("600"),
+        commission=Decimal("0.00001"),
+        commission_asset="BTC",
+        time=1600,
+        is_buyer=True,
+        is_maker=False,
+        is_best_match=True)
+    json: BinanceAccountTradeJson = {
+        "symbol": "BTCUSDT",
+        "id": 5,
+        "orderId": 10,
+        "orderListId": -1,
+        "price": "60000",
+        "qty": "0.01",
+        "quoteQty": "600",
+        "commission": "0.00001",
+        "commissionAsset": "BTC",
+        "time": 1600,
+        "isBuyer": True,
+        "isMaker": False,
+        "isBestMatch": True
+    }
+
+    assert mapper.map_to_account_trade(json) == expected
+
+
+def test_map_to_account_trades(mapper: BinanceModelsMapper) -> None:
+    expected = [
+        BinanceAccountTradeModel(
+            symbol="BTCUSDT",
+            id=5,
+            order_id=10,
+            order_list_id=-1,
+            price=Decimal("60000"),
+            qty=Decimal("0.01"),
+            quote_qty=Decimal("600"),
+            commission=Decimal("0.00001"),
+            commission_asset="BTC",
+            time=1600,
+            is_buyer=True,
+            is_maker=False,
+            is_best_match=True),
+        BinanceAccountTradeModel(
+            symbol="ETHUSDT",
+            id=5,
+            order_id=10,
+            order_list_id=-1,
+            price=Decimal("60000"),
+            qty=Decimal("0.01"),
+            quote_qty=Decimal("600"),
+            commission=Decimal("0.00001"),
+            commission_asset="BTC",
+            time=1600,
+            is_buyer=True,
+            is_maker=False,
+            is_best_match=True)
+    ]
+    json: BinanceAccountTradesJson = [
+        {
+            "symbol": "BTCUSDT",
+            "id": 5,
+            "orderId": 10,
+            "orderListId": -1,
+            "price": "60000",
+            "qty": "0.01",
+            "quoteQty": "600",
+            "commission": "0.00001",
+            "commissionAsset": "BTC",
+            "time": 1600,
+            "isBuyer": True,
+            "isMaker": False,
+            "isBestMatch": True
+        },
+        {
+            "symbol": "ETHUSDT",
+            "id": 5,
+            "orderId": 10,
+            "orderListId": -1,
+            "price": "60000",
+            "qty": "0.01",
+            "quoteQty": "600",
+            "commission": "0.00001",
+            "commissionAsset": "BTC",
+            "time": 1600,
+            "isBuyer": True,
+            "isMaker": False,
+            "isBestMatch": True
+        }
+    ]
+
+    assert mapper.map_to_account_trades(json) == expected

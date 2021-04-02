@@ -3,6 +3,8 @@ from .account_info import (BinanceAccountInfoJson, BinanceAccountInfoModel,
                            BinanceCurrencyBalanceModel,
                            BinanceCurrencyBalances,
                            BinanceCurrencyBalancesJson)
+from .account_trade import (BinanceAccountTradeJson, BinanceAccountTradeModel,
+                            BinanceAccountTrades, BinanceAccountTradesJson)
 from .average_price import BinanceAveragePriceJson, BinanceAveragePriceModel
 from .candle import (BinanceCandleJson, BinanceCandleModel, BinanceCandles,
                      BinanceCandlesJson)
@@ -50,8 +52,10 @@ from .exchange_info import (BinanceExchangeFilterJson,
 from .order import (BinanceAckOrderJson, BinanceFilledOrderJson,
                     BinanceFilledOrderModel, BinanceFilledOrders,
                     BinanceFilledOrdersJson, BinanceFullOrderJson,
-                    BinanceOrderJson, BinanceOrderModel, BinanceOrders,
-                    BinanceOrdersJson, BinanceResultOrderJson)
+                    BinanceOrderInfoJson, BinanceOrderInfoModel,
+                    BinanceOrderInfos, BinanceOrderInfosJson, BinanceOrderJson,
+                    BinanceOrderModel, BinanceOrders, BinanceOrdersJson,
+                    BinanceResultOrderJson)
 from .order_book import (BinanceOrderBookJson, BinanceOrderBookModel,
                          BinanceOrderBookOrderJson, BinanceOrderBookOrderModel,
                          BinanceOrderBookOrders, BinanceOrderBookOrdersJson)

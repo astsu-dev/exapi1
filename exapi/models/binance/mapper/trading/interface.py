@@ -1,9 +1,13 @@
 """Has binance models mapper interface."""
 
 from exapi.models.binance import (BinanceAccountInfoJson,
-                                  BinanceAccountInfoModel, BinanceOrderJson,
-                                  BinanceOrderModel, BinanceOrders,
-                                  BinanceOrdersJson)
+                                  BinanceAccountInfoModel,
+                                  BinanceAccountTrades,
+                                  BinanceAccountTradesJson,
+                                  BinanceOrderInfoJson, BinanceOrderInfoModel,
+                                  BinanceOrderInfos, BinanceOrderInfosJson,
+                                  BinanceOrderJson, BinanceOrderModel,
+                                  BinanceOrders, BinanceOrdersJson)
 from exapi.models.binance.mapper.base import IBinanceBaseModelsMapper
 
 
@@ -33,6 +37,26 @@ class IBinanceTradingModelsMapper(IBinanceBaseModelsMapper):
             BinanceOrders
         """
 
+    def map_to_order_info(self, json: BinanceOrderInfoJson) -> BinanceOrderInfoModel:
+        """Maps order info json to order info model.
+
+        Args:
+            json (BinanceOrderInfoJson)
+
+        Returns:
+            BinanceOrderInfoModel
+        """
+
+    def map_to_order_infos(self, json: BinanceOrderInfosJson) -> BinanceOrderInfos:
+        """Maps order infos json to order infos model.
+
+        Args:
+            json (BinanceOrderInfosJson)
+
+        Returns:
+            BinanceOrderInfos
+        """
+
     def map_to_account_info(self, json: BinanceAccountInfoJson) -> BinanceAccountInfoModel:
         """Maps account info json to account info model.
 
@@ -43,4 +67,12 @@ class IBinanceTradingModelsMapper(IBinanceBaseModelsMapper):
             BinanceAccountInfoModel
         """
 
-    # TODO: Add account trades
+    def map_to_account_trades(self, json: BinanceAccountTradesJson) -> BinanceAccountTrades:
+        """Maps account trades json to account trades models.
+
+        Args:
+            json (BinanceAccountTradesJson)
+
+        Returns:
+            BinanceAccountTrades
+        """

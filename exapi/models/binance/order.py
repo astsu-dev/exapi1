@@ -72,6 +72,7 @@ class BinanceOrderInfoJson(TypedDict):
     side: OrderSide
     isWorking: bool
     updateTime: int
+    origQuoteOrderQty: str
     fills: BinanceFilledOrdersJson
 
 
@@ -133,6 +134,7 @@ class BinanceOrderInfoModel:
         time_in_force (Optional[TimeInForce], optional): Defaults to None.
         type (Optional[OrderType], optional): Defaults to None.
         side (Optional[OrderSide], optional): Defaults to None.
+        orig_quote_order_qty (Optional[Decimal]): Defaults to None.
         fills (Optional[BinanceFilledOrders], optional): Defaults to None.
     """
 
@@ -150,6 +152,7 @@ class BinanceOrderInfoModel:
     time_in_force: Optional[TimeInForce] = None
     type: Optional[OrderType] = None
     side: Optional[OrderSide] = None
+    orig_quote_order_qty: Optional[Decimal] = None
     fills: Optional[BinanceFilledOrders] = None
 
 
