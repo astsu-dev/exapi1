@@ -1,1 +1,2 @@
+from .handler import BinanceTradingResponseHandler
 from .interface import IBinanceTradingResponseHandler
