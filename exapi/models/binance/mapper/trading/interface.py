@@ -4,6 +4,10 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
                                   BinanceAccountTrades,
                                   BinanceAccountTradesJson,
+                                  BinanceCanceledOrderJson,
+                                  BinanceCanceledOrderModel,
+                                  BinanceCanceledOrders,
+                                  BinanceCanceledOrdersJson,
                                   BinanceOrderInfoJson, BinanceOrderInfoModel,
                                   BinanceOrderInfos, BinanceOrderInfosJson,
                                   BinanceOrderJson, BinanceOrderModel,
@@ -46,6 +50,26 @@ class IBinanceTradingModelsMapper(IBinanceBaseModelsMapper):
 
         Returns:
             BinanceOrders
+        """
+
+    def map_to_canceled_order(self, json: BinanceCanceledOrderJson) -> BinanceCanceledOrderModel:
+        """Maps order json to order model.
+
+        Args:
+            json (BinanceCanceledOrderJson)
+
+        Returns:
+            BinanceCanceledOrderModel
+        """
+
+    def map_to_canceled_orders(self, json: BinanceCanceledOrdersJson) -> BinanceCanceledOrders:
+        """Maps orders json to orders model.
+
+        Args:
+            json (BinanceCanceledOrdersJson)
+
+        Returns:
+            BinanceCanceledOrders
         """
 
     def map_to_order_info(self, json: BinanceOrderInfoJson) -> BinanceOrderInfoModel:

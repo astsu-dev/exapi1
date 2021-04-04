@@ -1,6 +1,8 @@
 from decimal import Decimal
 
 import pytest
+from exapi.enums.binance import (BinanceOrderSide, BinanceOrderStatus,
+                                 BinanceOrderType, BinanceTimeInForce)
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
                                   BinanceAccountTradeJson,
@@ -80,7 +82,10 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceTradeJson, BinanceTradeModel,
                                   BinanceTradesJson)
 from exapi.models.binance.mapper import BinanceModelsMapper
-from exapi.models.binance.order import (BinanceOrderJson, BinanceTestOrderJson,
+from exapi.models.binance.order import (BinanceCanceledOrderJson,
+                                        BinanceCanceledOrderModel,
+                                        BinanceCanceledOrdersJson,
+                                        BinanceOrderJson, BinanceTestOrderJson,
                                         BinanceTestOrderModel)
 
 
@@ -559,6 +564,105 @@ def test_map_to_test_order(mapper: BinanceModelsMapper) -> None:
     expected = BinanceTestOrderModel()
     json: BinanceTestOrderJson = {}
     assert mapper.map_to_test_order(json) == expected
+
+
+def test_map_to_canceled_order(mapper: BinanceModelsMapper) -> None:
+    expected = BinanceCanceledOrderModel(
+        symbol="BTCUSDT",
+        orig_client_order_id="sdf",
+        order_id=5,
+        order_list_id=-1,
+        client_order_id="sdff",
+        price=Decimal("100000.5"),
+        orig_qty=Decimal("0.04"),
+        executed_qty=Decimal("0.02"),
+        cummulative_quote_qty=Decimal("4000"),
+        status=BinanceOrderStatus.CANCELED,
+        time_in_force=BinanceTimeInForce.GTC,
+        type=BinanceOrderType.LIMIT,
+        side=BinanceOrderSide.SELL)
+    json: BinanceCanceledOrderJson = {
+        "symbol": "BTCUSDT",
+        "origClientOrderId": "sdf",
+        "orderId": 5,
+        "orderListId": -1,
+        "clientOrderId": "sdff",
+        "price": "100000.5",
+        "origQty": "0.04",
+        "executedQty": "0.02",
+        "cummulativeQuoteQty": "4000",
+        "status": BinanceOrderStatus.CANCELED,
+        "timeInForce": BinanceTimeInForce.GTC,
+        "type": BinanceOrderType.LIMIT,
+        "side": BinanceOrderSide.SELL
+    }
+    assert mapper.map_to_canceled_order(json) == expected
+
+
+def test_map_to_canceled_orders(mapper: BinanceModelsMapper) -> None:
+    expected = [
+        BinanceCanceledOrderModel(
+            symbol="BTCUSDT",
+            orig_client_order_id="sdf",
+            order_id=5,
+            order_list_id=-1,
+            client_order_id="sdff",
+            price=Decimal("100000.5"),
+            orig_qty=Decimal("0.04"),
+            executed_qty=Decimal("0.02"),
+            cummulative_quote_qty=Decimal("4000"),
+            status=BinanceOrderStatus.CANCELED,
+            time_in_force=BinanceTimeInForce.GTC,
+            type=BinanceOrderType.LIMIT,
+            side=BinanceOrderSide.SELL),
+        BinanceCanceledOrderModel(
+            symbol="ETHUSDT",
+            orig_client_order_id="sdf",
+            order_id=5,
+            order_list_id=-1,
+            client_order_id="sdff",
+            price=Decimal("100000.5"),
+            orig_qty=Decimal("0.04"),
+            executed_qty=Decimal("0.02"),
+            cummulative_quote_qty=Decimal("4000"),
+            status=BinanceOrderStatus.CANCELED,
+            time_in_force=BinanceTimeInForce.GTC,
+            type=BinanceOrderType.LIMIT,
+            side=BinanceOrderSide.SELL)
+    ]
+    json: BinanceCanceledOrdersJson = [
+        {
+            "symbol": "BTCUSDT",
+            "origClientOrderId": "sdf",
+            "orderId": 5,
+            "orderListId": -1,
+            "clientOrderId": "sdff",
+            "price": "100000.5",
+            "origQty": "0.04",
+            "executedQty": "0.02",
+            "cummulativeQuoteQty": "4000",
+            "status": BinanceOrderStatus.CANCELED,
+            "timeInForce": BinanceTimeInForce.GTC,
+            "type": BinanceOrderType.LIMIT,
+            "side": BinanceOrderSide.SELL
+        },
+        {
+            "symbol": "ETHUSDT",
+            "origClientOrderId": "sdf",
+            "orderId": 5,
+            "orderListId": -1,
+            "clientOrderId": "sdff",
+            "price": "100000.5",
+            "origQty": "0.04",
+            "executedQty": "0.02",
+            "cummulativeQuoteQty": "4000",
+            "status": BinanceOrderStatus.CANCELED,
+            "timeInForce": BinanceTimeInForce.GTC,
+            "type": BinanceOrderType.LIMIT,
+            "side": BinanceOrderSide.SELL
+        }
+    ]
+    assert mapper.map_to_canceled_orders(json) == expected
 
 
 def test_map_to_price_ticker(mapper: BinanceModelsMapper) -> None:

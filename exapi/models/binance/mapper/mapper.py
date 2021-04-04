@@ -15,7 +15,11 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAggregateTrades,
                                   BinanceAggregateTradesJson,
                                   BinanceAveragePriceJson,
-                                  BinanceAveragePriceModel, BinanceCandleJson,
+                                  BinanceAveragePriceModel,
+                                  BinanceCanceledOrderJson,
+                                  BinanceCanceledOrderModel,
+                                  BinanceCanceledOrders,
+                                  BinanceCanceledOrdersJson, BinanceCandleJson,
                                   BinanceCandleModel, BinanceCandles,
                                   BinanceCandlesJson,
                                   BinanceCurrencyBalanceJson,
@@ -435,6 +439,45 @@ class BinanceModelsMapper(IBinanceModelsMapper, BinanceBaseModelsMapper):
         """
 
         res = list(map(self.map_to_order_info, json))
+        return res
+
+    def map_to_canceled_order(self, json: BinanceCanceledOrderJson) -> BinanceCanceledOrderModel:
+        """Maps order json to order model.
+
+        Args:
+            json (BinanceCanceledOrderJson)
+
+        Returns:
+            BinanceCanceledOrderModel
+        """
+
+        res = BinanceCanceledOrderModel(
+            symbol=json["symbol"],
+            orig_client_order_id=json["origClientOrderId"],
+            order_id=json["orderId"],
+            order_list_id=json["orderListId"],
+            client_order_id=json["clientOrderId"],
+            price=Decimal(json["price"]),
+            orig_qty=Decimal(json["origQty"]),
+            executed_qty=Decimal(json["executedQty"]),
+            cummulative_quote_qty=Decimal(json["cummulativeQuoteQty"]),
+            status=json["status"],
+            time_in_force=json["timeInForce"],
+            type=json["type"],
+            side=json["side"])
+        return res
+
+    def map_to_canceled_orders(self, json: BinanceCanceledOrdersJson) -> BinanceCanceledOrders:
+        """Maps orders json to orders model.
+
+        Args:
+            json (BinanceCanceledOrdersJson)
+
+        Returns:
+            BinanceCanceledOrders
+        """
+
+        res = list(map(self.map_to_canceled_order, json))
         return res
 
     def map_to_price_ticker(self, json: BinancePriceTickerJson) -> BinancePriceTickerModel:
