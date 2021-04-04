@@ -7,10 +7,13 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
                                   BinanceAccountTrades,
                                   BinanceAccountTradesJson,
+                                  BinanceCanceledOrderJson,
+                                  BinanceCanceledOrderModel,
+                                  BinanceCanceledOrders,
+                                  BinanceCanceledOrdersJson,
                                   BinanceOrderInfoJson, BinanceOrderInfoModel,
                                   BinanceOrderInfos, BinanceOrderInfosJson,
                                   BinanceOrderJson, BinanceOrderModel,
-                                  BinanceOrders, BinanceOrdersJson,
                                   BinanceTestOrderJson, BinanceTestOrderModel)
 from exapi.models.binance.mapper import BinanceModelsMapper
 from exapi.models.binance.mapper.trading import IBinanceTradingModelsMapper
@@ -60,7 +63,7 @@ class BinanceTradingResponseHandler(BinanceBaseResponseHandler, IBinanceTradingR
         json: BinanceOrderJson = await self.handle_response(res)
         return self._models_mapper.map_to_order(json)
 
-    async def handle_cancel_order_response(self, res: RequesterResponse) -> BinanceOrderModel:
+    async def handle_cancel_order_response(self, res: RequesterResponse) -> BinanceCanceledOrderModel:
         """Handles cancel order response.
 
         Returns a json converted to model.
@@ -69,13 +72,13 @@ class BinanceTradingResponseHandler(BinanceBaseResponseHandler, IBinanceTradingR
             res (RequesterResponse)
 
         Returns:
-            BinanceOrderModel
+            BinanceCanceledOrderModel
         """
 
-        json: BinanceOrderJson = await self.handle_response(res)
-        return self._models_mapper.map_to_order(json)
+        json: BinanceCanceledOrderJson = await self.handle_response(res)
+        return self._models_mapper.map_to_canceled_order(json)
 
-    async def handle_cancel_orders_response(self, res: RequesterResponse) -> BinanceOrders:
+    async def handle_cancel_orders_response(self, res: RequesterResponse) -> BinanceCanceledOrders:
         """Handles cancel orders response.
 
         Returns a json converted to model.
@@ -84,11 +87,11 @@ class BinanceTradingResponseHandler(BinanceBaseResponseHandler, IBinanceTradingR
             res (RequesterResponse)
 
         Returns:
-            BinanceOrders
+            BinanceCanceledOrders
         """
 
-        json: BinanceOrdersJson = await self.handle_response(res)
-        return self._models_mapper.map_to_orders(json)
+        json: BinanceCanceledOrdersJson = await self.handle_response(res)
+        return self._models_mapper.map_to_canceled_orders(json)
 
     async def handle_query_order_response(self, res: RequesterResponse) -> BinanceOrderInfoModel:
         """Handles query order response.

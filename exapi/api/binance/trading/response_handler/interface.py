@@ -3,8 +3,9 @@
 from typing import Protocol
 
 from exapi.models.binance import (BinanceAccountInfoModel,
-                                  BinanceOrderInfoModel, BinanceOrderInfos,
-                                  BinanceOrderModel, BinanceOrders,
+                                  BinanceCanceledOrderModel,
+                                  BinanceCanceledOrders, BinanceOrderInfoModel,
+                                  BinanceOrderInfos, BinanceOrderModel,
                                   BinanceTestOrderModel)
 from exapi.models.binance.account_trade import BinanceAccountTrades
 from exapi.requesters.typedefs import RequesterResponse
@@ -35,7 +36,7 @@ class IBinanceTradingResponseHandler(Protocol):
             BinanceOrderModel
         """
 
-    async def handle_cancel_order_response(self, res: RequesterResponse) -> BinanceOrderModel:
+    async def handle_cancel_order_response(self, res: RequesterResponse) -> BinanceCanceledOrderModel:
         """Handles cancel order response.
 
         Returns a json converted to model.
@@ -44,10 +45,10 @@ class IBinanceTradingResponseHandler(Protocol):
             res (RequesterResponse)
 
         Returns:
-            BinanceOrderModel
+            BinanceCanceledOrderModel
         """
 
-    async def handle_cancel_orders_response(self, res: RequesterResponse) -> BinanceOrders:
+    async def handle_cancel_orders_response(self, res: RequesterResponse) -> BinanceCanceledOrders:
         """Handles cancel orders response.
 
         Returns a json converted to model.
@@ -56,7 +57,7 @@ class IBinanceTradingResponseHandler(Protocol):
             res (RequesterResponse)
 
         Returns:
-            BinanceOrders
+            BinanceCanceledOrders
         """
 
     async def handle_query_order_response(self, res: RequesterResponse) -> BinanceOrderInfoModel:

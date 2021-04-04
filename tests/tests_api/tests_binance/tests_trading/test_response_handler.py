@@ -5,12 +5,15 @@ from unittest import mock
 import pytest
 from exapi.api.binance.trading.response_handler import \
     BinanceTradingResponseHandler
+from exapi.enums.binance import (BinanceOrderSide, BinanceOrderStatus,
+                                 BinanceOrderType, BinanceTimeInForce)
 from exapi.models.binance import (BinanceAccountInfoModel,
                                   BinanceAccountTradeModel,
                                   BinanceCurrencyBalanceModel,
                                   BinanceFilledOrderModel,
                                   BinanceOrderInfoModel, BinanceOrderModel,
                                   BinanceTestOrderModel)
+from exapi.models.binance.order import BinanceCanceledOrderModel
 
 HANDLE_RESPONSE_PATH: Final[str] = "exapi.api.binance.trading.response_handler.handler.BinanceTradingResponseHandler.handle_response"
 
@@ -92,185 +95,104 @@ async def test_handle_new_order_response(handler: BinanceTradingResponseHandler)
 
 @pytest.mark.asyncio
 async def test_handle_cancel_order_response(handler: BinanceTradingResponseHandler) -> None:
-    expected = BinanceOrderModel(
+    expected = BinanceCanceledOrderModel(
         symbol="BTCUSDT",
-        order_id=1234,
-        order_list_id=1235,
-        client_order_id="11cc",
-        transact_time=200,
-        price=Decimal("18.7"),
-        orig_qty=Decimal("18.8"),
-        executed_qty=Decimal("18.9"),
-        cummulative_quote_qty=Decimal("18.0"),
-        status="NEW",
-        time_in_force="GTC",
-        type="LIMIT",
-        side="BUY",
-        fills=[
-            BinanceFilledOrderModel(
-                price=Decimal("127.8"),
-                qty=Decimal("700.7"),
-                commission=Decimal("10.8"),
-                commission_asset="BTC"),
-            BinanceFilledOrderModel(
-                price=Decimal("127.8"),
-                qty=Decimal("700.7"),
-                commission=Decimal("10.8"),
-                commission_asset="ETH")
-        ]
-    )
+        orig_client_order_id="sdf",
+        order_id=5,
+        order_list_id=-1,
+        client_order_id="sdff",
+        price=Decimal("100000.5"),
+        orig_qty=Decimal("0.04"),
+        executed_qty=Decimal("0.02"),
+        cummulative_quote_qty=Decimal("4000"),
+        status=BinanceOrderStatus.CANCELED,
+        time_in_force=BinanceTimeInForce.GTC,
+        type=BinanceOrderType.LIMIT,
+        side=BinanceOrderSide.SELL)
     with mock.patch(HANDLE_RESPONSE_PATH) as handle_response:
         handle_response.return_value = {
-            "symbol": "BTCUSDT",
-            "orderId": 1234,
-            "orderListId": 1235,
-            "clientOrderId": "11cc",
-            "transactTime": 200,
-            "price": "18.7",
-            "origQty": "18.8",
-            "executedQty": "18.9",
-            "cummulativeQuoteQty": "18.0",
-            "status": "NEW",
-            "timeInForce": "GTC",
-            "type": "LIMIT",
-            "side": "BUY",
-            "fills": [
-                {
-                    "price": "127.8",
-                    "qty": "700.7",
-                    "commission": "10.8",
-                    "commissionAsset": "BTC"
-                },
-                {
-                    "price": "127.8",
-                    "qty": "700.7",
-                    "commission": "10.8",
-                    "commissionAsset": "ETH"
-                }
-            ]
-        }
+        "symbol": "BTCUSDT",
+        "origClientOrderId": "sdf",
+        "orderId": 5,
+        "orderListId": -1,
+        "clientOrderId": "sdff",
+        "price": "100000.5",
+        "origQty": "0.04",
+        "executedQty": "0.02",
+        "cummulativeQuoteQty": "4000",
+        "status": BinanceOrderStatus.CANCELED,
+        "timeInForce": BinanceTimeInForce.GTC,
+        "type": BinanceOrderType.LIMIT,
+        "side": BinanceOrderSide.SELL
+    }
         assert await handler.handle_cancel_order_response(mock.Mock()) == expected
 
 
 @pytest.mark.asyncio
 async def test_handle_cancel_orders_response(handler: BinanceTradingResponseHandler) -> None:
     expected = [
-        BinanceOrderModel(
+        BinanceCanceledOrderModel(
             symbol="BTCUSDT",
-            order_id=1234,
-            order_list_id=1235,
-            client_order_id="11cc",
-            transact_time=200,
-            price=Decimal("18.7"),
-            orig_qty=Decimal("18.8"),
-            executed_qty=Decimal("18.9"),
-            cummulative_quote_qty=Decimal("18.0"),
-            status="NEW",
-            time_in_force="GTC",
-            type="LIMIT",
-            side="BUY",
-            fills=[
-                BinanceFilledOrderModel(
-                    price=Decimal("127.8"),
-                    qty=Decimal("700.7"),
-                    commission=Decimal("10.8"),
-                    commission_asset="BTC"),
-                BinanceFilledOrderModel(
-                    price=Decimal("127.8"),
-                    qty=Decimal("700.7"),
-                    commission=Decimal("10.8"),
-                    commission_asset="ETH")
-            ]
-        ),
-        BinanceOrderModel(
+            orig_client_order_id="sdf",
+            order_id=5,
+            order_list_id=-1,
+            client_order_id="sdff",
+            price=Decimal("100000.5"),
+            orig_qty=Decimal("0.04"),
+            executed_qty=Decimal("0.02"),
+            cummulative_quote_qty=Decimal("4000"),
+            status=BinanceOrderStatus.CANCELED,
+            time_in_force=BinanceTimeInForce.GTC,
+            type=BinanceOrderType.LIMIT,
+            side=BinanceOrderSide.SELL),
+        BinanceCanceledOrderModel(
             symbol="ETHUSDT",
-            order_id=1234,
-            order_list_id=1235,
-            client_order_id="11cc",
-            transact_time=200,
-            price=Decimal("18.7"),
-            orig_qty=Decimal("18.8"),
-            executed_qty=Decimal("18.9"),
-            cummulative_quote_qty=Decimal("18.0"),
-            status="NEW",
-            time_in_force="GTC",
-            type="LIMIT",
-            side="BUY",
-            fills=[
-                BinanceFilledOrderModel(
-                    price=Decimal("127.8"),
-                    qty=Decimal("700.7"),
-                    commission=Decimal("10.8"),
-                    commission_asset="BTC"),
-                BinanceFilledOrderModel(
-                    price=Decimal("127.8"),
-                    qty=Decimal("700.7"),
-                    commission=Decimal("10.8"),
-                    commission_asset="ETH")
-            ]
-        )
+            orig_client_order_id="sdf",
+            order_id=5,
+            order_list_id=-1,
+            client_order_id="sdff",
+            price=Decimal("100000.5"),
+            orig_qty=Decimal("0.04"),
+            executed_qty=Decimal("0.02"),
+            cummulative_quote_qty=Decimal("4000"),
+            status=BinanceOrderStatus.CANCELED,
+            time_in_force=BinanceTimeInForce.GTC,
+            type=BinanceOrderType.LIMIT,
+            side=BinanceOrderSide.SELL)
     ]
     with mock.patch(HANDLE_RESPONSE_PATH) as handle_response:
         handle_response.return_value = [
-            {
-                "symbol": "BTCUSDT",
-                "orderId": 1234,
-                "orderListId": 1235,
-                "clientOrderId": "11cc",
-                "transactTime": 200,
-                "price": "18.7",
-                "origQty": "18.8",
-                "executedQty": "18.9",
-                "cummulativeQuoteQty": "18.0",
-                "status": "NEW",
-                "timeInForce": "GTC",
-                "type": "LIMIT",
-                "side": "BUY",
-                "fills": [
-                    {
-                        "price": "127.8",
-                        "qty": "700.7",
-                        "commission": "10.8",
-                        "commissionAsset": "BTC"
-                    },
-                    {
-                        "price": "127.8",
-                        "qty": "700.7",
-                        "commission": "10.8",
-                        "commissionAsset": "ETH"
-                    }
-                ]
-            },
-            {
-                "symbol": "ETHUSDT",
-                "orderId": 1234,
-                "orderListId": 1235,
-                "clientOrderId": "11cc",
-                "transactTime": 200,
-                "price": "18.7",
-                "origQty": "18.8",
-                "executedQty": "18.9",
-                "cummulativeQuoteQty": "18.0",
-                "status": "NEW",
-                "timeInForce": "GTC",
-                "type": "LIMIT",
-                "side": "BUY",
-                "fills": [
-                    {
-                        "price": "127.8",
-                        "qty": "700.7",
-                        "commission": "10.8",
-                        "commissionAsset": "BTC"
-                    },
-                    {
-                        "price": "127.8",
-                        "qty": "700.7",
-                        "commission": "10.8",
-                        "commissionAsset": "ETH"
-                    }
-                ]
-            }
-        ]
+        {
+            "symbol": "BTCUSDT",
+            "origClientOrderId": "sdf",
+            "orderId": 5,
+            "orderListId": -1,
+            "clientOrderId": "sdff",
+            "price": "100000.5",
+            "origQty": "0.04",
+            "executedQty": "0.02",
+            "cummulativeQuoteQty": "4000",
+            "status": BinanceOrderStatus.CANCELED,
+            "timeInForce": BinanceTimeInForce.GTC,
+            "type": BinanceOrderType.LIMIT,
+            "side": BinanceOrderSide.SELL
+        },
+        {
+            "symbol": "ETHUSDT",
+            "origClientOrderId": "sdf",
+            "orderId": 5,
+            "orderListId": -1,
+            "clientOrderId": "sdff",
+            "price": "100000.5",
+            "origQty": "0.04",
+            "executedQty": "0.02",
+            "cummulativeQuoteQty": "4000",
+            "status": BinanceOrderStatus.CANCELED,
+            "timeInForce": BinanceTimeInForce.GTC,
+            "type": BinanceOrderType.LIMIT,
+            "side": BinanceOrderSide.SELL
+        }
+    ]
         assert await handler.handle_cancel_orders_response(mock.Mock()) == expected
 
 
