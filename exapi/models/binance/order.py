@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List, Optional, TypedDict, Union
+from typing import List, Literal, Optional, TypedDict, Union
 
 from exapi.models.binance.typedefs import (OrderSide, OrderStatus, OrderType,
                                            TimeInForce)
@@ -80,6 +80,22 @@ class BinanceTestOrderJson(TypedDict):
     ...
 
 
+class BinanceCanceledOrderJson(TypedDict):
+    symbol: str
+    origClientOrderId: str
+    orderId: int
+    orderListId: int
+    clientOrderId: str
+    price: str
+    origQty: str
+    executedQty: str
+    cummulativeQuoteQty: str
+    status: Literal["CANCELED"]
+    timeInForce: TimeInForce
+    type: OrderType
+    side: OrderSide
+
+
 @dataclass(frozen=True)
 class BinanceOrderModel:
     """Binance order model.
@@ -121,7 +137,7 @@ class BinanceOrderModel:
 class BinanceOrderInfoModel:
     """Binance order info model.
 
-    Used in query order, get all open orders resopnses.
+    Used in query order, get all open orders responses.
 
     Args:
         symbol (str)
@@ -165,6 +181,43 @@ class BinanceTestOrderModel:
     ...
 
 
+@dataclass(frozen=True)
+class BinanceCanceledOrderModel:
+    """Binance canceled order model.
+
+    Used in cancel order, cancel orders responses.
+
+    Args:
+        symbol (str)
+        orig_client_order_id (str)
+        order_id (int)
+        order_list_id (int)
+        client_order_id (str)
+        price (Decimal)
+        orig_qty (Decimal)
+        executed_qty (Decimal)
+        cummulative_quote_qty (Decimal)
+        status (Literal["CANCELED"])
+        time_in_force (TimeInForce)
+        type (OrderType)
+        side (OrderSide)
+    """
+
+    symbol: str
+    orig_client_order_id: str
+    order_id: int
+    order_list_id: int
+    client_order_id: str
+    price: Decimal
+    orig_qty: Decimal
+    executed_qty: Decimal
+    cummulative_quote_qty: Decimal
+    status: Literal["CANCELED"]
+    time_in_force: TimeInForce
+    type: OrderType
+    side: OrderSide
+
+
 BinanceOrderJson = Union[
     BinanceAckOrderJson,
     BinanceResultOrderJson,
@@ -174,3 +227,5 @@ BinanceOrdersJson = List[BinanceOrderJson]
 BinanceOrders = List[BinanceOrderModel]
 BinanceOrderInfosJson = List[BinanceOrderInfoJson]
 BinanceOrderInfos = List[BinanceOrderInfoModel]
+BinanceCanceledOrdersJson = List[BinanceCanceledOrderJson]
+BinanceCanceledOrders = List[BinanceCanceledOrderModel]
