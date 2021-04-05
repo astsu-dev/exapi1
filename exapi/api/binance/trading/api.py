@@ -9,9 +9,9 @@ from exapi.models.binance import (BinanceAccountInfoModel,
                                   BinanceCanceledOrders, BinanceOrderInfoModel,
                                   BinanceOrderInfos, BinanceOrderModel,
                                   BinanceTestOrderModel)
-from exapi.models.binance.typedefs import (OrderResponseType, OrderSide,
-                                           OrderType, TimeInForce)
 from exapi.requesters.binance.trading import IBinanceTradingRequester
+from exapi.typedefs.binance import (OrderResponseType, OrderSide, OrderType,
+                                    TimeInForce)
 from exapi.utils.numbers import decimal_to_str
 
 from .interface import IBinanceTradingAPI

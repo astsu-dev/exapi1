@@ -2,12 +2,12 @@
 
 from typing import Final, Optional
 
-from exapi.models.hitbtc.typedefs import (CandlesPeriod, Currencies, Currency,
-                                          IntervalValue, SortBy, SortDirection,
-                                          Symbol, Symbols)
 from exapi.requesters.hitbtc.base import HitbtcBaseRequestCreator
 from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
+from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
+                                   IntervalValue, SortBy, SortDirection,
+                                   Symbol, Symbols)
 from yarl import URL
 
 from .interface import IHitbtcMarketDataRequestCreator

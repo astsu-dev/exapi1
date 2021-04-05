@@ -1,3 +1,5 @@
+"""Has binance type definitions."""
+
 from typing import List, Literal
 
 OrderType = Literal[

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import TypedDict
 
-from exapi.models.binance.typedefs import AccountType
+from exapi.typedefs.binance import AccountType
 
 from .balance import BinanceCurrencyBalances, BinanceCurrencyBalancesJson
 

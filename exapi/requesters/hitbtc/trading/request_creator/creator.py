@@ -2,12 +2,12 @@
 
 from typing import Optional
 
-from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
-                                          Symbol, TimeInForce)
 from exapi.requesters.hitbtc.auth import IHitbtcAuth
 from exapi.requesters.hitbtc.base import HitbtcBaseRequestCreator
 from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
+from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
+                                   TimeInForce)
 from yarl import URL
 
 from .interface import IHitbtcTradingRequestCreator

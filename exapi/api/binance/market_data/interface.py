@@ -15,7 +15,7 @@ from exapi.models.binance.price_ticker import BinancePriceTickers
 from exapi.models.binance.ticker_price_change_stat import \
     BinanceTickersPriceChangeStat
 from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
-from exapi.models.binance.typedefs import CandleInterval
+from exapi.typedefs.binance import CandleInterval
 
 from .typedefs import (BinanceOrderBookTickerModelOrTickers,
                        BinancePriceTickerModelOrTickers,

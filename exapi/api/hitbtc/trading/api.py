@@ -6,9 +6,9 @@ from typing import Optional
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
-from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
-                                          Symbol, TimeInForce)
 from exapi.requesters.hitbtc.trading import IHitbtcTradingRequester
+from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
+                                   TimeInForce)
 from exapi.utils import decimal_to_str
 
 from .interface import IHitbtcTradingAPI

@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List, Literal, Optional, TypedDict, Union
 
-from exapi.models.binance.typedefs import (OrderSide, OrderStatus, OrderType,
-                                           TimeInForce)
+from exapi.typedefs.binance import (OrderSide, OrderStatus, OrderType,
+                                    TimeInForce)
 
 
 class BinanceFilledOrderJson(TypedDict):

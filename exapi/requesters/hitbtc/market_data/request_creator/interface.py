@@ -2,10 +2,10 @@
 
 from typing import Optional, Protocol
 
-from exapi.models.hitbtc.typedefs import (CandlesPeriod, Currencies, Currency,
-                                          IntervalValue, SortBy, SortDirection,
-                                          Symbol, Symbols)
 from exapi.requesters.request import Request
+from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
+                                   IntervalValue, SortBy, SortDirection,
+                                   Symbol, Symbols)
 
 
 class IHitbtcMarketDataRequestCreator(Protocol):

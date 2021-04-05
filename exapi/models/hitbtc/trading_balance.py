@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List, TypedDict
 
-from .typedefs import Currency
+from exapi.typedefs.hitbtc import Currency
 
 
 class HitbtcRawTradingCurrencyBalanceModel(TypedDict):

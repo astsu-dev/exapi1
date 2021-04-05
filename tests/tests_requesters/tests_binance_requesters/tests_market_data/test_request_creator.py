@@ -1,7 +1,7 @@
 from typing import Final
 
 import pytest
-from exapi.models.binance.typedefs import CandleInterval
+from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.binance.auth import BinanceKeyAuth
 from exapi.requesters.binance.market_data.request_creator import \
     BinanceMarketDataRequestCreator

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from exapi.models.binance.typedefs import CandleInterval
+from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.base import IBaseRequester
 from exapi.requesters.typedefs import RequesterResponse
 

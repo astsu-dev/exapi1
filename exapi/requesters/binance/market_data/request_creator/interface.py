@@ -1,6 +1,6 @@
 from typing import Optional, Protocol
 
-from exapi.models.binance.typedefs import CandleInterval
+from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.request import Request
 
 

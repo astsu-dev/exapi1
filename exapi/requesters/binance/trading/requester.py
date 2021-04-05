@@ -2,8 +2,8 @@
 
 from typing import Optional
 
-from exapi.models.binance.typedefs import (OrderResponseType, OrderSide,
-                                           OrderType, TimeInForce)
+from exapi.typedefs.binance import (OrderResponseType, OrderSide,
+                                    OrderType, TimeInForce)
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
 

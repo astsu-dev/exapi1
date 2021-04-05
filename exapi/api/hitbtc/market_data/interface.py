@@ -8,9 +8,9 @@ from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
                                  HitbtcSymbolModel, HitbtcSymbols,
                                  HitbtcSymbolTrades, HitbtcTickerModel,
                                  HitbtcTickers, HitbtcTrades)
-from exapi.models.hitbtc.typedefs import (CandlesPeriod, Currencies, Currency,
-                                          IntervalValue, SortBy, SortDirection,
-                                          Symbol, Symbols)
+from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
+                                   IntervalValue, SortBy, SortDirection,
+                                   Symbol, Symbols)
 
 
 class IHitbtcMarketDataAPI(Protocol):

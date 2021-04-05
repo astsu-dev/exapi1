@@ -3,8 +3,8 @@
 from dataclasses import dataclass
 from typing import List, TypedDict
 
-from exapi.models.binance.typedefs import (OrderTypes, SymbolPermissions,
-                                           SymbolStatus)
+from exapi.typedefs.binance import (OrderTypes, SymbolPermissions,
+                                    SymbolStatus)
 
 from .filters.symbol import BinanceSymbolFilters, BinanceSymbolFiltersJson
 

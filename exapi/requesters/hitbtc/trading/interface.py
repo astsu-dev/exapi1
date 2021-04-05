@@ -2,10 +2,10 @@
 
 from typing import Optional
 
-from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
-                                          Symbol, TimeInForce)
 from exapi.requesters.base import IBaseRequester
 from exapi.requesters.typedefs import RequesterResponse
+from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
+                                   TimeInForce)
 
 
 class IHitbtcTradingRequester(IBaseRequester):

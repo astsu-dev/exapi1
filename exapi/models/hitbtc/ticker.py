@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List, Optional, TypedDict
 
-from .typedefs import Datetime, Symbol
+from exapi.typedefs.hitbtc import Datetime, Symbol
 
 
 class HitbtcRawTickerModel(TypedDict):

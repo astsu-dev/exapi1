@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from typing import List, Literal, TypedDict, Union
 
-from exapi.models.binance.typedefs import RateLimitInterval
+from exapi.typedefs.binance import RateLimitInterval
 
 
 class BinanceRequestWeightRateLimitJson(TypedDict):

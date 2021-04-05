@@ -9,8 +9,8 @@ from exapi.models.binance import (BinanceAccountInfoModel,
                                   BinanceCanceledOrders, BinanceOrderInfoModel,
                                   BinanceOrderInfos, BinanceOrderModel,
                                   BinanceTestOrderModel)
-from exapi.models.binance.typedefs import (OrderResponseType, OrderSide,
-                                           OrderType, TimeInForce)
+from exapi.typedefs.binance import (OrderResponseType, OrderSide,
+                                    OrderType, TimeInForce)
 
 
 class IBinanceTradingAPI(Protocol):

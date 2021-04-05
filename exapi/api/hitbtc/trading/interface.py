@@ -6,8 +6,8 @@ from typing import Optional, Protocol
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
-from exapi.models.hitbtc.typedefs import (Datetime, OrderSide, OrderType,
-                                          Symbol, TimeInForce)
+from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
+                                   TimeInForce)
 
 
 class IHitbtcTradingAPI(Protocol):

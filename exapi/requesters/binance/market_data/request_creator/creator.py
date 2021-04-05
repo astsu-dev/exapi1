@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from exapi.models.binance.typedefs import CandleInterval
+from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.binance.auth import IBinanceKeyAuth
 from exapi.requesters.binance.base.request_creator import \
     BinanceBaseRequestCreator

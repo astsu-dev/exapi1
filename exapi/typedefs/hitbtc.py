@@ -1,4 +1,4 @@
-"""Has type definitions for hitbtc requesters."""
+"""Has hitbtc type definitions."""
 
 from typing import Iterable, Literal, Union
 

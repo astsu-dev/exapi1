@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List, TypedDict
 
-from .typedefs import Currency, Symbol
+from exapi.typedefs.hitbtc import Currency, Symbol
 
 
 class HitbtcRawSymbolModel(TypedDict):
