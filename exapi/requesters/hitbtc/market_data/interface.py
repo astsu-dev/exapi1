@@ -117,7 +117,7 @@ class IHitbtcMarketDataRequester(IBaseRequester):
         Args:
             symbols (Optional[Symbols], optional): list of symbols.
                 If not passed, then will return for all symbols.
-            SortDirection (Optional[SortDirection], optional): SortDirection direction.
+            sort (Optional[SortDirection], optional): SortDirection direction.
                 Accepted values: ASC, DESC. Default value: DESC.
             from_ (Optional[IntervalValue], optional): Interval initial value.
                 If sorting by timestamp is used, then Datetime,
