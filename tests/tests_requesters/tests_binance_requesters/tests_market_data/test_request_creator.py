@@ -3,7 +3,7 @@ from typing import Final
 import pytest
 from yarl import URL
 
-from exapi.request_creators.binance.market_data.spot import \
+from exapi.request_creators.binance.spot.market_data import \
     BinanceSpotMarketDataRequestCreator
 from exapi.requesters.binance.auth import BinanceKeyAuth
 from exapi.requesters.request import Request

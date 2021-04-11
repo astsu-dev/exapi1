@@ -4,7 +4,7 @@ from typing import Optional
 
 from yarl import URL
 
-from exapi.request_creators.binance.market_data.spot.interface import IBinanceSpotMarketDataRequestCreator
+from exapi.request_creators.binance.spot.market_data.interface import IBinanceSpotMarketDataRequestCreator
 from exapi.requesters.binance.auth import IBinanceKeyAuth
 from exapi.requesters.binance.base.request_creator import \
     BinanceBaseRequestCreator

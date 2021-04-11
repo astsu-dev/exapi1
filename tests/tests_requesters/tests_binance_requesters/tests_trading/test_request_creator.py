@@ -6,12 +6,12 @@ from yarl import URL
 
 from exapi.enums.binance import (BinanceOrderResponseType, BinanceOrderSide,
                                  BinanceOrderType, BinanceTimeInForce)
-from exapi.request_creators.binance.trading.spot import \
+from exapi.request_creators.binance.spot.trading import \
     BinanceSpotTradingRequestCreator
 from exapi.requesters.binance.auth import BinanceAuth, BinanceKeyAuth
 from exapi.requesters.request import Request
 
-GET_TIMESTAMP_PATH: Final[str] = "exapi.request_creators.binance.trading.spot.creator.get_timestamp"
+GET_TIMESTAMP_PATH: Final[str] = "exapi.request_creators.binance.spot.trading.creator.get_timestamp"
 
 API_KEY: Final[str] = "aaa"
 API_SECRET: Final[str] = "bbb"

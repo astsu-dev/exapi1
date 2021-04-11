@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from exapi.request_creators.binance.market_data.spot import IBinanceSpotMarketDataRequestCreator
+from exapi.request_creators.binance.spot.market_data import IBinanceSpotMarketDataRequestCreator
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.binance.market_data.interface import IBinanceMarketDataRequester
 from exapi.requesters.typedefs import RequesterResponse, Session

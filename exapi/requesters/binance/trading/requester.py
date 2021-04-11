@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from exapi.request_creators.binance.trading.spot import IBinanceSpotTradingRequestCreator
+from exapi.request_creators.binance.spot.trading import IBinanceSpotTradingRequestCreator
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.binance.trading.interface import IBinanceTradingRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
