@@ -19,7 +19,7 @@ from exapi.models.binance.mapper import BinanceModelsMapper
 from exapi.models.binance.mapper.trading import IBinanceTradingModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
-from .interface import IBinanceTradingResponseHandler
+from exapi.api.binance.trading.response_handler.interface import IBinanceTradingResponseHandler
 
 
 class BinanceTradingResponseHandler(BinanceBaseResponseHandler, IBinanceTradingResponseHandler):

@@ -10,7 +10,7 @@ from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    Symbol, Symbols)
 from yarl import URL
 
-from .interface import IHitbtcMarketDataRequestCreator
+from exapi.requesters.hitbtc.market_data.request_creator.interface import IHitbtcMarketDataRequestCreator
 
 
 class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketDataRequestCreator):

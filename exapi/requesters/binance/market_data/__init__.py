@@ -1,2 +1,2 @@
-from .interface import IBinanceMarketDataRequester
-from .requester import BinanceMarketDataRequester
+from exapi.requesters.binance.market_data.interface import IBinanceMarketDataRequester
+from exapi.requesters.binance.market_data.requester import BinanceMarketDataRequester

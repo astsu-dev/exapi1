@@ -1,10 +1,10 @@
-from .exchange import (BinanceExchangeFilterJson, BinanceExchangeFilterModel,
+from exapi.models.binance.exchange_info.filters.exchange import (BinanceExchangeFilterJson, BinanceExchangeFilterModel,
                        BinanceExchangeFilters, BinanceExchangeFiltersJson,
                        BinanceMaxNumAlgoOrdersExchangeFilterJson,
                        BinanceMaxNumAlgoOrdersExchangeFilterModel,
                        BinanceMaxNumOrdersExchangeFilterJson,
                        BinanceMaxNumOrdersExchangeFilterModel)
-from .symbol import (BinanceIcebergPartsSymbolFilterJson,
+from exapi.models.binance.exchange_info.filters.symbol import (BinanceIcebergPartsSymbolFilterJson,
                      BinanceIcebergPartsSymbolFilterModel,
                      BinanceLotSizeSymbolFilterJson,
                      BinanceLotSizeSymbolFilterModel,

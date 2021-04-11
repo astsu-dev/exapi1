@@ -4,7 +4,7 @@ from typing import Protocol
 
 from exapi.requesters.typedefs import Params
 
-from .result import BinanceAuthResult
+from exapi.requesters.binance.auth.result import BinanceAuthResult
 
 
 class IBinanceAuth(Protocol):

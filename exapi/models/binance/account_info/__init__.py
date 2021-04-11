@@ -1,3 +1,3 @@
-from .balance import (BinanceCurrencyBalanceJson, BinanceCurrencyBalanceModel,
+from exapi.models.binance.account_info.balance import (BinanceCurrencyBalanceJson, BinanceCurrencyBalanceModel,
                       BinanceCurrencyBalances, BinanceCurrencyBalancesJson)
-from .model import BinanceAccountInfoJson, BinanceAccountInfoModel
+from exapi.models.binance.account_info.model import BinanceAccountInfoJson, BinanceAccountInfoModel

@@ -1,2 +1,2 @@
-from .interface import IBinanceTradingRequester
-from .requester import BinanceTradingRequester
+from exapi.requesters.binance.trading.interface import IBinanceTradingRequester
+from exapi.requesters.binance.trading.requester import BinanceTradingRequester

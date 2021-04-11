@@ -13,8 +13,8 @@ from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    IntervalValue, SortBy, SortDirection,
                                    Symbol, Symbols)
 
-from .interface import IHitbtcMarketDataAPI
-from .response_handler import (HitbtcMarketDataResponseHandler,
+from exapi.api.hitbtc.market_data.interface import IHitbtcMarketDataAPI
+from exapi.api.hitbtc.market_data.response_handler import (HitbtcMarketDataResponseHandler,
                                IHitbtcMarketDataResponseHandler)
 
 

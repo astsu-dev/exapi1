@@ -1,1 +1,1 @@
-from .interface import IHitbtcTradingModelsMapper
+from exapi.api.hitbtc.trading.models_mapper.interface import IHitbtcTradingModelsMapper

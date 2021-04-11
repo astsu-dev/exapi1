@@ -1,2 +1,2 @@
-from .creator import BinanceMarketDataRequestCreator
-from .interface import IBinanceMarketDataRequestCreator
+from exapi.requesters.binance.market_data.request_creator.creator import BinanceMarketDataRequestCreator
+from exapi.requesters.binance.market_data.request_creator.interface import IBinanceMarketDataRequestCreator

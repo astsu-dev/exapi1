@@ -18,10 +18,10 @@ from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
 from exapi.requesters.binance.market_data import IBinanceMarketDataRequester
 from exapi.typedefs.binance import CandleInterval
 
-from .interface import IBinanceMarketDataAPI
-from .response_handler import (BinanceMarketDataResponseHandler,
+from exapi.api.binance.market_data.interface import IBinanceMarketDataAPI
+from exapi.api.binance.market_data.response_handler import (BinanceMarketDataResponseHandler,
                                IBinanceMarketDataResponseHandler)
-from .typedefs import (BinanceOrderBookTickerModelOrTickers,
+from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
                        BinancePriceTickerModelOrTickers,
                        BinanceTickerPriceChangeStatModelOrTickers)
 

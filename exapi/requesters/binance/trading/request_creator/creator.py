@@ -12,7 +12,7 @@ from exapi.requesters.typedefs import Params
 from exapi.utils.time import get_timestamp
 from yarl import URL
 
-from .interface import IBinanceTradingRequestCreator
+from exapi.requesters.binance.trading.request_creator.interface import IBinanceTradingRequestCreator
 
 
 class BinanceTradingRequestCreator(BinanceBaseRequestCreator, IBinanceTradingRequestCreator):

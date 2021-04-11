@@ -6,7 +6,7 @@ from typing import List, TypedDict
 from exapi.typedefs.binance import (OrderTypes, SymbolPermissions,
                                     SymbolStatus)
 
-from .filters.symbol import BinanceSymbolFilters, BinanceSymbolFiltersJson
+from exapi.models.binance.exchange_info.filters.symbol import BinanceSymbolFilters, BinanceSymbolFiltersJson
 
 
 class BinanceSymbolJson(TypedDict):

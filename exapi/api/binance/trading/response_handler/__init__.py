@@ -1,2 +1,2 @@
-from .handler import BinanceTradingResponseHandler
-from .interface import IBinanceTradingResponseHandler
+from exapi.api.binance.trading.response_handler.handler import BinanceTradingResponseHandler
+from exapi.api.binance.trading.response_handler.interface import IBinanceTradingResponseHandler

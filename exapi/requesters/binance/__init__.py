@@ -1,1 +1,1 @@
-from .market_data import IBinanceMarketDataRequester
+from exapi.requesters.binance.market_data import IBinanceMarketDataRequester

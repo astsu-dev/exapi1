@@ -7,8 +7,8 @@ from exapi.typedefs.binance import (OrderResponseType, OrderSide,
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
 
-from .interface import IBinanceTradingRequester
-from .request_creator import IBinanceTradingRequestCreator
+from exapi.requesters.binance.trading.interface import IBinanceTradingRequester
+from exapi.requesters.binance.trading.request_creator import IBinanceTradingRequestCreator
 
 
 class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):

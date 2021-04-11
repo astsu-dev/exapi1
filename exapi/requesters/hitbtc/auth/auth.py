@@ -6,8 +6,8 @@ import hmac
 import time
 from typing import Final, Optional
 
-from .interface import IHitbtcAuth
-from .typedefs import HitbtcAuthHeaders
+from exapi.requesters.hitbtc.auth.interface import IHitbtcAuth
+from exapi.requesters.hitbtc.auth.typedefs import HitbtcAuthHeaders
 
 
 class HitbtcAuth(IHitbtcAuth):

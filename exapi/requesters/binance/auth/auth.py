@@ -6,9 +6,9 @@ import hmac
 from exapi.requesters.typedefs import Params
 from exapi.utils.url import create_query_string
 
-from .interface import IBinanceAuth
-from .key import IBinanceKeyAuth
-from .result import BinanceAuthResult
+from exapi.requesters.binance.auth.interface import IBinanceAuth
+from exapi.requesters.binance.auth.key import IBinanceKeyAuth
+from exapi.requesters.binance.auth.result import BinanceAuthResult
 
 
 class BinanceAuth(IBinanceAuth):

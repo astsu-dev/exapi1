@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 from exapi.requesters.typedefs import RequesterResponse
 
-from .interface import IBaseResponseHandler
+from exapi.api.base.response_handler.interface import IBaseResponseHandler
 
 
 class BaseResponseHandler(abc.ABC, IBaseResponseHandler):

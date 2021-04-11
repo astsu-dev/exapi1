@@ -1,1 +1,1 @@
-from .requester import IBaseRequester, BaseRequester
+from exapi.requesters.base.requester import IBaseRequester, BaseRequester

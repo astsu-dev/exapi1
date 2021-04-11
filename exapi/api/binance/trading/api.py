@@ -14,8 +14,8 @@ from exapi.typedefs.binance import (OrderResponseType, OrderSide, OrderType,
                                     TimeInForce)
 from exapi.utils.numbers import decimal_to_str
 
-from .interface import IBinanceTradingAPI
-from .response_handler import (BinanceTradingResponseHandler,
+from exapi.api.binance.trading.interface import IBinanceTradingAPI
+from exapi.api.binance.trading.response_handler import (BinanceTradingResponseHandler,
                                IBinanceTradingResponseHandler)
 
 

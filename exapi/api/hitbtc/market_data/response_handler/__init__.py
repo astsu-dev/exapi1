@@ -1,2 +1,2 @@
-from .handler import HitbtcMarketDataResponseHandler
-from .interface import IHitbtcMarketDataResponseHandler
+from exapi.api.hitbtc.market_data.response_handler.handler import HitbtcMarketDataResponseHandler
+from exapi.api.hitbtc.market_data.response_handler.interface import IHitbtcMarketDataResponseHandler

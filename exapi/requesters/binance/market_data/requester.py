@@ -6,8 +6,8 @@ from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
 
-from .interface import IBinanceMarketDataRequester
-from .request_creator import IBinanceMarketDataRequestCreator
+from exapi.requesters.binance.market_data.interface import IBinanceMarketDataRequester
+from exapi.requesters.binance.market_data.request_creator import IBinanceMarketDataRequestCreator
 
 
 class BinanceMarketDataRequester(BaseRequester, IBinanceMarketDataRequester):

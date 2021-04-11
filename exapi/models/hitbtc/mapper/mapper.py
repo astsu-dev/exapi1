@@ -27,7 +27,7 @@ from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
 
-from .base import HitbtcBaseModelsMapper
+from exapi.models.hitbtc.mapper.base import HitbtcBaseModelsMapper
 
 
 class HitbtcModelsMapper(HitbtcBaseModelsMapper):

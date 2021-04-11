@@ -10,7 +10,7 @@ from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
 from yarl import URL
 
-from .interface import IBinanceMarketDataRequestCreator
+from exapi.requesters.binance.market_data.request_creator.interface import IBinanceMarketDataRequestCreator
 
 
 class BinanceMarketDataRequestCreator(BinanceBaseRequestCreator, IBinanceMarketDataRequestCreator):

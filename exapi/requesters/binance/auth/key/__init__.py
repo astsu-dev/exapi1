@@ -1,2 +1,2 @@
-from .auth import BinanceKeyAuth
-from .interface import IBinanceKeyAuth
+from exapi.requesters.binance.auth.key.auth import BinanceKeyAuth
+from exapi.requesters.binance.auth.key.interface import IBinanceKeyAuth

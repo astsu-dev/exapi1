@@ -29,7 +29,7 @@ from exapi.models.binance.mapper.market_data import \
     IBinanceMarketDataModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
-from .interface import IBinanceMarketDataResponseHandler
+from exapi.api.binance.market_data.response_handler.interface import IBinanceMarketDataResponseHandler
 
 
 class BinanceMarketDataResponseHandler(BinanceBaseResponseHandler, IBinanceMarketDataResponseHandler):

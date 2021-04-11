@@ -1,1 +1,1 @@
-from .interface import IBinanceMarketDataModelsMapper
+from exapi.models.binance.mapper.market_data.interface import IBinanceMarketDataModelsMapper

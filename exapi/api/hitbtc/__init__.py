@@ -1,2 +1,2 @@
-from .market_data import HitbtcMarketDataAPI, IHitbtcMarketDataAPI
-from .trading import HitbtcTradingAPI, IHitbtcTradingAPI
+from exapi.api.hitbtc.market_data import HitbtcMarketDataAPI, IHitbtcMarketDataAPI
+from exapi.api.hitbtc.trading import HitbtcTradingAPI, IHitbtcTradingAPI

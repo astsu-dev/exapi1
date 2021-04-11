@@ -7,7 +7,7 @@ import aiohttp
 from exapi.requesters.typedefs import Headers, RequesterResponse
 from yarl import URL
 
-from .interface import IBaseRequester
+from exapi.requesters.base.requester.interface import IBaseRequester
 
 
 class BaseRequester(abc.ABC, IBaseRequester):

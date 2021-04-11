@@ -1,1 +1,1 @@
-from .interface import IBinanceTradingModelsMapper
+from exapi.models.binance.mapper.trading.interface import IBinanceTradingModelsMapper

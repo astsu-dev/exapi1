@@ -98,8 +98,8 @@ from exapi.models.binance.exchange_info.rate_limits import (
     BinanceRawRequestsRateLimitJson, BinanceRawRequestsRateLimitModel,
     BinanceRequestWeightRateLimitJson, BinanceRequestWeightRateLimitModel)
 
-from .base import BinanceBaseModelsMapper
-from .interface import IBinanceModelsMapper
+from exapi.models.binance.mapper.base import BinanceBaseModelsMapper
+from exapi.models.binance.mapper.interface import IBinanceModelsMapper
 
 
 class BinanceModelsMapper(IBinanceModelsMapper, BinanceBaseModelsMapper):

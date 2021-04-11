@@ -20,7 +20,7 @@ from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
 from exapi.models.hitbtc.mapper import HitbtcModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
-from .interface import IHitbtcMarketDataResponseHandler
+from exapi.api.hitbtc.market_data.response_handler.interface import IHitbtcMarketDataResponseHandler
 
 
 class HitbtcMarketDataResponseHandler(HitbtcBaseResponseHandler, IHitbtcMarketDataResponseHandler):

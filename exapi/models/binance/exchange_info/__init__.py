@@ -1,4 +1,4 @@
-from .filters import (BinanceExchangeFilterJson, BinanceExchangeFilterModel,
+from exapi.models.binance.exchange_info.filters import (BinanceExchangeFilterJson, BinanceExchangeFilterModel,
                       BinanceExchangeFilters, BinanceExchangeFiltersJson,
                       BinanceIcebergPartsSymbolFilterJson,
                       BinanceIcebergPartsSymbolFilterModel,
@@ -26,8 +26,8 @@ from .filters import (BinanceExchangeFilterJson, BinanceExchangeFilterModel,
                       BinancePriceSymbolFilterModel, BinanceSymbolFilterJson,
                       BinanceSymbolFilterModel, BinanceSymbolFilters,
                       BinanceSymbolFiltersJson)
-from .model import BinanceExchangeInfoJson, BinanceExchangeInfoModel
-from .rate_limits import (BinanceOrdersRateLimitJson,
+from exapi.models.binance.exchange_info.model import BinanceExchangeInfoJson, BinanceExchangeInfoModel
+from exapi.models.binance.exchange_info.rate_limits import (BinanceOrdersRateLimitJson,
                           BinanceOrdersRateLimitModel, BinanceRateLimitJson,
                           BinanceRateLimitModel, BinanceRateLimits,
                           BinanceRateLimitsJson,
@@ -35,5 +35,5 @@ from .rate_limits import (BinanceOrdersRateLimitJson,
                           BinanceRawRequestsRateLimitModel,
                           BinanceRequestWeightRateLimitJson,
                           BinanceRequestWeightRateLimitModel)
-from .symbol import (BinanceSymbolJson, BinanceSymbolModel, BinanceSymbols,
+from exapi.models.binance.exchange_info.symbol import (BinanceSymbolJson, BinanceSymbolModel, BinanceSymbols,
                      BinanceSymbolsJson)

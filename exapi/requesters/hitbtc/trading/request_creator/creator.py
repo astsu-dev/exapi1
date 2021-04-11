@@ -10,7 +10,7 @@ from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)
 from yarl import URL
 
-from .interface import IHitbtcTradingRequestCreator
+from exapi.requesters.hitbtc.trading.request_creator.interface import IHitbtcTradingRequestCreator
 
 
 class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingRequestCreator):

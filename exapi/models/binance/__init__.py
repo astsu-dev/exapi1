@@ -1,15 +1,15 @@
-from .account_info import (BinanceAccountInfoJson, BinanceAccountInfoModel,
+from exapi.models.binance.account_info import (BinanceAccountInfoJson, BinanceAccountInfoModel,
                            BinanceCurrencyBalanceJson,
                            BinanceCurrencyBalanceModel,
                            BinanceCurrencyBalances,
                            BinanceCurrencyBalancesJson)
-from .account_trade import (BinanceAccountTradeJson, BinanceAccountTradeModel,
+from exapi.models.binance.account_trade import (BinanceAccountTradeJson, BinanceAccountTradeModel,
                             BinanceAccountTrades, BinanceAccountTradesJson)
-from .average_price import BinanceAveragePriceJson, BinanceAveragePriceModel
-from .candle import (BinanceCandleJson, BinanceCandleModel, BinanceCandles,
+from exapi.models.binance.average_price import BinanceAveragePriceJson, BinanceAveragePriceModel
+from exapi.models.binance.candle import (BinanceCandleJson, BinanceCandleModel, BinanceCandles,
                      BinanceCandlesJson)
-from .error import BinanceErrorJson, BinanceErrorModel
-from .exchange_info import (BinanceExchangeFilterJson,
+from exapi.models.binance.error import BinanceErrorJson, BinanceErrorModel
+from exapi.models.binance.exchange_info import (BinanceExchangeFilterJson,
                             BinanceExchangeFilterModel, BinanceExchangeFilters,
                             BinanceExchangeFiltersJson,
                             BinanceExchangeInfoJson, BinanceExchangeInfoModel,
@@ -49,7 +49,7 @@ from .exchange_info import (BinanceExchangeFilterJson,
                             BinanceSymbolFilters, BinanceSymbolFiltersJson,
                             BinanceSymbolJson, BinanceSymbolModel,
                             BinanceSymbols, BinanceSymbolsJson)
-from .order import (BinanceAckOrderJson, BinanceCanceledOrderJson,
+from exapi.models.binance.order import (BinanceAckOrderJson, BinanceCanceledOrderJson,
                     BinanceCanceledOrderModel, BinanceCanceledOrders,
                     BinanceCanceledOrdersJson, BinanceFilledOrderJson,
                     BinanceFilledOrderModel, BinanceFilledOrders,
@@ -59,22 +59,22 @@ from .order import (BinanceAckOrderJson, BinanceCanceledOrderJson,
                     BinanceOrderModel, BinanceOrders, BinanceOrdersJson,
                     BinanceResultOrderJson, BinanceTestOrderJson,
                     BinanceTestOrderModel)
-from .order_book import (BinanceOrderBookJson, BinanceOrderBookModel,
+from exapi.models.binance.order_book import (BinanceOrderBookJson, BinanceOrderBookModel,
                          BinanceOrderBookOrderJson, BinanceOrderBookOrderModel,
                          BinanceOrderBookOrders, BinanceOrderBookOrdersJson)
-from .order_book_ticker import (BinanceOrderBookTickerJson,
+from exapi.models.binance.order_book_ticker import (BinanceOrderBookTickerJson,
                                 BinanceOrderBookTickerModel,
                                 BinanceOrderBookTickers,
                                 BinanceOrderBookTickersJson)
-from .ping import BinancePingJson, BinancePingModel
-from .price_ticker import (BinancePriceTickerJson, BinancePriceTickerModel,
+from exapi.models.binance.ping import BinancePingJson, BinancePingModel
+from exapi.models.binance.price_ticker import (BinancePriceTickerJson, BinancePriceTickerModel,
                            BinancePriceTickers, BinancePriceTickersJson)
-from .server_time import BinanceServerTimeJson, BinanceServerTimeModel
-from .ticker_price_change_stat import (BinanceTickerPriceChangeStatJson,
+from exapi.models.binance.server_time import BinanceServerTimeJson, BinanceServerTimeModel
+from exapi.models.binance.ticker_price_change_stat import (BinanceTickerPriceChangeStatJson,
                                        BinanceTickerPriceChangeStatModel,
                                        BinanceTickersPriceChangeStat,
                                        BinanceTickersPriceChangeStatJson)
-from .trade import (BinanceAggregateTradeJson, BinanceAggregateTradeModel,
+from exapi.models.binance.trade import (BinanceAggregateTradeJson, BinanceAggregateTradeModel,
                     BinanceAggregateTrades, BinanceAggregateTradesJson,
                     BinanceTradeJson, BinanceTradeModel, BinanceTrades,
                     BinanceTradesJson)

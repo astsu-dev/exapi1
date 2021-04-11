@@ -3,7 +3,7 @@ from typing import TypedDict
 
 from exapi.typedefs.binance import AccountType
 
-from .balance import BinanceCurrencyBalances, BinanceCurrencyBalancesJson
+from exapi.models.binance.account_info.balance import BinanceCurrencyBalances, BinanceCurrencyBalancesJson
 
 
 class BinanceAccountInfoJson(TypedDict):

@@ -13,7 +13,7 @@ from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
 from exapi.models.hitbtc.mapper import HitbtcModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
-from .interface import IHitbtcTradingResponseHandler
+from exapi.api.hitbtc.trading.response_handler.interface import IHitbtcTradingResponseHandler
 
 
 class HitbtcTradingResponseHandler(HitbtcBaseResponseHandler, IHitbtcTradingResponseHandler):

@@ -3,10 +3,10 @@
 from dataclasses import dataclass
 from typing import TypedDict
 
-from .filters.exchange import (BinanceExchangeFilters,
+from exapi.models.binance.exchange_info.filters.exchange import (BinanceExchangeFilters,
                                BinanceExchangeFiltersJson)
-from .rate_limits import BinanceRateLimits, BinanceRateLimitsJson
-from .symbol import BinanceSymbols, BinanceSymbolsJson
+from exapi.models.binance.exchange_info.rate_limits import BinanceRateLimits, BinanceRateLimitsJson
+from exapi.models.binance.exchange_info.symbol import BinanceSymbols, BinanceSymbolsJson
 
 
 class BinanceExchangeInfoJson(TypedDict):

@@ -5,7 +5,7 @@ from typing import List, Optional, TypedDict
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderStatus, OrderType,
                                    Symbol, TimeInForce)
 
-from .trade import HitbtcRawTradeModel, HitbtcTradeModel
+from exapi.models.hitbtc.trade import HitbtcRawTradeModel, HitbtcTradeModel
 
 
 class HitbtcRawOrderModel(TypedDict):
