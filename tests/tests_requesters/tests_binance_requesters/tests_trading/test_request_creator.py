@@ -7,7 +7,7 @@ from yarl import URL
 from exapi.enums.binance import (BinanceOrderResponseType, BinanceOrderSide,
                                  BinanceOrderType, BinanceTimeInForce)
 from exapi.request_creators.binance.trading.spot import \
-    BinanceTradingRequestCreator
+    BinanceSpotTradingRequestCreator
 from exapi.requesters.binance.auth import BinanceAuth, BinanceKeyAuth
 from exapi.requesters.request import Request
 
@@ -23,11 +23,11 @@ auth = BinanceAuth(key_auth, API_SECRET)
 
 
 @pytest.fixture(scope="module")
-def creator() -> BinanceTradingRequestCreator:
-    return BinanceTradingRequestCreator(auth)
+def creator() -> BinanceSpotTradingRequestCreator:
+    return BinanceSpotTradingRequestCreator(auth)
 
 
-def test_create_new_test_order_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_new_test_order_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "POST"
     url = URL(BASE_URL + "/order/test")
 
@@ -321,7 +321,7 @@ def test_create_new_test_order_request(creator: BinanceTradingRequestCreator) ->
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_new_order_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_new_order_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "POST"
     url = URL(BASE_URL + "/order")
 
@@ -615,7 +615,7 @@ def test_create_new_order_request(creator: BinanceTradingRequestCreator) -> None
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_cancel_order_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_cancel_order_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "DELETE"
     url = URL(BASE_URL + "/order")
 
@@ -723,7 +723,7 @@ def test_create_cancel_order_request(creator: BinanceTradingRequestCreator) -> N
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_cancel_orders_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_cancel_orders_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "DELETE"
     url = URL(BASE_URL + "/openOrders")
 
@@ -771,7 +771,7 @@ def test_create_cancel_orders_request(creator: BinanceTradingRequestCreator) -> 
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_query_order_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_query_order_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "GET"
     url = URL(BASE_URL + "/order")
 
@@ -857,7 +857,7 @@ def test_create_query_order_request(creator: BinanceTradingRequestCreator) -> No
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_get_current_open_orders_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_get_current_open_orders_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "GET"
     url = URL(BASE_URL + "/openOrders")
 
@@ -914,7 +914,7 @@ def test_create_get_current_open_orders_request(creator: BinanceTradingRequestCr
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_get_all_orders_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_get_all_orders_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "GET"
     url = URL(BASE_URL + "/allOrders")
 
@@ -1046,7 +1046,7 @@ def test_create_get_all_orders_request(creator: BinanceTradingRequestCreator) ->
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_get_account_info_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_get_account_info_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "GET"
     url = URL(BASE_URL + "/account")
 
@@ -1087,7 +1087,7 @@ def test_create_get_account_info_request(creator: BinanceTradingRequestCreator) 
         method=method, url=url.with_query(auth_res.params), headers=auth_res.headers)
 
 
-def test_create_get_trades_request(creator: BinanceTradingRequestCreator) -> None:
+def test_create_get_trades_request(creator: BinanceSpotTradingRequestCreator) -> None:
     method = "GET"
     url = URL(BASE_URL + "/myTrades")
 

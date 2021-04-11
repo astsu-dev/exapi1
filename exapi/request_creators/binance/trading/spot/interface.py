@@ -7,7 +7,7 @@ from exapi.typedefs.binance import (OrderResponseType, OrderSide,
                                     OrderType, TimeInForce)
 
 
-class IBinanceTradingRequestCreator(Protocol):
+class IBinanceSpotTradingRequestCreator(Protocol):
     """Has methods for creating requests to binance spot trading api."""
 
     def create_new_test_order_request(self, symbol: str,

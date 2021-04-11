@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from exapi.request_creators.binance.trading.spot import IBinanceTradingRequestCreator
+from exapi.request_creators.binance.trading.spot import IBinanceSpotTradingRequestCreator
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.binance.trading.interface import IBinanceTradingRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
@@ -13,7 +13,7 @@ from exapi.typedefs.binance import (OrderResponseType, OrderSide,
 class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
     """Has methods for making requests to binance spot account trading api."""
 
-    def __init__(self, session: Session, creator: IBinanceTradingRequestCreator) -> None:
+    def __init__(self, session: Session, creator: IBinanceSpotTradingRequestCreator) -> None:
         super().__init__(session)
         self._creator = creator
 

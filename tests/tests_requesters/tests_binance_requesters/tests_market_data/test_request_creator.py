@@ -4,7 +4,7 @@ import pytest
 from yarl import URL
 
 from exapi.request_creators.binance.market_data.spot import \
-    BinanceMarketDataRequestCreator
+    BinanceSpotMarketDataRequestCreator
 from exapi.requesters.binance.auth import BinanceKeyAuth
 from exapi.requesters.request import Request
 from exapi.typedefs.binance import CandleInterval
@@ -13,33 +13,33 @@ API_KEY: Final[str] = "aaa"
 
 
 @pytest.fixture(scope="module")
-def creator() -> BinanceMarketDataRequestCreator:
+def creator() -> BinanceSpotMarketDataRequestCreator:
     auth = BinanceKeyAuth(API_KEY)
-    return BinanceMarketDataRequestCreator(auth)
+    return BinanceSpotMarketDataRequestCreator(auth)
 
 
-def test_create_ping_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_ping_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/ping")
     expected = Request(method=method, url=url)
     assert creator.create_ping_request() == expected
 
 
-def test_create_get_server_time_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_server_time_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/time")
     expected = Request(method=method, url=url)
     assert creator.create_get_server_time_request() == expected
 
 
-def test_create_get_exchange_info_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_exchange_info_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/exchangeInfo")
     expected = Request(method=method, url=url)
     assert creator.create_get_exchange_info_request() == expected
 
 
-def test_create_get_order_book_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_order_book_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/depth")
 
@@ -64,7 +64,7 @@ def test_create_get_order_book_request(creator: BinanceMarketDataRequestCreator)
         symbol=symbol, limit=limit) == expected
 
 
-def test_create_get_trades_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_trades_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/trades")
 
@@ -89,7 +89,7 @@ def test_create_get_trades_request(creator: BinanceMarketDataRequestCreator) -> 
         symbol=symbol, limit=limit) == expected
 
 
-def test_create_get_old_trades_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_old_trades_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/historicalTrades")
     headers = {
@@ -129,7 +129,7 @@ def test_create_get_old_trades_request(creator: BinanceMarketDataRequestCreator)
         symbol=symbol, limit=limit, from_id=from_id) == expected
 
 
-def test_create_get_aggregate_trades_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_aggregate_trades_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/aggTrades")
 
@@ -197,7 +197,7 @@ def test_create_get_aggregate_trades_request(creator: BinanceMarketDataRequestCr
         limit=limit) == expected
 
 
-def test_create_get_candles_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_candles_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/klines")
 
@@ -256,7 +256,7 @@ def test_create_get_candles_request(creator: BinanceMarketDataRequestCreator) ->
         limit=limit) == expected
 
 
-def test_create_get_average_price_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_average_price_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/avgPrice")
 
@@ -270,7 +270,7 @@ def test_create_get_average_price_request(creator: BinanceMarketDataRequestCreat
     assert creator.create_get_average_price_request(symbol=symbol) == expected
 
 
-def test_create_get_ticker_price_change_stat_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_ticker_price_change_stat_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/ticker/24hr")
 
@@ -288,7 +288,7 @@ def test_create_get_ticker_price_change_stat_request(creator: BinanceMarketDataR
         symbol=symbol) == expected
 
 
-def test_create_get_price_ticker_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_price_ticker_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/ticker/price")
 
@@ -306,7 +306,7 @@ def test_create_get_price_ticker_request(creator: BinanceMarketDataRequestCreato
         symbol=symbol) == expected
 
 
-def test_create_get_order_book_ticker_request(creator: BinanceMarketDataRequestCreator) -> None:
+def test_create_get_order_book_ticker_request(creator: BinanceSpotMarketDataRequestCreator) -> None:
     method = "GET"
     url = URL("https://api.binance.com/api/v3/ticker/bookTicker")
 

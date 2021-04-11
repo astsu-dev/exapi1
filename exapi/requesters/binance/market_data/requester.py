@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from exapi.request_creators.binance.market_data.spot import IBinanceMarketDataRequestCreator
+from exapi.request_creators.binance.market_data.spot import IBinanceSpotMarketDataRequestCreator
 from exapi.requesters.base.requester import BaseRequester
 from exapi.requesters.binance.market_data.interface import IBinanceMarketDataRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
@@ -12,7 +12,7 @@ from exapi.typedefs.binance import CandleInterval
 class BinanceMarketDataRequester(BaseRequester, IBinanceMarketDataRequester):
     """Has methods for making requests to binance exchange."""
 
-    def __init__(self, session: Session, creator: IBinanceMarketDataRequestCreator) -> None:
+    def __init__(self, session: Session, creator: IBinanceSpotMarketDataRequestCreator) -> None:
         super().__init__(session)
         self._creator = creator
 

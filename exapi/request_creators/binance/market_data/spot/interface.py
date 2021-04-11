@@ -4,7 +4,7 @@ from exapi.requesters.request import Request
 from exapi.typedefs.binance import CandleInterval
 
 
-class IBinanceMarketDataRequestCreator(Protocol):
+class IBinanceSpotMarketDataRequestCreator(Protocol):
     """Has methods for creating requests for binance market data endpoints."""
 
     def create_ping_request(self) -> Request:
