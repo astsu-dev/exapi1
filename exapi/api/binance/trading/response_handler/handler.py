@@ -3,6 +3,7 @@
 from typing import Optional
 
 from exapi.api.binance.base import BinanceBaseResponseHandler
+from exapi.api.binance.trading.response_handler.interface import IBinanceTradingResponseHandler
 from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceAccountInfoModel,
                                   BinanceAccountTrades,
@@ -18,8 +19,6 @@ from exapi.models.binance import (BinanceAccountInfoJson,
 from exapi.models.binance.mapper import BinanceModelsMapper
 from exapi.models.binance.mapper.trading import IBinanceTradingModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
-
-from exapi.api.binance.trading.response_handler.interface import IBinanceTradingResponseHandler
 
 
 class BinanceTradingResponseHandler(BinanceBaseResponseHandler, IBinanceTradingResponseHandler):

@@ -2,10 +2,9 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List, Optional, TypedDict
 
+from exapi.models.hitbtc.trade import HitbtcRawTradeModel, HitbtcTradeModel
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderStatus, OrderType,
                                    Symbol, TimeInForce)
-
-from exapi.models.hitbtc.trade import HitbtcRawTradeModel, HitbtcTradeModel
 
 
 class HitbtcRawOrderModel(TypedDict):

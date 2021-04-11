@@ -2,32 +2,19 @@
 
 from typing import Union
 
-from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
-                                 HitbtcCurrencies, HitbtcCurrencyModel,
-                                 HitbtcErrorModel, HitbtcOrderBookModel,
-                                 HitbtcOrderBookOrderModel, HitbtcOrderBooks,
-                                 HitbtcOrderModel, HitbtcOrders,
-                                 HitbtcRawCandleModel, HitbtcRawCandles,
-                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel,
-                                 HitbtcRawDetailedErrorModel,
-                                 HitbtcRawErrorModel, HitbtcRawOrderBookModel,
-                                 HitbtcRawOrderBookOrderModel,
-                                 HitbtcRawOrderBooks, HitbtcRawOrderModel,
-                                 HitbtcRawOrders, HitbtcRawSymbolCandles,
-                                 HitbtcRawSymbolModel, HitbtcRawSymbols,
-                                 HitbtcRawSymbolTrades, HitbtcRawTickerModel,
-                                 HitbtcRawTickers, HitbtcRawTradeModel,
-                                 HitbtcRawTrades,
-                                 HitbtcRawTradingCurrencyBalanceModel,
-                                 HitbtcRawTradingCurrencyBalances,
-                                 HitbtcRawTradingFeeModel, HitbtcSymbolCandles,
-                                 HitbtcSymbolModel, HitbtcSymbols,
-                                 HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades,
-                                 HitbtcTradingCurrencyBalanceModel,
-                                 HitbtcTradingCurrencyBalances,
+from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel,
+                                 HitbtcErrorModel, HitbtcOrderBookModel, HitbtcOrderBookOrderModel, HitbtcOrderBooks,
+                                 HitbtcOrderModel, HitbtcOrders, HitbtcRawCandleModel, HitbtcRawCandles,
+                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel, HitbtcRawDetailedErrorModel,
+                                 HitbtcRawErrorModel, HitbtcRawOrderBookModel, HitbtcRawOrderBookOrderModel,
+                                 HitbtcRawOrderBooks, HitbtcRawOrderModel, HitbtcRawOrders, HitbtcRawSymbolCandles,
+                                 HitbtcRawSymbolModel, HitbtcRawSymbolTrades, HitbtcRawSymbols, HitbtcRawTickerModel,
+                                 HitbtcRawTickers, HitbtcRawTradeModel, HitbtcRawTrades,
+                                 HitbtcRawTradingCurrencyBalanceModel, HitbtcRawTradingCurrencyBalances,
+                                 HitbtcRawTradingFeeModel, HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades,
+                                 HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTradeModel, HitbtcTrades,
+                                 HitbtcTradingCurrencyBalanceModel, HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
-
 from exapi.models.hitbtc.mapper.base import IHitbtcBaseModelsMapper
 
 

@@ -3,6 +3,9 @@
 from decimal import Decimal
 from typing import Optional
 
+from exapi.api.hitbtc.trading.interface import IHitbtcTradingAPI
+from exapi.api.hitbtc.trading.response_handler import (HitbtcTradingResponseHandler,
+                                                       IHitbtcTradingResponseHandler)
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
@@ -10,10 +13,6 @@ from exapi.requesters.hitbtc.trading import IHitbtcTradingRequester
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)
 from exapi.utils import decimal_to_str
-
-from exapi.api.hitbtc.trading.interface import IHitbtcTradingAPI
-from exapi.api.hitbtc.trading.response_handler import (HitbtcTradingResponseHandler,
-                               IHitbtcTradingResponseHandler)
 
 
 class HitbtcTradingAPI(IHitbtcTradingAPI):

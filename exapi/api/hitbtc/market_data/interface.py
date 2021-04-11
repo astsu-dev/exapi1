@@ -2,12 +2,9 @@
 
 from typing import Optional, Protocol
 
-from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
-                                 HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                 HitbtcOrderBooks, HitbtcSymbolCandles,
-                                 HitbtcSymbolModel, HitbtcSymbols,
-                                 HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTrades)
+from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBooks, HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades,
+                                 HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTrades)
 from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    IntervalValue, SortBy, SortDirection,
                                    Symbol, Symbols)

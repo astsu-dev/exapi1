@@ -1,7 +1,10 @@
 """Has binance market data api interface."""
 
-from typing import Optional, Protocol, Union, overload
+from typing import Optional, Protocol, overload
 
+from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
+                                                    BinancePriceTickerModelOrTickers,
+                                                    BinanceTickerPriceChangeStatModelOrTickers)
 from exapi.models.binance import (BinanceAveragePriceModel,
                                   BinanceExchangeInfoModel,
                                   BinanceOrderBookModel,
@@ -16,10 +19,6 @@ from exapi.models.binance.ticker_price_change_stat import \
     BinanceTickersPriceChangeStat
 from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
 from exapi.typedefs.binance import CandleInterval
-
-from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
-                       BinancePriceTickerModelOrTickers,
-                       BinanceTickerPriceChangeStatModelOrTickers)
 
 
 class IBinanceMarketDataAPI(Protocol):

@@ -2,9 +2,8 @@
 
 from dataclasses import dataclass
 
-from exapi.requesters.typedefs import Params
-
 from exapi.requesters.binance.auth.typedefs import BinanceAuthHeaders
+from exapi.requesters.typedefs import Params
 
 
 @dataclass(frozen=True)

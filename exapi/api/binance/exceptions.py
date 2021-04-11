@@ -9,7 +9,6 @@ class BinanceError(BaseExchangeError):
     Has error field, which has whole error.
     """
 
-
     def __init__(self, code: int, error: BinanceErrorModel) -> None:
         self._code = code
         self._error = error

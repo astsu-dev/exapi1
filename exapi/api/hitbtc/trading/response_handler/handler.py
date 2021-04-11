@@ -4,6 +4,7 @@ from typing import Optional
 
 from exapi.api.hitbtc.base import HitbtcBaseResponseHandler
 from exapi.api.hitbtc.trading.models_mapper import IHitbtcTradingModelsMapper
+from exapi.api.hitbtc.trading.response_handler.interface import IHitbtcTradingResponseHandler
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcRawOrderModel, HitbtcRawOrders,
                                  HitbtcRawTradingCurrencyBalances,
@@ -12,8 +13,6 @@ from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcTradingFeeModel)
 from exapi.models.hitbtc.mapper import HitbtcModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
-
-from exapi.api.hitbtc.trading.response_handler.interface import IHitbtcTradingResponseHandler
 
 
 class HitbtcTradingResponseHandler(HitbtcBaseResponseHandler, IHitbtcTradingResponseHandler):

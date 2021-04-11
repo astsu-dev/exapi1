@@ -2,13 +2,12 @@
 
 from typing import Optional
 
-from exapi.typedefs.binance import (OrderResponseType, OrderSide,
-                                    OrderType, TimeInForce)
 from exapi.requesters.base.requester import BaseRequester
-from exapi.requesters.typedefs import RequesterResponse, Session
-
 from exapi.requesters.binance.trading.interface import IBinanceTradingRequester
 from exapi.requesters.binance.trading.request_creator import IBinanceTradingRequestCreator
+from exapi.requesters.typedefs import RequesterResponse, Session
+from exapi.typedefs.binance import (OrderResponseType, OrderSide,
+                                    OrderType, TimeInForce)
 
 
 class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):

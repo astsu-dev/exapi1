@@ -2,6 +2,12 @@
 
 from typing import Optional, Union, overload
 
+from exapi.api.binance.market_data.interface import IBinanceMarketDataAPI
+from exapi.api.binance.market_data.response_handler import (BinanceMarketDataResponseHandler,
+                                                            IBinanceMarketDataResponseHandler)
+from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
+                                                    BinancePriceTickerModelOrTickers,
+                                                    BinanceTickerPriceChangeStatModelOrTickers)
 from exapi.models.binance import (BinanceAveragePriceModel,
                                   BinanceExchangeInfoModel,
                                   BinanceOrderBookModel,
@@ -17,13 +23,6 @@ from exapi.models.binance.ticker_price_change_stat import \
 from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
 from exapi.requesters.binance.market_data import IBinanceMarketDataRequester
 from exapi.typedefs.binance import CandleInterval
-
-from exapi.api.binance.market_data.interface import IBinanceMarketDataAPI
-from exapi.api.binance.market_data.response_handler import (BinanceMarketDataResponseHandler,
-                               IBinanceMarketDataResponseHandler)
-from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
-                       BinancePriceTickerModelOrTickers,
-                       BinanceTickerPriceChangeStatModelOrTickers)
 
 
 class BinanceMarketDataAPI(IBinanceMarketDataAPI):

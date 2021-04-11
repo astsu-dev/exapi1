@@ -2,20 +2,16 @@
 
 from typing import Optional
 
-from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
-                                 HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                 HitbtcOrderBooks, HitbtcSymbolCandles,
-                                 HitbtcSymbolModel, HitbtcSymbols,
-                                 HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTrades)
+from exapi.api.hitbtc.market_data.interface import IHitbtcMarketDataAPI
+from exapi.api.hitbtc.market_data.response_handler import (HitbtcMarketDataResponseHandler,
+                                                           IHitbtcMarketDataResponseHandler)
+from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBooks, HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades,
+                                 HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTrades)
 from exapi.requesters.hitbtc.market_data import IHitbtcMarketDataRequester
 from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    IntervalValue, SortBy, SortDirection,
                                    Symbol, Symbols)
-
-from exapi.api.hitbtc.market_data.interface import IHitbtcMarketDataAPI
-from exapi.api.hitbtc.market_data.response_handler import (HitbtcMarketDataResponseHandler,
-                               IHitbtcMarketDataResponseHandler)
 
 
 class HitbtcMarketDataAPI(IHitbtcMarketDataAPI):

@@ -22,7 +22,6 @@ from exapi.models.binance import (BinanceAggregateTrades,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTrades, BinanceTradesJson)
 from exapi.models.binance.mapper.base import IBinanceBaseModelsMapper
-from exapi.models.binance.trade import BinanceAggregateTradeModel
 
 
 class IBinanceMarketDataModelsMapper(IBinanceBaseModelsMapper):

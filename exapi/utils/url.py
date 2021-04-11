@@ -1,7 +1,8 @@
 """Has utils for work with urls."""
 
-from exapi.requesters.typedefs import Params
 from yarl import URL
+
+from exapi.requesters.typedefs import Params
 
 
 def create_query_string(params: Params) -> str:

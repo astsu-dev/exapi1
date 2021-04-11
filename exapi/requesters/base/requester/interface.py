@@ -3,8 +3,9 @@
 from typing import Any, Optional, Protocol
 
 import aiohttp
-from exapi.requesters.typedefs import Headers, RequesterResponse
 from yarl import URL
+
+from exapi.requesters.typedefs import Headers, RequesterResponse
 
 
 class IBaseRequester(Protocol):

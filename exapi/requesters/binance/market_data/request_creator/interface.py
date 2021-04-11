@@ -1,7 +1,7 @@
 from typing import Optional, Protocol
 
-from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.request import Request
+from exapi.typedefs.binance import CandleInterval
 
 
 class IBinanceMarketDataRequestCreator(Protocol):

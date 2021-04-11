@@ -2,17 +2,17 @@
 
 from typing import Optional
 
-from exapi.typedefs.binance import (OrderResponseType, OrderSide,
-                                    OrderType, TimeInForce)
+from yarl import URL
+
 from exapi.requesters.binance.auth import IBinanceAuth
 from exapi.requesters.binance.base.request_creator import \
     BinanceBaseRequestCreator
+from exapi.requesters.binance.trading.request_creator.interface import IBinanceTradingRequestCreator
 from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
+from exapi.typedefs.binance import (OrderResponseType, OrderSide,
+                                    OrderType, TimeInForce)
 from exapi.utils.time import get_timestamp
-from yarl import URL
-
-from exapi.requesters.binance.trading.request_creator.interface import IBinanceTradingRequestCreator
 
 
 class BinanceTradingRequestCreator(BinanceBaseRequestCreator, IBinanceTradingRequestCreator):

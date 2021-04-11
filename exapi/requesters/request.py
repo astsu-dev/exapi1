@@ -3,8 +3,9 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from exapi.requesters.typedefs import Headers
 from yarl import URL
+
+from exapi.requesters.typedefs import Headers
 
 
 @dataclass(frozen=True)

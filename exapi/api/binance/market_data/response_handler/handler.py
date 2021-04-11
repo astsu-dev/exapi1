@@ -3,6 +3,7 @@
 from typing import Optional
 
 from exapi.api.binance.base import BinanceBaseResponseHandler
+from exapi.api.binance.market_data.response_handler.interface import IBinanceMarketDataResponseHandler
 from exapi.models.binance import (BinanceAggregateTrades,
                                   BinanceAggregateTradesJson,
                                   BinanceAveragePriceJson,
@@ -28,8 +29,6 @@ from exapi.models.binance.mapper import BinanceModelsMapper
 from exapi.models.binance.mapper.market_data import \
     IBinanceMarketDataModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
-
-from exapi.api.binance.market_data.response_handler.interface import IBinanceMarketDataResponseHandler
 
 
 class BinanceMarketDataResponseHandler(BinanceBaseResponseHandler, IBinanceMarketDataResponseHandler):

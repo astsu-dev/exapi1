@@ -12,7 +12,7 @@ class BinanceOrderType:
     STOP_LOSS_LIMIT: Final[Literal["STOP_LOSS_LIMIT"]] = "STOP_LOSS_LIMIT"
     TAKE_PROFIT: Final[Literal["TAKE_PROFIT"]] = "TAKE_PROFIT"
     TAKE_PROFIT_LIMIT: Final[Literal["TAKE_PROFIT_LIMIT"]
-                             ] = "TAKE_PROFIT_LIMIT"
+    ] = "TAKE_PROFIT_LIMIT"
     LIMIT_MAKER: Final[Literal["LIMIT_MAKER"]] = "LIMIT_MAKER"
 
 
@@ -97,9 +97,9 @@ class BinanceSymbolFilterType:
     MARKET_LOT_SIZE: Final[Literal["MARKET_LOT_SIZE"]] = "MARKET_LOT_SIZE"
     MAX_NUM_ORDERS: Final[Literal["MAX_NUM_ORDERS"]] = "MAX_NUM_ORDERS"
     MAX_NUM_ALGO_ORDERS: Final[Literal["MAX_NUM_ALGO_ORDERS"]
-                               ] = "MAX_NUM_ALGO_ORDERS"
+    ] = "MAX_NUM_ALGO_ORDERS"
     MAX_NUM_ICEBERG_ORDERS: Final[Literal["MAX_NUM_ICEBERG_ORDERS"]
-                                  ] = "MAX_NUM_ICEBERG_ORDERS"
+    ] = "MAX_NUM_ICEBERG_ORDERS"
     MAX_POSITION: Final[Literal["MAX_POSITION"]] = "MAX_POSITION"
 
 
@@ -107,9 +107,9 @@ class BinanceExchangeFilterType:
     """Binance exchange filter types."""
 
     MAX_NUM_ORDERS: Final[Literal["EXCHANGE_MAX_NUM_ORDERS"]
-                          ] = "EXCHANGE_MAX_NUM_ORDERS"
+    ] = "EXCHANGE_MAX_NUM_ORDERS"
     MAX_NUM_ALGO_ORDERS: Final[Literal["EXCHANGE_MAX_ALGO_ORDERS"]
-                               ] = "EXCHANGE_MAX_ALGO_ORDERS"
+    ] = "EXCHANGE_MAX_ALGO_ORDERS"
 
 
 class BinanceAccountType:

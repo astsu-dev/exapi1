@@ -3,6 +3,9 @@
 from decimal import Decimal
 from typing import Optional
 
+from exapi.api.binance.trading.interface import IBinanceTradingAPI
+from exapi.api.binance.trading.response_handler import (BinanceTradingResponseHandler,
+                                                        IBinanceTradingResponseHandler)
 from exapi.models.binance import (BinanceAccountInfoModel,
                                   BinanceAccountTrades,
                                   BinanceCanceledOrderModel,
@@ -13,10 +16,6 @@ from exapi.requesters.binance.trading import IBinanceTradingRequester
 from exapi.typedefs.binance import (OrderResponseType, OrderSide, OrderType,
                                     TimeInForce)
 from exapi.utils.numbers import decimal_to_str
-
-from exapi.api.binance.trading.interface import IBinanceTradingAPI
-from exapi.api.binance.trading.response_handler import (BinanceTradingResponseHandler,
-                               IBinanceTradingResponseHandler)
 
 
 class BinanceTradingAPI(IBinanceTradingAPI):

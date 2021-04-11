@@ -4,10 +4,10 @@ import abc
 from typing import Any, Optional
 
 import aiohttp
-from exapi.requesters.typedefs import Headers, RequesterResponse
 from yarl import URL
 
 from exapi.requesters.base.requester.interface import IBaseRequester
+from exapi.requesters.typedefs import Headers, RequesterResponse
 
 
 class BaseRequester(abc.ABC, IBaseRequester):

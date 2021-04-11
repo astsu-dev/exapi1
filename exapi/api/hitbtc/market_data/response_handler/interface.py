@@ -1,12 +1,9 @@
 """Has hitbtc market data response handler interface."""
 
 from exapi.api.base.response_handler import IBaseResponseHandler
-from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
-                                 HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                 HitbtcOrderBooks, HitbtcSymbolCandles,
-                                 HitbtcSymbolModel, HitbtcSymbols,
-                                 HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTrades)
+from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBooks, HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades,
+                                 HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTrades)
 from exapi.requesters.typedefs import RequesterResponse
 
 

@@ -1,21 +1,13 @@
 """Has hitbtc market data models mapper interface."""
 
-from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles,
-                                 HitbtcCurrencies, HitbtcCurrencyModel,
-                                 HitbtcOrderBookModel,
-                                 HitbtcOrderBookOrderModel, HitbtcOrderBooks,
-                                 HitbtcRawCandleModel, HitbtcRawCandles,
-                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel,
-                                 HitbtcRawOrderBookModel,
-                                 HitbtcRawOrderBookOrderModel,
-                                 HitbtcRawOrderBooks, HitbtcRawSymbolCandles,
-                                 HitbtcRawSymbolModel, HitbtcRawSymbols,
-                                 HitbtcRawSymbolTrades, HitbtcRawTickerModel,
-                                 HitbtcRawTickers, HitbtcRawTradeModel,
-                                 HitbtcRawTrades, HitbtcSymbolCandles,
-                                 HitbtcSymbolModel, HitbtcSymbols,
-                                 HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
+from exapi.models.hitbtc import (HitbtcCandleModel, HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel,
+                                 HitbtcOrderBookModel, HitbtcOrderBookOrderModel, HitbtcOrderBooks,
+                                 HitbtcRawCandleModel, HitbtcRawCandles, HitbtcRawCurrencies, HitbtcRawCurrencyModel,
+                                 HitbtcRawOrderBookModel, HitbtcRawOrderBookOrderModel, HitbtcRawOrderBooks,
+                                 HitbtcRawSymbolCandles, HitbtcRawSymbolModel, HitbtcRawSymbolTrades, HitbtcRawSymbols,
+                                 HitbtcRawTickerModel, HitbtcRawTickers, HitbtcRawTradeModel, HitbtcRawTrades,
+                                 HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades, HitbtcSymbols,
+                                 HitbtcTickerModel, HitbtcTickers, HitbtcTradeModel, HitbtcTrades)
 from exapi.models.hitbtc.mapper.base import IHitbtcBaseModelsMapper
 
 

@@ -2,12 +2,11 @@
 
 from typing import Optional
 
-from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.base.requester import BaseRequester
-from exapi.requesters.typedefs import RequesterResponse, Session
-
 from exapi.requesters.binance.market_data.interface import IBinanceMarketDataRequester
 from exapi.requesters.binance.market_data.request_creator import IBinanceMarketDataRequestCreator
+from exapi.requesters.typedefs import RequesterResponse, Session
+from exapi.typedefs.binance import CandleInterval
 
 
 class BinanceMarketDataRequester(BaseRequester, IBinanceMarketDataRequester):

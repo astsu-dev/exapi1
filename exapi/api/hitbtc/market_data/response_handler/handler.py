@@ -5,22 +5,15 @@ from typing import Optional
 from exapi.api.hitbtc.base import HitbtcBaseResponseHandler
 from exapi.api.hitbtc.market_data.models_mapper import \
     IHitbtcMarketDataModelsMapper
-from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies,
-                                 HitbtcCurrencyModel, HitbtcOrderBookModel,
-                                 HitbtcOrderBooks, HitbtcRawCandles,
-                                 HitbtcRawCurrencies, HitbtcRawCurrencyModel,
-                                 HitbtcRawOrderBookModel, HitbtcRawOrderBooks,
-                                 HitbtcRawSymbolCandles, HitbtcRawSymbolModel,
-                                 HitbtcRawSymbols, HitbtcRawSymbolTrades,
-                                 HitbtcRawTickerModel, HitbtcRawTickers,
-                                 HitbtcRawTrades, HitbtcSymbolCandles,
-                                 HitbtcSymbolModel, HitbtcSymbols,
-                                 HitbtcSymbolTrades, HitbtcTickerModel,
-                                 HitbtcTickers, HitbtcTrades)
+from exapi.api.hitbtc.market_data.response_handler.interface import IHitbtcMarketDataResponseHandler
+from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel, HitbtcOrderBookModel,
+                                 HitbtcOrderBooks, HitbtcRawCandles, HitbtcRawCurrencies, HitbtcRawCurrencyModel,
+                                 HitbtcRawOrderBookModel, HitbtcRawOrderBooks, HitbtcRawSymbolCandles,
+                                 HitbtcRawSymbolModel, HitbtcRawSymbolTrades, HitbtcRawSymbols, HitbtcRawTickerModel,
+                                 HitbtcRawTickers, HitbtcRawTrades, HitbtcSymbolCandles, HitbtcSymbolModel,
+                                 HitbtcSymbolTrades, HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTrades)
 from exapi.models.hitbtc.mapper import HitbtcModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
-
-from exapi.api.hitbtc.market_data.response_handler.interface import IHitbtcMarketDataResponseHandler
 
 
 class HitbtcMarketDataResponseHandler(HitbtcBaseResponseHandler, IHitbtcMarketDataResponseHandler):

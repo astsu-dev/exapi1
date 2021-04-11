@@ -1,8 +1,8 @@
 from typing import Optional
 
-from exapi.typedefs.binance import CandleInterval
 from exapi.requesters.base import IBaseRequester
 from exapi.requesters.typedefs import RequesterResponse
+from exapi.typedefs.binance import CandleInterval
 
 
 class IBinanceMarketDataRequester(IBaseRequester):
