@@ -2,15 +2,16 @@ from typing import Final
 from unittest import mock
 
 import pytest
-from exapi.enums.binance import (BinanceOrderResponseType, BinanceOrderSide,
-                                 BinanceOrderType, BinanceTimeInForce)
-from exapi.requesters.binance.auth import BinanceAuth, BinanceKeyAuth
-from exapi.requesters.binance.trading.request_creator import \
-    BinanceTradingRequestCreator
-from exapi.requesters.request import Request
 from yarl import URL
 
-GET_TIMESTAMP_PATH: Final[str] = "exapi.requesters.binance.trading.request_creator.creator.get_timestamp"
+from exapi.enums.binance import (BinanceOrderResponseType, BinanceOrderSide,
+                                 BinanceOrderType, BinanceTimeInForce)
+from exapi.request_creators.binance.trading.spot import \
+    BinanceTradingRequestCreator
+from exapi.requesters.binance.auth import BinanceAuth, BinanceKeyAuth
+from exapi.requesters.request import Request
+
+GET_TIMESTAMP_PATH: Final[str] = "exapi.request_creators.binance.trading.spot.creator.get_timestamp"
 
 API_KEY: Final[str] = "aaa"
 API_SECRET: Final[str] = "bbb"

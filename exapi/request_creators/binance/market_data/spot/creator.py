@@ -4,10 +4,10 @@ from typing import Optional
 
 from yarl import URL
 
+from exapi.request_creators.binance.market_data.spot.interface import IBinanceMarketDataRequestCreator
 from exapi.requesters.binance.auth import IBinanceKeyAuth
 from exapi.requesters.binance.base.request_creator import \
     BinanceBaseRequestCreator
-from exapi.requesters.binance.market_data.request_creator.interface import IBinanceMarketDataRequestCreator
 from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.binance import CandleInterval

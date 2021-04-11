@@ -1,12 +1,13 @@
 from typing import Final
 
 import pytest
-from exapi.typedefs.binance import CandleInterval
-from exapi.requesters.binance.auth import BinanceKeyAuth
-from exapi.requesters.binance.market_data.request_creator import \
-    BinanceMarketDataRequestCreator
-from exapi.requesters.request import Request
 from yarl import URL
+
+from exapi.request_creators.binance.market_data.spot import \
+    BinanceMarketDataRequestCreator
+from exapi.requesters.binance.auth import BinanceKeyAuth
+from exapi.requesters.request import Request
+from exapi.typedefs.binance import CandleInterval
 
 API_KEY: Final[str] = "aaa"
 

@@ -4,10 +4,10 @@ from typing import Optional
 
 from yarl import URL
 
+from exapi.request_creators.binance.trading.spot.interface import IBinanceTradingRequestCreator
 from exapi.requesters.binance.auth import IBinanceAuth
 from exapi.requesters.binance.base.request_creator import \
     BinanceBaseRequestCreator
-from exapi.requesters.binance.trading.request_creator.interface import IBinanceTradingRequestCreator
 from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.binance import (OrderResponseType, OrderSide,
