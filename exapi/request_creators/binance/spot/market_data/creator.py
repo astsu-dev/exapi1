@@ -4,17 +4,18 @@ from typing import Optional
 
 from yarl import URL
 
+from exapi.request_creators.binance.spot.base import BinanceBaseSpotRequestCreator
 from exapi.request_creators.binance.spot.market_data.interface import IBinanceSpotMarketDataRequestCreator
+from exapi.request_creators.request import Request
 from exapi.requesters.binance.auth import IBinanceKeyAuth
-from exapi.requesters.binance.base.request_creator import \
-    BinanceBaseRequestCreator
-from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.binance import CandleInterval
 
 
-class BinanceSpotMarketDataRequestCreator(BinanceBaseRequestCreator, IBinanceSpotMarketDataRequestCreator):
-    """Has methods for creating requests for binance market data endpoints."""
+class BinanceSpotMarketDataRequestCreator(BinanceBaseSpotRequestCreator, IBinanceSpotMarketDataRequestCreator):
+    """Has methods for creating requests for binance spot market data endpoints."""
+
+    BASE_URL: str = BinanceBaseSpotRequestCreator.BASE_URL + "/api/v3"
 
     def __init__(self, auth: IBinanceKeyAuth) -> None:
         """Class initialization.

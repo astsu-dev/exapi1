@@ -1,8 +1,8 @@
 from typing import Optional
 
+from exapi.request_creators.hitbtc.trading import IHitbtcTradingRequestCreator
 from exapi.requesters.base import BaseRequester
 from exapi.requesters.hitbtc.trading.interface import IHitbtcTradingRequester
-from exapi.requesters.hitbtc.trading.request_creator import IHitbtcTradingRequestCreator
 from exapi.requesters.typedefs import RequesterResponse, Session
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)

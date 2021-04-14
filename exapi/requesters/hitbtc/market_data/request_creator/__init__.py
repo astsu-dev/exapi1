@@ -1,2 +1,0 @@
-from exapi.requesters.hitbtc.market_data.request_creator.creator import HitbtcMarketDataRequestCreator
-from exapi.requesters.hitbtc.market_data.request_creator.interface import IHitbtcMarketDataRequestCreator

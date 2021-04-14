@@ -4,19 +4,20 @@ from typing import Optional
 
 from yarl import URL
 
+from exapi.request_creators.binance.spot.base import BinanceBaseSpotRequestCreator
 from exapi.request_creators.binance.spot.trading.interface import IBinanceSpotTradingRequestCreator
+from exapi.request_creators.request import Request
 from exapi.requesters.binance.auth import IBinanceAuth
-from exapi.requesters.binance.base.request_creator import \
-    BinanceBaseRequestCreator
-from exapi.requesters.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.binance import (OrderResponseType, OrderSide,
                                     OrderType, TimeInForce)
 from exapi.utils.time import get_timestamp
 
 
-class BinanceSpotTradingRequestCreator(BinanceBaseRequestCreator, IBinanceSpotTradingRequestCreator):
+class BinanceSpotTradingRequestCreator(BinanceBaseSpotRequestCreator, IBinanceSpotTradingRequestCreator):
     """Has methods for creating requests to binance spot trading api."""
+
+    BASE_URL: str = BinanceBaseSpotRequestCreator.BASE_URL + "/api/v3"
 
     def __init__(self, auth: IBinanceAuth) -> None:
         self._auth = auth

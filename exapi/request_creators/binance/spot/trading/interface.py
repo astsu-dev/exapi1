@@ -2,7 +2,7 @@
 
 from typing import Optional, Protocol
 
-from exapi.requesters.request import Request
+from exapi.request_creators.request import Request
 from exapi.typedefs.binance import (OrderResponseType, OrderSide,
                                     OrderType, TimeInForce)
 

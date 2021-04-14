@@ -6,14 +6,14 @@ from typing import Any, Optional
 import aiohttp
 from yarl import URL
 
-from exapi.requesters.base.requester.interface import IBaseRequester
-from exapi.requesters.typedefs import Headers, RequesterResponse
+from exapi.requesters.base.interface import IBaseRequester
+from exapi.requesters.typedefs import Headers, RequesterResponse, Session
 
 
 class BaseRequester(abc.ABC, IBaseRequester):
     """Has the context manager for close session."""
 
-    def __init__(self, session: aiohttp.ClientSession) -> None:
+    def __init__(self, session: Session) -> None:
         self._session = session
 
     async def request(self, method: str,

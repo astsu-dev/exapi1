@@ -2,10 +2,9 @@
 
 from typing import Optional
 
+from exapi.request_creators.hitbtc.market_data import HitbtcMarketDataRequestCreator, IHitbtcMarketDataRequestCreator
 from exapi.requesters.base import BaseRequester
 from exapi.requesters.hitbtc.market_data.interface import IHitbtcMarketDataRequester
-from exapi.requesters.hitbtc.market_data.request_creator.creator import HitbtcMarketDataRequestCreator
-from exapi.requesters.hitbtc.market_data.request_creator.interface import IHitbtcMarketDataRequestCreator
 from exapi.requesters.typedefs import RequesterResponse, Session
 from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    IntervalValue, SortBy, SortDirection,

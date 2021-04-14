@@ -1,23 +1,14 @@
-"""Has hitbtc trading request creator."""
+"""Has hitbtc trading request creator interface."""
 
-from typing import Optional
+from typing import Optional, Protocol
 
-from yarl import URL
-
-from exapi.requesters.hitbtc.auth import IHitbtcAuth
-from exapi.requesters.hitbtc.base import HitbtcBaseRequestCreator
-from exapi.requesters.hitbtc.trading.request_creator.interface import IHitbtcTradingRequestCreator
-from exapi.requesters.request import Request
-from exapi.requesters.typedefs import Params
+from exapi.request_creators.request import Request
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)
 
 
-class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingRequestCreator):
+class IHitbtcTradingRequestCreator(Protocol):
     """Has methods for creating requests to hitbtc trading api."""
-
-    def __init__(self, auth: IHitbtcAuth) -> None:
-        self._auth = auth
 
     def create_get_trading_balance_request(self) -> Request:
         """Creates a request for get trading balance.
@@ -28,17 +19,7 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
             Request
         """
 
-        method = "GET"
-        path = "/trading/balance"
-        url = URL(self._create_url(path))
-
-        params: Params = {}
-        url = url.with_query(params)
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)
-
-    def create_get_active_orders_request(self, symbol: Optional[Symbol] = None) -> Request:
+    def create_get_active_orders_request(self, symbol: Optional[Symbol]) -> Request:
         """Creates a request for get active orders.
 
         Requires the "Place/cancel orders" API key Access Right.
@@ -50,19 +31,6 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
             Request
         """
 
-        method = "GET"
-        path = "/order"
-        params: Params = {}
-        if symbol is not None:
-            params["symbol"] = symbol
-
-        url = URL(self._create_url(path))
-        url = url.with_query(params)
-
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)
-
     def create_get_active_order_request(self, client_order_id: str,
                                         wait: Optional[int] = None
                                         ) -> Request:
@@ -71,7 +39,7 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
         Requires the "Place/cancel orders" API key Access Right.
 
         Args:
-            client_order_id (str)
+            client_order_id (ClientOrderID)
             wait (Optional[int], optional): Time in milliseconds.
                 Max value: 60000. Default value: none.
                 While using long polling request: if order is filled,
@@ -83,23 +51,10 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
             Request
         """
 
-        method = "GET"
-        path = f"/order/{client_order_id}"
-        url = URL(self._create_url(path))
-
-        params: Params = {}
-        if wait is not None:
-            params["wait"] = str(wait)
-        url = url.with_query(params)
-
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)
-
     def create_new_order_request(self, symbol: Symbol,
                                  side: OrderSide,
                                  quantity: str,
-                                 price: Optional[str] = None,
+                                 price: str,
                                  type_: Optional[OrderType] = None,
                                  time_in_force: Optional[TimeInForce] = None,
                                  stop_price: Optional[str] = None,
@@ -117,7 +72,7 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
         Symbol config contains the tickSize parameter
         which means that price should be divided by tickSize with no remainder.
         quantity should be divided by quantityIncrement with no remainder.
-        By default, if striict_validate is not enabled,
+        By default, if strict_validate is not enabled,
         the Server rounds half down the price and quantity for tickSize and quantityIncrement.
 
         Example of ETHBTC: tickSize = '0.000001',
@@ -168,39 +123,6 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
             Request
         """
 
-        if client_order_id is not None:
-            method = "PUT"
-            path = f"/order/{client_order_id}"
-        else:
-            method = "POST"
-            path = "/order"
-        url = URL(self._create_url(path))
-
-        params: Params = {
-            "symbol": symbol,
-            "side": side,
-            "quantity": quantity,
-        }
-        if price is not None:
-            params["price"] = price
-        if type_ is not None:
-            params["type"] = type_
-        if time_in_force is not None:
-            params["timeInForce"] = time_in_force
-        if stop_price is not None:
-            params["stopPrice"] = stop_price
-        if expire_time is not None:
-            params["expireTime"] = expire_time
-        if strict_validate is not None:
-            params["strictValidate"] = str(strict_validate).lower()
-        if post_only is not None:
-            params["postOnly"] = str(post_only).lower()
-        url = url.with_query(params)
-
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)
-
     def create_cancel_orders_request(self, symbol: Optional[Symbol] = None) -> Request:
         """Creates a request for cancel orders endpoint.
 
@@ -214,41 +136,17 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
             Request
         """
 
-        method = "DELETE"
-        path = f"/order"
-        url = URL(self._create_url(path))
-
-        params: Params = {}
-        if symbol is not None:
-            params["symbol"] = symbol
-        url = url.with_query(params)
-
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)
-
     def create_cancel_order_request(self, client_order_id: str) -> Request:
         """Creates a request for cancel order endpoint.
 
         Requires the "Place/cancel orders" API key Access Right.
 
         Args:
-            client_order_id (str)
+            client_order_id (ClientOrderID)
 
         Returns:
             Request
         """
-
-        method = "DELETE"
-        path = f"/order/{client_order_id}"
-        url = URL(self._create_url(path))
-
-        params: Params = {}
-        url = url.with_query(params)
-
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)
 
     def create_get_fee_request(self, symbol: Symbol) -> Request:
         """Creates a request for get trading commission endpoint.
@@ -261,14 +159,3 @@ class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingReques
         Returns:
             Request
         """
-
-        method = "GET"
-        path = f"/trading/fee/{symbol}"
-        url = URL(self._create_url(path))
-
-        params: Params = {}
-        url = url.with_query(params)
-
-        headers = self._auth.sign(
-            method=method, url_path=url.path, url_query=url.query_string)
-        return Request(method=method, url=url, headers=headers)

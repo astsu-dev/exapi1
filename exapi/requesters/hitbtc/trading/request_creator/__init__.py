@@ -1,2 +1,0 @@
-from exapi.requesters.hitbtc.trading.request_creator.creator import HitbtcTradingRequestCreator
-from exapi.requesters.hitbtc.trading.request_creator.interface import IHitbtcTradingRequestCreator
