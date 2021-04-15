@@ -3,8 +3,8 @@
 from typing import Optional, Union, overload
 
 from exapi.api.binance.market_data.interface import IBinanceMarketDataAPI
-from exapi.api.binance.market_data.response_handler import (BinanceMarketDataResponseHandler,
-                                                            IBinanceMarketDataResponseHandler)
+from exapi.response_handlers.binance.spot.market_data import (BinanceSpotMarketDataResponseHandler,
+                                                              IBinanceSpotMarketDataResponseHandler)
 from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
                                                     BinancePriceTickerModelOrTickers,
                                                     BinanceTickerPriceChangeStatModelOrTickers)
@@ -33,11 +33,11 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
 
     def __init__(self,
                  requester: IBinanceMarketDataRequester,
-                 response_handler: Optional[IBinanceMarketDataResponseHandler] = None
+                 response_handler: Optional[IBinanceSpotMarketDataResponseHandler] = None
                  ) -> None:
         self._requester = requester
         self._response_handler = (response_handler if response_handler is not None
-                                  else BinanceMarketDataResponseHandler())
+                                  else BinanceSpotMarketDataResponseHandler())
 
     async def ping(self) -> BinancePingModel:
         """Test connectivity to the Rest API.

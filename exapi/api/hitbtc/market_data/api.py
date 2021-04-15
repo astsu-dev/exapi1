@@ -3,8 +3,8 @@
 from typing import Optional
 
 from exapi.api.hitbtc.market_data.interface import IHitbtcMarketDataAPI
-from exapi.api.hitbtc.market_data.response_handler import (HitbtcMarketDataResponseHandler,
-                                                           IHitbtcMarketDataResponseHandler)
+from exapi.response_handlers.hitbtc.market_data import (HitbtcMarketDataResponseHandler,
+                                                        IHitbtcMarketDataResponseHandler)
 from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel, HitbtcOrderBookModel,
                                  HitbtcOrderBooks, HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades,
                                  HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTrades)

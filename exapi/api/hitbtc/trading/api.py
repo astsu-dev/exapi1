@@ -4,8 +4,8 @@ from decimal import Decimal
 from typing import Optional
 
 from exapi.api.hitbtc.trading.interface import IHitbtcTradingAPI
-from exapi.api.hitbtc.trading.response_handler import (HitbtcTradingResponseHandler,
-                                                       IHitbtcTradingResponseHandler)
+from exapi.response_handlers.hitbtc.trading import (HitbtcTradingResponseHandler,
+                                                    IHitbtcTradingResponseHandler)
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)

@@ -4,8 +4,8 @@ from decimal import Decimal
 from typing import Optional
 
 from exapi.api.binance.trading.interface import IBinanceTradingAPI
-from exapi.api.binance.trading.response_handler import (BinanceTradingResponseHandler,
-                                                        IBinanceTradingResponseHandler)
+from exapi.response_handlers.binance.spot.trading import (BinanceSpotTradingResponseHandler,
+                                                          IBinanceSpotTradingResponseHandler)
 from exapi.models.binance import (BinanceAccountInfoModel,
                                   BinanceAccountTrades,
                                   BinanceCanceledOrderModel,
@@ -26,11 +26,11 @@ class BinanceTradingAPI(IBinanceTradingAPI):
 
     def __init__(self,
                  requester: IBinanceTradingRequester,
-                 response_handler: Optional[IBinanceTradingResponseHandler] = None
+                 response_handler: Optional[IBinanceSpotTradingResponseHandler] = None
                  ) -> None:
         self._requester = requester
         self._response_handler = (response_handler if response_handler is not None
-                                  else BinanceTradingResponseHandler())
+                                  else BinanceSpotTradingResponseHandler())
 
     async def new_test_order(self, symbol: str,
                              side: OrderSide,

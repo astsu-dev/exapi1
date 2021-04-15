@@ -2,7 +2,7 @@ import abc
 
 
 class BaseRequestCreator(abc.ABC):
-    """Binance base request creator."""
+    """Base request creator."""
 
     BASE_URL: str
 
