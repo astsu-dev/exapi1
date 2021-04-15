@@ -25,21 +25,21 @@ from exapi.models.binance import (BinanceAggregateTrades,
                                   BinanceTickersPriceChangeStat,
                                   BinanceTickersPriceChangeStatJson,
                                   BinanceTrades, BinanceTradesJson)
-from exapi.models.binance.mapper import BinanceModelsMapper
-from exapi.models.binance.mapper.market_data import \
-    IBinanceMarketDataModelsMapper
+from exapi.models_mappers.binance.spot import BinanceSpotModelsMapper
+from exapi.models_mappers.binance.spot.market_data import \
+    IBinanceSpotMarketDataModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
 
 class BinanceMarketDataResponseHandler(BinanceBaseResponseHandler, IBinanceMarketDataResponseHandler):
     """Has methods for handling binance market data responses."""
 
-    _models_mapper: IBinanceMarketDataModelsMapper
+    _models_mapper: IBinanceSpotMarketDataModelsMapper
 
-    def __init__(self, models_mapper: Optional[IBinanceMarketDataModelsMapper] = None,
+    def __init__(self, models_mapper: Optional[IBinanceSpotMarketDataModelsMapper] = None,
                  json_content_type: Optional[str] = "application/json"
                  ) -> None:
-        models_mapper = models_mapper if models_mapper is not None else BinanceModelsMapper()
+        models_mapper = models_mapper if models_mapper is not None else BinanceSpotModelsMapper()
         super().__init__(models_mapper, json_content_type)
 
     async def handle_ping_response(self, res: RequesterResponse) -> BinancePingModel:

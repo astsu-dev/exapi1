@@ -3,7 +3,7 @@
 from typing import Optional
 
 from exapi.api.hitbtc.base import HitbtcBaseResponseHandler
-from exapi.api.hitbtc.trading.models_mapper import IHitbtcTradingModelsMapper
+from exapi.models_mappers.hitbtc.trading import IHitbtcTradingModelsMapper
 from exapi.api.hitbtc.trading.response_handler.interface import IHitbtcTradingResponseHandler
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcRawOrderModel, HitbtcRawOrders,
@@ -11,7 +11,7 @@ from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcRawTradingFeeModel,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
-from exapi.models.hitbtc.mapper import HitbtcModelsMapper
+from exapi.models_mappers.hitbtc.mapper import HitbtcModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
 

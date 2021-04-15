@@ -16,20 +16,20 @@ from exapi.models.binance import (BinanceAccountInfoJson,
                                   BinanceOrderInfos, BinanceOrderInfosJson,
                                   BinanceOrderJson, BinanceOrderModel,
                                   BinanceTestOrderJson, BinanceTestOrderModel)
-from exapi.models.binance.mapper import BinanceModelsMapper
-from exapi.models.binance.mapper.trading import IBinanceTradingModelsMapper
+from exapi.models_mappers.binance.spot import BinanceSpotModelsMapper
+from exapi.models_mappers.binance.spot.trading import IBinanceSpotTradingModelsMapper
 from exapi.requesters.typedefs import RequesterResponse
 
 
 class BinanceTradingResponseHandler(BinanceBaseResponseHandler, IBinanceTradingResponseHandler):
     """Has methods for handling binance trading responses."""
 
-    _models_mapper: IBinanceTradingModelsMapper
+    _models_mapper: IBinanceSpotTradingModelsMapper
 
-    def __init__(self, models_mapper: Optional[IBinanceTradingModelsMapper] = None,
+    def __init__(self, models_mapper: Optional[IBinanceSpotTradingModelsMapper] = None,
                  json_content_type: Optional[str] = "application/json"
                  ) -> None:
-        models_mapper = models_mapper if models_mapper is not None else BinanceModelsMapper()
+        models_mapper = models_mapper if models_mapper is not None else BinanceSpotModelsMapper()
         super().__init__(models_mapper, json_content_type)
 
     async def handle_new_test_order_response(self, res: RequesterResponse) -> BinanceTestOrderModel:

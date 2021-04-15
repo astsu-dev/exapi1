@@ -6,7 +6,7 @@ from exapi.api.base import BaseResponseHandler
 from exapi.api.hitbtc.exceptions import HitbtcError
 from exapi.models.hitbtc import (HitbtcRawDetailedErrorModel,
                                  HitbtcRawErrorModel)
-from exapi.models.hitbtc.mapper.base import (HitbtcBaseModelsMapper,
+from exapi.models_mappers.hitbtc.base import (HitbtcBaseModelsMapper,
                                              IHitbtcBaseModelsMapper)
 from exapi.requesters.typedefs import RequesterResponse
 

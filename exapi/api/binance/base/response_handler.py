@@ -5,8 +5,8 @@ from typing import Any, Optional, cast
 from exapi.api.base import BaseResponseHandler
 from exapi.api.binance.exceptions import BinanceError
 from exapi.models.binance.error import BinanceErrorJson
-from exapi.models.binance.mapper.base import (BinanceBaseModelsMapper,
-                                              IBinanceBaseModelsMapper)
+from exapi.models_mappers.binance.base import (BinanceBaseModelsMapper,
+                                               IBinanceBaseModelsMapper)
 from exapi.requesters.typedefs import RequesterResponse
 
 

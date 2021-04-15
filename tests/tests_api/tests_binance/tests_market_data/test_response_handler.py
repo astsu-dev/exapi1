@@ -23,17 +23,13 @@ from exapi.models.binance import (BinanceAggregateTradeModel,
                                   BinanceServerTimeModel, BinanceSymbolModel,
                                   BinanceTickerPriceChangeStatModel,
                                   BinanceTradeModel)
-from exapi.models.binance.mapper import BinanceModelsMapper
-from exapi.models.binance.mapper.market_data.interface import \
-    IBinanceMarketDataModelsMapper
 
 HANDLE_RESPONSE_PATH: Final[str] = "exapi.api.binance.market_data.response_handler.handler.BinanceMarketDataResponseHandler.handle_response"
 
 
 @pytest.fixture(scope="module")
 def handler() -> BinanceMarketDataResponseHandler:
-    mapper: IBinanceMarketDataModelsMapper = BinanceModelsMapper()
-    return BinanceMarketDataResponseHandler(mapper)
+    return BinanceMarketDataResponseHandler()
 
 
 @pytest.mark.asyncio

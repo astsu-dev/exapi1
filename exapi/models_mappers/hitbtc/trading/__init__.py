@@ -1,0 +1,1 @@
+from exapi.models_mappers.hitbtc.trading.interface import IHitbtcTradingModelsMapper
