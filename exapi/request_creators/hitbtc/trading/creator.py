@@ -7,7 +7,7 @@ from yarl import URL
 from exapi.request_creators.hitbtc.base import HitbtcBaseRequestCreator
 from exapi.request_creators.hitbtc.trading.interface import IHitbtcTradingRequestCreator
 from exapi.request_creators.request import Request
-from exapi.requesters.hitbtc.auth import IHitbtcAuth
+from exapi.auth.hitbtc import IHitbtcAuth
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)

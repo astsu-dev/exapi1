@@ -2,7 +2,7 @@
 
 from typing import Optional, Protocol
 
-from exapi.requesters.hitbtc.auth.typedefs import HitbtcAuthHeaders
+from exapi.auth.hitbtc.typedefs import HitbtcAuthHeaders
 
 
 class IHitbtcAuth(Protocol):

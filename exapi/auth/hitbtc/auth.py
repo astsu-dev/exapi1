@@ -3,11 +3,11 @@
 import base64
 import hashlib
 import hmac
-import time
 from typing import Final, Optional
 
-from exapi.requesters.hitbtc.auth.interface import IHitbtcAuth
-from exapi.requesters.hitbtc.auth.typedefs import HitbtcAuthHeaders
+from exapi.auth.hitbtc.interface import IHitbtcAuth
+from exapi.auth.hitbtc.typedefs import HitbtcAuthHeaders
+from exapi.utils.time import get_timestamp
 
 
 class HitbtcAuth(IHitbtcAuth):
@@ -36,7 +36,7 @@ class HitbtcAuth(IHitbtcAuth):
             HitbtcAuthHeaders
         """
 
-        ts = self.get_timestamp()
+        ts = str(get_timestamp())
 
         sign_payload = self._create_signature_payload(
             method=method, timestamp=ts, url_path=url_path, url_query=url_query, body=body)
@@ -49,16 +49,6 @@ class HitbtcAuth(IHitbtcAuth):
         }
 
         return headers
-
-    @staticmethod
-    def get_timestamp() -> str:
-        """Returns current timestamp in seconds.
-
-        Returns:
-            str
-        """
-
-        return str(int(time.time()))
 
     def _create_signature(self, payload: str) -> str:
         """Creates signature from payload.

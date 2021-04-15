@@ -4,7 +4,7 @@ import hmac
 from unittest.mock import patch
 
 import pytest
-from exapi.requesters.hitbtc.auth import HitbtcAuth
+from exapi.auth.hitbtc import HitbtcAuth
 
 
 @pytest.fixture(scope="module")
@@ -85,7 +85,7 @@ def test_sign(auth: HitbtcAuth) -> None:
 
     auth_string = "HS256 " + base64.b64encode(auth_payload).decode(en)
 
-    with patch("exapi.requesters.hitbtc.auth.HitbtcAuth.get_timestamp") as get_timestamp:
+    with patch("exapi.auth.hitbtc.auth.get_timestamp") as get_timestamp:
         get_timestamp.return_value = timestamp
         assert auth.sign(method, url_path, url_query) == {
             "Authorization": auth_string}

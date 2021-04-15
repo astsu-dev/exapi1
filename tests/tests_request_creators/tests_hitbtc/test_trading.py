@@ -4,7 +4,7 @@ from yarl import URL
 from exapi.request_creators.hitbtc.trading import \
     HitbtcTradingRequestCreator
 from exapi.request_creators.request import Request
-from exapi.requesters.hitbtc.auth import HitbtcAuth
+from exapi.auth.hitbtc import HitbtcAuth
 
 
 @pytest.fixture(scope="module")
