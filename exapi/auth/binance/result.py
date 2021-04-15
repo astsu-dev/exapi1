@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from exapi.requesters.binance.auth.typedefs import BinanceAuthHeaders
+from exapi.auth.binance.typedefs import BinanceAuthHeaders
 from exapi.requesters.typedefs import Params
 
 

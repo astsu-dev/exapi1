@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from exapi.requesters.binance.auth.typedefs import BinanceAuthHeaders
+from exapi.auth.binance.typedefs import BinanceAuthHeaders
 
 
 class IBinanceKeyAuth(Protocol):

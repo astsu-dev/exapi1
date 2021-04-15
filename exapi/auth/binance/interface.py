@@ -2,7 +2,7 @@
 
 from typing import Protocol
 
-from exapi.requesters.binance.auth.result import BinanceAuthResult
+from exapi.auth.binance.result import BinanceAuthResult
 from exapi.requesters.typedefs import Params
 
 

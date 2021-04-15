@@ -3,7 +3,8 @@ import hmac
 from typing import Final
 
 import pytest
-from exapi.requesters.binance.auth import BinanceAuth, BinanceKeyAuth
+
+from exapi.auth.binance import BinanceAuth, BinanceKeyAuth
 
 API_KEY: Final[str] = "aaa"
 API_SECRET: Final[str] = "bbb"

@@ -1,5 +1,6 @@
 import pytest
-from exapi.requesters.binance.auth import BinanceKeyAuth
+
+from exapi.auth.binance import BinanceKeyAuth
 
 
 @pytest.fixture(scope="module")

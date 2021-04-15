@@ -1,5 +1,5 @@
-from exapi.requesters.binance.auth.key.interface import IBinanceKeyAuth
-from exapi.requesters.binance.auth.typedefs import BinanceAuthHeaders
+from exapi.auth.binance.key.interface import IBinanceKeyAuth
+from exapi.auth.binance.typedefs import BinanceAuthHeaders
 
 
 class BinanceKeyAuth(IBinanceKeyAuth):
