@@ -6,17 +6,16 @@ from yarl import URL
 
 from exapi.auth.binance import IBinanceKeyAuth
 from exapi.request_creators.binance.spot.base import BinanceBaseSpotRequestCreator
-from exapi.request_creators.binance.spot.market_data.interface import IBinanceSpotMarketDataRequestCreator
 from exapi.request_creators.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.binance import CandleInterval
 
 
-class BinanceSpotMarketDataRequestCreator(BinanceBaseSpotRequestCreator, IBinanceSpotMarketDataRequestCreator):
+class BinanceSpotMarketDataRequestCreator(BinanceBaseSpotRequestCreator):
     """Has methods for creating requests for binance spot market data endpoints."""
 
     BASE_URL: str = BinanceBaseSpotRequestCreator.BASE_URL + "/api/v3"
-    
+
     def __init__(self, auth: IBinanceKeyAuth) -> None:
         """Class initialization.
 

@@ -2,20 +2,14 @@
 
 from typing import Optional
 
-from exapi.request_creators.binance.spot.trading import IBinanceSpotTradingRequestCreator
-from exapi.requesters.base.requester import BaseRequester
-from exapi.requesters.binance.trading.interface import IBinanceTradingRequester
-from exapi.requesters.typedefs import RequesterResponse, Session
+from exapi.requesters.base import IBaseRequester
+from exapi.requesters.typedefs import RequesterResponse
 from exapi.typedefs.binance import (OrderResponseType, OrderSide,
                                     OrderType, TimeInForce)
 
 
-class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
+class IBinanceSpotTradingRequester(IBaseRequester):
     """Has methods for making requests to binance spot account trading api."""
-
-    def __init__(self, session: Session, creator: IBinanceSpotTradingRequestCreator) -> None:
-        super().__init__(session)
-        self._creator = creator
 
     async def new_test_order(self, symbol: str,
                              side: OrderSide,
@@ -61,25 +55,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
         Returns:
             RequesterResponse
         """
-
-        req = self._creator.create_new_test_order_request(
-            symbol=symbol,
-            side=side,
-            type=type,
-            time_in_force=time_in_force,
-            quantity=quantity,
-            quote_order_qty=quote_order_qty,
-            price=price,
-            new_client_order_id=new_order_resp_type,
-            stop_price=stop_price,
-            iceberg_qty=iceberg_qty,
-            new_order_resp_type=new_order_resp_type,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
 
     async def new_order(self, symbol: str,
                         side: OrderSide,
@@ -195,25 +170,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
             RequesterResponse
         """
 
-        req = self._creator.create_new_order_request(
-            symbol=symbol,
-            side=side,
-            type=type,
-            time_in_force=time_in_force,
-            quantity=quantity,
-            quote_order_qty=quote_order_qty,
-            price=price,
-            new_client_order_id=new_order_resp_type,
-            stop_price=stop_price,
-            iceberg_qty=iceberg_qty,
-            new_order_resp_type=new_order_resp_type,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
-
     async def cancel_order(self, symbol: str,
                            order_id: Optional[int] = None,
                            orig_client_order_id: Optional[str] = None,
@@ -256,18 +212,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
         Returns:
             RequesterResponse
         """
-
-        req = self._creator.create_cancel_order_request(
-            symbol=symbol,
-            order_id=order_id,
-            orig_client_order_id=orig_client_order_id,
-            new_client_order_id=new_client_order_id,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
 
     async def cancel_orders(self, symbol: str,
                             recv_window: Optional[int] = None,
@@ -378,15 +322,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
             RequesterResponse
         """
 
-        req = self._creator.create_cancel_orders_request(
-            symbol=symbol,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
-
     async def query_order(self, symbol: str,
                           order_id: Optional[int] = None,
                           orig_client_order_id: Optional[str] = None,
@@ -435,17 +370,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
             RequesterResponse
         """
 
-        req = self._creator.create_query_order_request(
-            symbol=symbol,
-            order_id=order_id,
-            orig_client_order_id=orig_client_order_id,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
-
     async def get_current_open_orders(self, symbol: Optional[str] = None,
                                       recv_window: Optional[int] = None,
                                       timestamp: Optional[int] = None
@@ -490,15 +414,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
         Returns:
             RequesterResponse
         """
-
-        req = self._creator.create_get_current_open_orders_request(
-            symbol=symbol,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
 
     async def get_all_orders(self, symbol: str,
                              order_id: Optional[int] = None,
@@ -556,19 +471,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
             RequesterResponse
         """
 
-        req = self._creator.create_get_all_orders_request(
-            symbol=symbol,
-            order_id=order_id,
-            start_time=start_time,
-            end_time=end_time,
-            limit=limit,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
-
     async def get_account_info(self, recv_window: Optional[int] = None,
                                timestamp: Optional[int] = None
                                ) -> RequesterResponse:
@@ -611,14 +513,6 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
         Returns:
             RequesterResponse
         """
-
-        req = self._creator.create_get_account_info_request(
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)
 
     async def get_trades(self, symbol: str,
                          start_time: Optional[int] = None,
@@ -669,16 +563,3 @@ class BinanceTradingRequester(BaseRequester, IBinanceTradingRequester):
         Returns:
             RequesterResponse
         """
-
-        req = self._creator.create_get_trades_request(
-            symbol=symbol,
-            start_time=start_time,
-            end_time=end_time,
-            from_id=from_id,
-            limit=limit,
-            recv_window=recv_window,
-            timestamp=timestamp)
-
-        return await self.request(
-            method=req.method, url=req.url,
-            headers=req.headers, data=req.data, json=req.json)

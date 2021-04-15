@@ -3,14 +3,13 @@
 import hashlib
 import hmac
 
-from exapi.auth.binance.interface import IBinanceAuth
 from exapi.auth.binance.key import IBinanceKeyAuth
 from exapi.auth.binance.result import BinanceAuthResult
 from exapi.requesters.typedefs import Params
 from exapi.utils.url import create_query_string
 
 
-class BinanceAuth(IBinanceAuth):
+class BinanceAuth:
     """Has methods for auth requests to binance api."""
 
     def __init__(self, key_auth: IBinanceKeyAuth, api_secret: str) -> None:

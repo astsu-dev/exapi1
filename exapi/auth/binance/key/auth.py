@@ -1,8 +1,7 @@
-from exapi.auth.binance.key.interface import IBinanceKeyAuth
 from exapi.auth.binance.typedefs import BinanceAuthHeaders
 
 
-class BinanceKeyAuth(IBinanceKeyAuth):
+class BinanceKeyAuth:
     """Has methods for adds api key to headers."""
 
     def __init__(self, api_key: str) -> None:

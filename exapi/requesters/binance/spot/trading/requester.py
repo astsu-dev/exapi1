@@ -1,53 +1,35 @@
-"""Has binance trading api interface."""
+"""Has binance trading requester interface."""
 
-from decimal import Decimal
 from typing import Optional
 
-from exapi.api.binance.trading.interface import IBinanceTradingAPI
-from exapi.response_handlers.binance.spot.trading import (BinanceSpotTradingResponseHandler,
-                                                          IBinanceSpotTradingResponseHandler)
-from exapi.models.binance import (BinanceAccountInfoModel,
-                                  BinanceAccountTrades,
-                                  BinanceCanceledOrderModel,
-                                  BinanceCanceledOrders, BinanceOrderInfoModel,
-                                  BinanceOrderInfos, BinanceOrderModel,
-                                  BinanceTestOrderModel)
-from exapi.requesters.binance.trading import IBinanceTradingRequester
-from exapi.typedefs.binance import (OrderResponseType, OrderSide, OrderType,
-                                    TimeInForce)
-from exapi.utils.numbers import decimal_to_str
+from exapi.request_creators.binance.spot.trading import IBinanceSpotTradingRequestCreator
+from exapi.requesters.base.requester import BaseRequester
+from exapi.requesters.typedefs import RequesterResponse, Session
+from exapi.typedefs.binance import (OrderResponseType, OrderSide,
+                                    OrderType, TimeInForce)
 
 
-class BinanceTradingAPI(IBinanceTradingAPI):
-    """Binance trading api.
+class BinanceSpotTradingRequester(BaseRequester):
+    """Has methods for making requests to binance spot account trading api."""
 
-    Has methods for trading request making to binance exchange.
-    """
-
-    def __init__(self,
-                 requester: IBinanceTradingRequester,
-                 response_handler: Optional[IBinanceSpotTradingResponseHandler] = None
-                 ) -> None:
-        self._requester = requester
-        self._response_handler = (response_handler if response_handler is not None
-                                  else BinanceSpotTradingResponseHandler())
+    def __init__(self, session: Session, creator: IBinanceSpotTradingRequestCreator) -> None:
+        super().__init__(session)
+        self._creator = creator
 
     async def new_test_order(self, symbol: str,
                              side: OrderSide,
                              type: OrderType,
                              time_in_force: Optional[TimeInForce] = None,
-                             quantity: Optional[Decimal] = None,
-                             quantity_precision: Optional[int] = None,
-                             quote_order_qty: Optional[Decimal] = None,
-                             price: Optional[Decimal] = None,
-                             price_precision: Optional[int] = None,
+                             quantity: Optional[str] = None,
+                             quote_order_qty: Optional[str] = None,
+                             price: Optional[str] = None,
                              new_client_order_id: Optional[str] = None,
-                             stop_price: Optional[Decimal] = None,
-                             iceberg_qty: Optional[Decimal] = None,
+                             stop_price: Optional[str] = None,
+                             iceberg_qty: Optional[str] = None,
                              new_order_resp_type: Optional[OrderResponseType] = None,
                              recv_window: Optional[int] = None,
                              timestamp: Optional[int] = None
-                             ) -> BinanceTestOrderModel:
+                             ) -> RequesterResponse:
         """Tests new order creation and signature/recv_window long.
         Creates and validates a new order but does not send it into the matching engine.
 
@@ -61,18 +43,14 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             side (OrderSide)
             type (OrderType)
             time_in_force (Optional[TimeInForce], optional)
-            quantity (Optional[Decimal], optional)
-            quantity_precision (Optional[int], optional): quantity precision (digits after comma).
-                If None will be used precision from number. Will not be sended in request.
-            quote_order_qty (Optional[Decimal], optional)
-            price (Optional[Decimal], optional)
-            price_precision (Optional[int], optional): price precision (digits after comma).
-                If None will be used precision from number. Will not be sended in request.
+            quantity (Optional[str], optional)
+            quote_order_qty (Optional[str], optional)
+            price (Optional[str], optional)
             new_client_order_id (Optional[str], optional): A unique id among open orders.
                 Automatically generated if not sent.
-            stop_price (Optional[Decimal], optional): Used with STOP_LOSS, STOP_LOSS_LIMIT,
+            stop_price (Optional[str], optional): Used with STOP_LOSS, STOP_LOSS_LIMIT,
                 TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
-            iceberg_qty (Optional[Decimal], optional): Used with LIMIT, STOP_LOSS_LIMIT,
+            iceberg_qty (Optional[str], optional): Used with LIMIT, STOP_LOSS_LIMIT,
                 and TAKE_PROFIT_LIMIT to create an iceberg order.
             new_order_resp_type ([type], optional): Set the response JSON. ACK, RESULT, or FULL;
                 MARKET and LIMIT order types default to FULL, all other orders default to ACK.
@@ -80,53 +58,42 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceTestOrderModel
+            RequesterResponse
         """
 
-        res_quantity = (decimal_to_str(quantity, quantity_precision)
-                        if quantity is not None else quantity)
-        res_quote_order_qty = (decimal_to_str(quote_order_qty, quantity_precision)
-                               if quote_order_qty is not None else quote_order_qty)
-        res_price = (decimal_to_str(price, price_precision)
-                     if price is not None else price)
-        res_stop_price = (decimal_to_str(stop_price, price_precision)
-                          if stop_price is not None else stop_price)
-        res_iceberg_qty = (decimal_to_str(iceberg_qty, quantity_precision)
-                           if iceberg_qty is not None else iceberg_qty)
-
-        response = await self._requester.new_test_order(
+        req = self._creator.create_new_test_order_request(
             symbol=symbol,
             side=side,
             type=type,
             time_in_force=time_in_force,
-            quantity=res_quantity,
-            quote_order_qty=res_quote_order_qty,
-            price=res_price,
-            new_client_order_id=new_client_order_id,
-            stop_price=res_stop_price,
-            iceberg_qty=res_iceberg_qty,
+            quantity=quantity,
+            quote_order_qty=quote_order_qty,
+            price=price,
+            new_client_order_id=new_order_resp_type,
+            stop_price=stop_price,
+            iceberg_qty=iceberg_qty,
             new_order_resp_type=new_order_resp_type,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_new_test_order_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def new_order(self, symbol: str,
                         side: OrderSide,
                         type: OrderType,
                         time_in_force: Optional[TimeInForce] = None,
-                        quantity: Optional[Decimal] = None,
-                        quantity_precision: Optional[int] = None,
-                        quote_order_qty: Optional[Decimal] = None,
-                        price: Optional[Decimal] = None,
-                        price_precision: Optional[int] = None,
+                        quantity: Optional[str] = None,
+                        quote_order_qty: Optional[str] = None,
+                        price: Optional[str] = None,
                         new_client_order_id: Optional[str] = None,
-                        stop_price: Optional[Decimal] = None,
-                        iceberg_qty: Optional[Decimal] = None,
+                        stop_price: Optional[str] = None,
+                        iceberg_qty: Optional[str] = None,
                         new_order_resp_type: Optional[OrderResponseType] = None,
                         recv_window: Optional[int] = None,
                         timestamp: Optional[int] = None
-                        ) -> BinanceOrderModel:
+                        ) -> RequesterResponse:
         """Send in a new order.
 
         Weight: 1
@@ -203,23 +170,20 @@ class BinanceTradingAPI(IBinanceTradingAPI):
                 ]
             }
 
+
         Args:
             symbol (str)
             side (OrderSide)
             type (OrderType)
             time_in_force (Optional[TimeInForce], optional)
-            quantity (Optional[Decimal], optional)
-            quantity_precision (Optional[int], optional): quantity precision (digits after comma).
-                If None will be used precision from number. Will not be sended in request.
-            quote_order_qty (Optional[Decimal], optional)
-            price (Optional[Decimal], optional)
-            price_precision (Optional[int], optional): price precision (digits after comma).
-                If None will be used precision from number. Will not be sended in request.
+            quantity (Optional[str], optional)
+            quote_order_qty (Optional[str], optional)
+            price (Optional[str], optional)
             new_client_order_id (Optional[str], optional): A unique id among open orders.
                 Automatically generated if not sent.
-            stop_price (Optional[Decimal], optional): Used with STOP_LOSS, STOP_LOSS_LIMIT,
+            stop_price (Optional[str], optional): Used with STOP_LOSS, STOP_LOSS_LIMIT,
                 TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
-            iceberg_qty (Optional[Decimal], optional): Used with LIMIT, STOP_LOSS_LIMIT,
+            iceberg_qty (Optional[str], optional): Used with LIMIT, STOP_LOSS_LIMIT,
                 and TAKE_PROFIT_LIMIT to create an iceberg order.
             new_order_resp_type ([type], optional): Set the response JSON. ACK, RESULT, or FULL;
                 MARKET and LIMIT order types default to FULL, all other orders default to ACK.
@@ -227,36 +191,27 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceOrderModel
+            RequesterResponse
         """
 
-        res_quantity = (decimal_to_str(quantity, quantity_precision)
-                        if quantity is not None else quantity)
-        res_quote_order_qty = (decimal_to_str(quote_order_qty, quantity_precision)
-                               if quote_order_qty is not None else quote_order_qty)
-        res_price = (decimal_to_str(price, price_precision)
-                     if price is not None else price)
-        res_stop_price = (decimal_to_str(stop_price, price_precision)
-                          if stop_price is not None else stop_price)
-        res_iceberg_qty = (decimal_to_str(iceberg_qty, quantity_precision)
-                           if iceberg_qty is not None else iceberg_qty)
-
-        response = await self._requester.new_order(
+        req = self._creator.create_new_order_request(
             symbol=symbol,
             side=side,
             type=type,
             time_in_force=time_in_force,
-            quantity=res_quantity,
-            quote_order_qty=res_quote_order_qty,
-            price=res_price,
-            new_client_order_id=new_client_order_id,
-            stop_price=res_stop_price,
-            iceberg_qty=res_iceberg_qty,
+            quantity=quantity,
+            quote_order_qty=quote_order_qty,
+            price=price,
+            new_client_order_id=new_order_resp_type,
+            stop_price=stop_price,
+            iceberg_qty=iceberg_qty,
             new_order_resp_type=new_order_resp_type,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_new_order_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def cancel_order(self, symbol: str,
                            order_id: Optional[int] = None,
@@ -264,7 +219,7 @@ class BinanceTradingAPI(IBinanceTradingAPI):
                            new_client_order_id: Optional[str] = None,
                            recv_window: Optional[int] = None,
                            timestamp: Optional[int] = None
-                           ) -> BinanceCanceledOrderModel:
+                           ) -> RequesterResponse:
         """Cancel an active order.
 
         Either order_id or orig_client_order_id must be sent.
@@ -298,23 +253,25 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceCanceledOrderModel
+            RequesterResponse
         """
 
-        response = await self._requester.cancel_order(
+        req = self._creator.create_cancel_order_request(
             symbol=symbol,
             order_id=order_id,
             orig_client_order_id=orig_client_order_id,
             new_client_order_id=new_client_order_id,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_cancel_order_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def cancel_orders(self, symbol: str,
                             recv_window: Optional[int] = None,
                             timestamp: Optional[int] = None
-                            ) -> BinanceCanceledOrders:
+                            ) -> RequesterResponse:
         """Cancels all active orders on a symbol. This includes OCO orders.
 
         Weight: 1
@@ -417,22 +374,24 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceCanceledOrders
+            RequesterResponse
         """
 
-        response = await self._requester.cancel_orders(
+        req = self._creator.create_cancel_orders_request(
             symbol=symbol,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_cancel_orders_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def query_order(self, symbol: str,
                           order_id: Optional[int] = None,
                           orig_client_order_id: Optional[str] = None,
                           recv_window: Optional[int] = None,
                           timestamp: Optional[int] = None
-                          ) -> BinanceOrderInfoModel:
+                          ) -> RequesterResponse:
         """Check an order's status.
 
         Weight: 1
@@ -472,22 +431,24 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceOrderInfoModel
+            RequesterResponse
         """
 
-        response = await self._requester.query_order(
+        req = self._creator.create_query_order_request(
             symbol=symbol,
             order_id=order_id,
             orig_client_order_id=orig_client_order_id,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_query_order_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_current_open_orders(self, symbol: Optional[str] = None,
                                       recv_window: Optional[int] = None,
                                       timestamp: Optional[int] = None
-                                      ) -> BinanceOrderInfos:
+                                      ) -> RequesterResponse:
         """Get all open orders on a symbol. Careful when accessing this with no symbol.
 
         If the symbol is not sent, orders for all symbols will be returned in an array.
@@ -526,15 +487,17 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceOrderInfos
+            RequesterResponse
         """
 
-        response = await self._requester.get_current_open_orders(
+        req = self._creator.create_get_current_open_orders_request(
             symbol=symbol,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_get_current_open_orders_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_all_orders(self, symbol: str,
                              order_id: Optional[int] = None,
@@ -543,7 +506,7 @@ class BinanceTradingAPI(IBinanceTradingAPI):
                              limit: Optional[int] = None,
                              recv_window: Optional[int] = None,
                              timestamp: Optional[int] = None
-                             ) -> BinanceOrderInfos:
+                             ) -> RequesterResponse:
         """Get all account orders; active, canceled, or filled.
 
         Weight: 5 with symbol
@@ -589,10 +552,10 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             recv_window (Optional[int], optional): The value cannot be greater than 60000.
 
         Returns:
-            BinanceOrderInfos
+            RequesterResponse
         """
 
-        response = await self._requester.get_all_orders(
+        req = self._creator.create_get_all_orders_request(
             symbol=symbol,
             order_id=order_id,
             start_time=start_time,
@@ -600,12 +563,14 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             limit=limit,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_get_all_orders_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_account_info(self, recv_window: Optional[int] = None,
                                timestamp: Optional[int] = None
-                               ) -> BinanceAccountInfoModel:
+                               ) -> RequesterResponse:
         """Get current account information.
 
         Weight: 5
@@ -643,14 +608,16 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceAccountInfoModel
+            RequesterResponse
         """
 
-        response = await self._requester.get_account_info(
+        req = self._creator.create_get_account_info_request(
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_get_account_info_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_trades(self, symbol: str,
                          start_time: Optional[int] = None,
@@ -659,7 +626,7 @@ class BinanceTradingAPI(IBinanceTradingAPI):
                          limit: Optional[int] = None,
                          recv_window: Optional[int] = None,
                          timestamp: Optional[int] = None
-                         ) -> BinanceAccountTrades:
+                         ) -> RequesterResponse:
         """Get trades for a specific account and symbol.
 
         Weight: 5
@@ -699,10 +666,10 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             timestamp (Optional[int]): if None current timestamp in milliseconds will be used.
 
         Returns:
-            BinanceAccountTrades
+            RequesterResponse
         """
 
-        response = await self._requester.get_trades(
+        req = self._creator.create_get_trades_request(
             symbol=symbol,
             start_time=start_time,
             end_time=end_time,
@@ -710,5 +677,7 @@ class BinanceTradingAPI(IBinanceTradingAPI):
             limit=limit,
             recv_window=recv_window,
             timestamp=timestamp)
-        res = await self._response_handler.handle_get_trades_response(response)
-        return res
+
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)

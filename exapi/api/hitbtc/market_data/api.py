@@ -2,27 +2,26 @@
 
 from typing import Optional
 
-from exapi.api.hitbtc.market_data.interface import IHitbtcMarketDataAPI
-from exapi.response_handlers.hitbtc.market_data import (HitbtcMarketDataResponseHandler,
-                                                        IHitbtcMarketDataResponseHandler)
 from exapi.models.hitbtc import (HitbtcCandles, HitbtcCurrencies, HitbtcCurrencyModel, HitbtcOrderBookModel,
                                  HitbtcOrderBooks, HitbtcSymbolCandles, HitbtcSymbolModel, HitbtcSymbolTrades,
                                  HitbtcSymbols, HitbtcTickerModel, HitbtcTickers, HitbtcTrades)
 from exapi.requesters.hitbtc.market_data import IHitbtcMarketDataRequester
+from exapi.response_handlers.hitbtc.market_data import (HitbtcMarketDataResponseHandler,
+                                                        IHitbtcMarketDataResponseHandler)
 from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    IntervalValue, SortBy, SortDirection,
                                    Symbol, Symbols)
 
 
-class HitbtcMarketDataAPI(IHitbtcMarketDataAPI):
+class HitbtcMarketDataAPI:
     """Has methods for market data requests making."""
 
     def __init__(self, requester: IHitbtcMarketDataRequester,
                  response_handler: Optional[IHitbtcMarketDataResponseHandler] = None
                  ) -> None:
         self._requester = requester
-        self._handler = (response_handler if response_handler is not None else
-                         HitbtcMarketDataResponseHandler())
+        self._handler: IHitbtcMarketDataResponseHandler = (response_handler if response_handler is not None else
+                                                           HitbtcMarketDataResponseHandler())
 
     async def get_currencies(self, currencies: Optional[Currencies] = None) -> HitbtcCurrencies:
         """Gets a list of all currencies or specified currencies.
@@ -153,7 +152,7 @@ class HitbtcMarketDataAPI(IHitbtcMarketDataAPI):
         Args:
             symbols (Optional[Symbols], optional): list of symbols.
                 If not passed, then will return for all symbols.
-            SortDirection (Optional[SortDirection], optional): SortDirection direction.
+            sort (Optional[SortDirection], optional): SortDirection direction.
                 Accepted values: ASC, DESC. Default value: DESC.
             from_ (Optional[IntervalValue], optional): Interval initial value.
                 If sorting by timestamp is used, then Datetime,

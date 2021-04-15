@@ -1,9 +1,7 @@
 from exapi.models.binance import BinanceErrorJson, BinanceErrorModel
 
-from exapi.models_mappers.binance.base.interface import IBinanceBaseModelsMapper
 
-
-class BinanceBaseModelsMapper(IBinanceBaseModelsMapper):
+class BinanceBaseModelsMapper:
     """Binance base models mapper.
 
     Maps json to models.

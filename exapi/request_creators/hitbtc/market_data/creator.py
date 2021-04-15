@@ -5,7 +5,6 @@ from typing import Optional
 from yarl import URL
 
 from exapi.request_creators.hitbtc.base import HitbtcBaseRequestCreator
-from exapi.request_creators.hitbtc.market_data.interface import IHitbtcMarketDataRequestCreator
 from exapi.request_creators.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
@@ -13,7 +12,7 @@ from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    Symbol, Symbols)
 
 
-class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator, IHitbtcMarketDataRequestCreator):
+class HitbtcMarketDataRequestCreator(HitbtcBaseRequestCreator):
     """Has methods for creating requests for hitbtc market data endpoints."""
 
     BASE_URL: str = HitbtcBaseRequestCreator.BASE_URL + "/api/2/public"

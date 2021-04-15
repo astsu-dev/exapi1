@@ -1,0 +1,2 @@
+from exapi.requesters.binance.spot.market_data.interface import IBinanceSpotMarketDataRequester
+from exapi.requesters.binance.spot.market_data.requester import BinanceSpotMarketDataRequester

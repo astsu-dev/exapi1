@@ -4,14 +4,13 @@ from typing import Optional
 
 from exapi.request_creators.hitbtc.market_data import HitbtcMarketDataRequestCreator, IHitbtcMarketDataRequestCreator
 from exapi.requesters.base import BaseRequester
-from exapi.requesters.hitbtc.market_data.interface import IHitbtcMarketDataRequester
 from exapi.requesters.typedefs import RequesterResponse, Session
 from exapi.typedefs.hitbtc import (CandlesPeriod, Currencies, Currency,
                                    IntervalValue, SortBy, SortDirection,
                                    Symbol, Symbols)
 
 
-class HitbtcMarketDataRequester(BaseRequester, IHitbtcMarketDataRequester):
+class HitbtcMarketDataRequester(BaseRequester):
     """Has methods for market data requests making."""
 
     def __init__(self, session: Session,

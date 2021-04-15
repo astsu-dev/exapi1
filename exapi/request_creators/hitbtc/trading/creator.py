@@ -4,16 +4,15 @@ from typing import Optional
 
 from yarl import URL
 
-from exapi.request_creators.hitbtc.base import HitbtcBaseRequestCreator
-from exapi.request_creators.hitbtc.trading.interface import IHitbtcTradingRequestCreator
-from exapi.request_creators.request import Request
 from exapi.auth.hitbtc import IHitbtcAuth
+from exapi.request_creators.hitbtc.base import HitbtcBaseRequestCreator
+from exapi.request_creators.request import Request
 from exapi.requesters.typedefs import Params
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)
 
 
-class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator, IHitbtcTradingRequestCreator):
+class HitbtcTradingRequestCreator(HitbtcBaseRequestCreator):
     """Has methods for creating requests to hitbtc trading api."""
 
     BASE_URL: str = HitbtcBaseRequestCreator.BASE_URL + "/api/2"

@@ -1,45 +1,21 @@
-"""Has binance market data api interface."""
+"""Has binance market data requester."""
 
-from typing import Optional, Union, overload
+from typing import Optional
 
-from exapi.api.binance.market_data.interface import IBinanceMarketDataAPI
-from exapi.response_handlers.binance.spot.market_data import (BinanceSpotMarketDataResponseHandler,
-                                                              IBinanceSpotMarketDataResponseHandler)
-from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
-                                                    BinancePriceTickerModelOrTickers,
-                                                    BinanceTickerPriceChangeStatModelOrTickers)
-from exapi.models.binance import (BinanceAveragePriceModel,
-                                  BinanceExchangeInfoModel,
-                                  BinanceOrderBookModel,
-                                  BinanceOrderBookTickerModel,
-                                  BinancePingModel, BinancePriceTickerModel,
-                                  BinanceServerTimeModel,
-                                  BinanceTickerPriceChangeStatModel)
-from exapi.models.binance.candle import BinanceCandles
-from exapi.models.binance.order_book_ticker import BinanceOrderBookTickers
-from exapi.models.binance.price_ticker import BinancePriceTickers
-from exapi.models.binance.ticker_price_change_stat import \
-    BinanceTickersPriceChangeStat
-from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
-from exapi.requesters.binance.market_data import IBinanceMarketDataRequester
+from exapi.request_creators.binance.spot.market_data import IBinanceSpotMarketDataRequestCreator
+from exapi.requesters.base.requester import BaseRequester
+from exapi.requesters.typedefs import RequesterResponse, Session
 from exapi.typedefs.binance import CandleInterval
 
 
-class BinanceMarketDataAPI(IBinanceMarketDataAPI):
-    """Binance market data api.
+class BinanceSpotMarketDataRequester(BaseRequester):
+    """Has methods for making requests to binance exchange."""
 
-    Has methods for market data request making to binance exchange.
-    """
+    def __init__(self, session: Session, creator: IBinanceSpotMarketDataRequestCreator) -> None:
+        super().__init__(session)
+        self._creator = creator
 
-    def __init__(self,
-                 requester: IBinanceMarketDataRequester,
-                 response_handler: Optional[IBinanceSpotMarketDataResponseHandler] = None
-                 ) -> None:
-        self._requester = requester
-        self._response_handler = (response_handler if response_handler is not None
-                                  else BinanceSpotMarketDataResponseHandler())
-
-    async def ping(self) -> BinancePingModel:
+    async def ping(self) -> RequesterResponse:
         """Test connectivity to the Rest API.
 
         Request weight: 1.
@@ -48,14 +24,15 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             {}
 
         Returns:
-            BinancePingModel
+            RequesterResponse
         """
 
-        response = await self._requester.ping()
-        res = await self._response_handler.handle_ping_response(response)
-        return res
+        req = self._creator.create_ping_request()
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
-    async def get_server_time(self) -> BinanceServerTimeModel:
+    async def get_server_time(self) -> RequesterResponse:
         """Test connectivity to the Rest API and get the current server time.
 
         Request weight: 1.
@@ -66,14 +43,15 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             }
 
         Returns:
-            BinanceServerTimeModel
+            RequesterResponse
         """
 
-        response = await self._requester.get_server_time()
-        res = await self._response_handler.handle_get_server_time_response(response)
-        return res
+        req = self._creator.create_get_server_time_request()
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
-    async def get_exchange_info(self) -> BinanceExchangeInfoModel:
+    async def get_exchange_info(self) -> RequesterResponse:
         """Current exchange trading rules and symbol information.
 
         Request weight: 1.
@@ -128,16 +106,17 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             }
 
         Returns:
-            BinanceExchangeInfoModel
+            RequesterResponse
         """
 
-        response = await self._requester.get_exchange_info()
-        res = await self._response_handler.handle_get_exchange_info_response(response)
-        return res
+        req = self._creator.create_get_exchange_info_request()
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_order_book(self, symbol: str,
                              limit: Optional[int] = None
-                             ) -> BinanceOrderBookModel:
+                             ) -> RequesterResponse:
         """Gets order book for a certain `symbol`.
 
         Request weight:
@@ -172,18 +151,18 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
                 Valid limits: [5, 10, 20, 50, 100, 500, 1000, 5000]
 
         Returns:
-            BinanceOrderBookModel
+            RequesterResponse
         """
 
-        response = await self._requester.get_order_book(
-            symbol=symbol,
-            limit=limit)
-        res = await self._response_handler.handle_get_order_book_response(response)
-        return res
+        req = self._creator.create_get_order_book_request(
+            symbol=symbol, limit=limit)
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_trades(self, symbol: str,
                          limit: Optional[int] = None
-                         ) -> BinanceTrades:
+                         ) -> RequesterResponse:
         """Get recent trades for a certain `symbol`.
 
         Request weight: 1.
@@ -207,19 +186,19 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             limit (Optional[int], optional): Default 500; max 1000.
 
         Returns:
-            BinanceTrades
+            RequesterResponse
         """
 
-        response = await self._requester.get_trades(
-            symbol=symbol,
-            limit=limit)
-        res = await self._response_handler.handle_get_trades_response(response)
-        return res
+        req = self._creator.create_get_trades_request(
+            symbol=symbol, limit=limit)
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_old_trades(self, symbol: str,
                              limit: Optional[int] = None,
                              from_id: Optional[int] = None
-                             ) -> BinanceTrades:
+                             ) -> RequesterResponse:
         """Get older market trades for a certain `symbol`.
 
         Required api key in headers.
@@ -247,22 +226,23 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             limit (Optional[int]): Default 500; max 1000.
 
         Returns:
-            BinanceTrades
+            RequesterResponse
         """
 
-        response = await self._requester.get_old_trades(
+        req = self._creator.create_get_old_trades_request(
             symbol=symbol,
             limit=limit,
             from_id=from_id)
-        res = await self._response_handler.handle_get_trades_response(response)
-        return res
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_aggregate_trades(self, symbol: str,
                                    from_id: Optional[int] = None,
                                    start_time: Optional[int] = None,
                                    end_time: Optional[int] = None,
                                    limit: Optional[int] = None
-                                   ) -> BinanceAggregateTrades:
+                                   ) -> RequesterResponse:
         """Get compressed, aggregate trades for a certain symbol.
         Trades that fill at the time, from the same order,
         with the same price will have the quantity aggregated.
@@ -299,24 +279,25 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             limit (Optional[int], optional): Default 500; max 1000.
 
         Returns:
-            BinanceAggregateTrades
+            RequesterResponse
         """
 
-        response = await self._requester.get_aggregate_trades(
+        req = self._creator.create_get_aggregate_trades_request(
             symbol=symbol,
             from_id=from_id,
             start_time=start_time,
             end_time=end_time,
             limit=limit)
-        res = await self._response_handler.handle_get_aggregate_trades_response(response)
-        return res
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
     async def get_candles(self, symbol: str,
                           interval: CandleInterval,
                           start_time: Optional[int] = None,
                           end_time: Optional[int] = None,
                           limit: Optional[int] = None
-                          ) -> BinanceCandles:
+                          ) -> RequesterResponse:
         """Kline/candlestick bars for a certain `symbol`.
         Klines are uniquely identified by their open time.
 
@@ -350,19 +331,20 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             limit (Optional[int], optional): Default 500; max 1000.
 
         Returns:
-            BinanceCandles
+            RequesterResponse
         """
 
-        response = await self._requester.get_candles(
+        req = self._creator.create_get_candles_request(
             symbol=symbol,
             interval=interval,
             start_time=start_time,
             end_time=end_time,
             limit=limit)
-        res = await self._response_handler.handle_get_candles_response(response)
-        return res
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
-    async def get_average_price(self, symbol: str) -> BinanceAveragePriceModel:
+    async def get_average_price(self, symbol: str) -> RequesterResponse:
         """Current average price for a certain `symbol`.
 
         Request weight: 1.
@@ -371,108 +353,19 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
             symbol (str): certain symbol.
 
         Returns:
-            BinanceAveragePriceModel
+            RequesterResponse
         """
 
-        response = await self._requester.get_average_price(symbol=symbol)
-        res = await self._response_handler.handle_get_average_price_response(response)
-        return res
+        req = self._creator.create_get_average_price_request(symbol=symbol)
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
-    @overload
-    async def get_ticker_price_change_stat(
-            self,
-            symbol: None = None
-    ) -> BinanceTickersPriceChangeStat:
+    async def get_ticker_price_change_stat(self, symbol: Optional[str] = None) -> RequesterResponse:
         """24 hour rolling window price change statistics.
         Careful when accessing this with no symbol.
 
-        Request weight: 1 for a single symbol;
-            40 when the symbol parameter is omitted;
-
-        Json example:
-            [
-                {
-                    "symbol": "BNBBTC",
-                    "priceChange": "-94.99999800",
-                    "priceChangePercent": "-95.960",
-                    "weightedAvgPrice": "0.29628482",
-                    "prevClosePrice": "0.10002000",
-                    "lastPrice": "4.00000200",
-                    "lastQty": "200.00000000",
-                    "bidPrice": "4.00000000",
-                    "askPrice": "4.00000200",
-                    "openPrice": "99.00000000",
-                    "highPrice": "100.00000000",
-                    "lowPrice": "0.10000000",
-                    "volume": "8913.30000000",
-                    "quoteVolume": "15.30000000",
-                    "openTime": 1499783499040,
-                    "closeTime": 1499869899040,
-                    "firstId": 28385,   // First tradeId
-                    "lastId": 28460,    // Last tradeId
-                    "count": 76         // Trade count
-                },
-                ...
-            ]
-
-        Args:
-            symbol (None, optional): If the symbol is None,
-                tickers for all symbols will be returned in an array.
-
-        Returns:
-            BinanceTickersPriceChangeStat
-        """
-
-    @overload
-    async def get_ticker_price_change_stat(
-            self,
-            symbol: str
-    ) -> BinanceTickerPriceChangeStatModel:
-        """24 hour rolling window price change statistics.
-        Careful when accessing this with no symbol.
-
-        Request weight: 1 for a single symbol;
-            40 when the symbol parameter is omitted;
-
-        Json example:
-            {
-                "symbol": "BNBBTC",
-                "priceChange": "-94.99999800",
-                "priceChangePercent": "-95.960",
-                "weightedAvgPrice": "0.29628482",
-                "prevClosePrice": "0.10002000",
-                "lastPrice": "4.00000200",
-                "lastQty": "200.00000000",
-                "bidPrice": "4.00000000",
-                "askPrice": "4.00000200",
-                "openPrice": "99.00000000",
-                "highPrice": "100.00000000",
-                "lowPrice": "0.10000000",
-                "volume": "8913.30000000",
-                "quoteVolume": "15.30000000",
-                "openTime": 1499783499040,
-                "closeTime": 1499869899040,
-                "firstId": 28385,   // First tradeId
-                "lastId": 28460,    // Last tradeId
-                "count": 76         // Trade count
-            }
-
-        Args:
-            symbol (str): If the symbol is None,
-                tickers for all symbols will be returned in an array.
-
-        Returns:
-           BinanceTickerPriceChangeStatModel
-        """
-
-    async def get_ticker_price_change_stat(
-            self,
-            symbol: Optional[str] = None
-    ) -> BinanceTickerPriceChangeStatModelOrTickers:
-        """24 hour rolling window price change statistics.
-        Careful when accessing this with no symbol.
-
-        Request weight: 1 for a single symbol;
+        Request weight: 1 for a single symbol; 
             40 when the symbol parameter is omitted;
 
         Json example:
@@ -528,74 +421,16 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
                 tickers for all symbols will be returned in an array.
 
         Returns:
-            Union[BinanceTickerPriceChangeStatModel, BinanceTickersPriceChangeStat]
+            RequesterResponse
         """
 
-        res: Union[BinanceTickerPriceChangeStatModel,
-                   BinanceTickersPriceChangeStat]
+        req = self._creator.create_get_ticker_price_change_stat_request(
+            symbol=symbol)
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
-        response = await self._requester.get_ticker_price_change_stat(symbol=symbol)
-        if symbol is None:
-            res = await self._response_handler.handle_get_tickers_price_change_stat_response(response)
-        else:
-            res = await self._response_handler.handle_get_ticker_price_change_stat_response(response)
-        return res
-
-    @overload
-    async def get_price_ticker(
-            self,
-            symbol: None = None
-    ) -> BinancePriceTickers:
-        """Latest price for a symbol or symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "price": "4.00000200"
-                },
-                ...
-            ]
-
-        Args:
-            symbol (None, optional): If the symbol is not sent,
-                prices for all symbols will be returned in an array.
-
-        Returns:
-            BinancePriceTickers
-        """
-
-    @overload
-    async def get_price_ticker(
-            self,
-            symbol: str
-    ) -> BinancePriceTickerModel:
-        """Latest price for a symbol or symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            {
-                "symbol": "LTCBTC",
-                "price": "4.00000200"
-            }
-
-        Args:
-            symbol (str): If the symbol is not sent,
-                prices for all symbols will be returned in an array.
-
-        Returns:
-            BinancePriceTickerModel
-        """
-
-    async def get_price_ticker(
-            self,
-            symbol: Optional[str] = None
-    ) -> BinancePriceTickerModelOrTickers:
+    async def get_price_ticker(self, symbol: Optional[str] = None) -> RequesterResponse:
         """Latest price for a symbol or symbols.
 
         Request weight: 1 for a single symbol;
@@ -620,81 +455,15 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
                 prices for all symbols will be returned in an array.
 
         Returns:
-            Union[BinancePriceTickerModel, BinancePriceTickers]
+            RequesterResponse
         """
 
-        res: BinancePriceTickerModelOrTickers
+        req = self._creator.create_get_price_ticker_request(symbol=symbol)
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)
 
-        response = await self._requester.get_price_ticker(symbol=symbol)
-        if symbol is None:
-            res = await self._response_handler.handle_get_price_tickers_response(response)
-        else:
-            res = await self._response_handler.handle_get_price_ticker_response(response)
-        return res
-
-    @overload
-    async def get_order_book_ticker(
-            self,
-            symbol: None = None
-    ) -> BinanceOrderBookTickers:
-        """Best price/qty on the order book for a `symbol` or all symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "bidPrice": "4.00000000",
-                    "bidQty": "431.00000000",
-                    "askPrice": "4.00000200",
-                    "askQty": "9.00000000"
-                },
-                ...
-            ]
-
-        Args:
-            symbol (None, optional): If the symbol is not sent,
-                bookTickers for all symbols will be returned in an array.
-
-
-        Returns:
-            BinanceOrderBookTickers
-        """
-
-    @overload
-    async def get_order_book_ticker(
-            self,
-            symbol: str
-    ) -> BinanceOrderBookTickerModel:
-        """Best price/qty on the order book for a `symbol` or all symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            {
-                "symbol": "LTCBTC",
-                "bidPrice": "4.00000000",
-                "bidQty": "431.00000000",
-                "askPrice": "4.00000200",
-                "askQty": "9.00000000"
-            }
-
-        Args:
-            symbol (str): If the symbol is not sent,
-                bookTickers for all symbols will be returned in an array.
-
-
-        Returns:
-            BinanceOrderBookTickerModel
-        """
-
-    async def get_order_book_ticker(
-            self,
-            symbol: Optional[str] = None
-    ) -> BinanceOrderBookTickerModelOrTickers:
+    async def get_order_book_ticker(self, symbol: Optional[str] = None) -> RequesterResponse:
         """Best price/qty on the order book for a `symbol` or all symbols.
 
         Request weight: 1 for a single symbol;
@@ -726,14 +495,10 @@ class BinanceMarketDataAPI(IBinanceMarketDataAPI):
 
 
         Returns:
-            Union[BinanceOrderBookTickerModel, BinanceOrderBookTickers]
+            RequesterResponse
         """
 
-        res: BinanceOrderBookTickerModelOrTickers
-
-        response = await self._requester.get_order_book_ticker(symbol=symbol)
-        if symbol is None:
-            res = await self._response_handler.handle_get_order_book_tickers_response(response)
-        else:
-            res = await self._response_handler.handle_get_order_book_ticker_response(response)
-        return res
+        req = self._creator.create_get_order_book_ticker_request(symbol=symbol)
+        return await self.request(
+            method=req.method, url=req.url,
+            headers=req.headers, data=req.data, json=req.json)

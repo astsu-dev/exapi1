@@ -3,27 +3,26 @@
 from decimal import Decimal
 from typing import Optional
 
-from exapi.api.hitbtc.trading.interface import IHitbtcTradingAPI
-from exapi.response_handlers.hitbtc.trading import (HitbtcTradingResponseHandler,
-                                                    IHitbtcTradingResponseHandler)
 from exapi.models.hitbtc import (HitbtcOrderModel, HitbtcOrders,
                                  HitbtcTradingCurrencyBalances,
                                  HitbtcTradingFeeModel)
 from exapi.requesters.hitbtc.trading import IHitbtcTradingRequester
+from exapi.response_handlers.hitbtc.trading import (HitbtcTradingResponseHandler,
+                                                    IHitbtcTradingResponseHandler)
 from exapi.typedefs.hitbtc import (Datetime, OrderSide, OrderType, Symbol,
                                    TimeInForce)
 from exapi.utils import decimal_to_str
 
 
-class HitbtcTradingAPI(IHitbtcTradingAPI):
+class HitbtcTradingAPI:
     """Has methods for making requests to hitbtc trading api."""
 
     def __init__(self, requester: IHitbtcTradingRequester,
                  response_handler: Optional[IHitbtcTradingResponseHandler] = None
                  ) -> None:
         self._requester = requester
-        self._handler = (response_handler if response_handler is not None else
-                         HitbtcTradingResponseHandler())
+        self._handler: IHitbtcTradingResponseHandler = (response_handler if response_handler is not None else
+                                                        HitbtcTradingResponseHandler())
 
     async def get_trading_balance(self) -> HitbtcTradingCurrencyBalances:
         """Returns the user's trading balance.

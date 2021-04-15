@@ -1,33 +1,14 @@
-"""Has binance market data api interface."""
+from typing import Optional
 
-from typing import Optional, Protocol, overload
-
-from exapi.api.binance.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
-                                                    BinancePriceTickerModelOrTickers,
-                                                    BinanceTickerPriceChangeStatModelOrTickers)
-from exapi.models.binance import (BinanceAveragePriceModel,
-                                  BinanceExchangeInfoModel,
-                                  BinanceOrderBookModel,
-                                  BinanceOrderBookTickerModel,
-                                  BinancePingModel, BinancePriceTickerModel,
-                                  BinanceServerTimeModel,
-                                  BinanceTickerPriceChangeStatModel)
-from exapi.models.binance.candle import BinanceCandles
-from exapi.models.binance.order_book_ticker import BinanceOrderBookTickers
-from exapi.models.binance.price_ticker import BinancePriceTickers
-from exapi.models.binance.ticker_price_change_stat import \
-    BinanceTickersPriceChangeStat
-from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
+from exapi.requesters.base import IBaseRequester
+from exapi.requesters.typedefs import RequesterResponse
 from exapi.typedefs.binance import CandleInterval
 
 
-class IBinanceMarketDataAPI(Protocol):
-    """Binance markte data api interface.
+class IBinanceSpotMarketDataRequester(IBaseRequester):
+    """Has methods for making requests to binance exchange."""
 
-    Has methods for market data request making to binance exchange.
-    """
-
-    async def ping(self) -> BinancePingModel:
+    async def ping(self) -> RequesterResponse:
         """Test connectivity to the Rest API.
 
         Request weight: 1.
@@ -36,10 +17,10 @@ class IBinanceMarketDataAPI(Protocol):
             {}
 
         Returns:
-            BinancePingModel
+            RequesterResponse
         """
 
-    async def get_server_time(self) -> BinanceServerTimeModel:
+    async def get_server_time(self) -> RequesterResponse:
         """Test connectivity to the Rest API and get the current server time.
 
         Request weight: 1.
@@ -50,10 +31,10 @@ class IBinanceMarketDataAPI(Protocol):
             }
 
         Returns:
-            BinanceServerTimeModel
+            RequesterResponse
         """
 
-    async def get_exchange_info(self) -> BinanceExchangeInfoModel:
+    async def get_exchange_info(self) -> RequesterResponse:
         """Current exchange trading rules and symbol information.
 
         Request weight: 1.
@@ -108,12 +89,12 @@ class IBinanceMarketDataAPI(Protocol):
             }
 
         Returns:
-            BinanceExchangeInfoModel
+            RequesterResponse
         """
 
     async def get_order_book(self, symbol: str,
                              limit: Optional[int] = None
-                             ) -> BinanceOrderBookModel:
+                             ) -> RequesterResponse:
         """Gets order book for a certain `symbol`.
 
         Request weight:
@@ -148,12 +129,12 @@ class IBinanceMarketDataAPI(Protocol):
                 Valid limits: [5, 10, 20, 50, 100, 500, 1000, 5000]
 
         Returns:
-            BinanceOrderBookModel
+            RequesterResponse
         """
 
     async def get_trades(self, symbol: str,
                          limit: Optional[int] = None
-                         ) -> BinanceTrades:
+                         ) -> RequesterResponse:
         """Get recent trades for a certain `symbol`.
 
         Request weight: 1.
@@ -177,13 +158,13 @@ class IBinanceMarketDataAPI(Protocol):
             limit (Optional[int], optional): Default 500; max 1000.
 
         Returns:
-            BinanceTrades
+            RequesterResponse
         """
 
     async def get_old_trades(self, symbol: str,
                              limit: Optional[int] = None,
                              from_id: Optional[int] = None
-                             ) -> BinanceTrades:
+                             ) -> RequesterResponse:
         """Get older market trades for a certain `symbol`.
 
         Required api key in headers.
@@ -211,7 +192,7 @@ class IBinanceMarketDataAPI(Protocol):
             limit (Optional[int]): Default 500; max 1000.
 
         Returns:
-            BinanceTrades
+            RequesterResponse
         """
 
     async def get_aggregate_trades(self, symbol: str,
@@ -219,7 +200,7 @@ class IBinanceMarketDataAPI(Protocol):
                                    start_time: Optional[int] = None,
                                    end_time: Optional[int] = None,
                                    limit: Optional[int] = None
-                                   ) -> BinanceAggregateTrades:
+                                   ) -> RequesterResponse:
         """Get compressed, aggregate trades for a certain symbol.
         Trades that fill at the time, from the same order,
         with the same price will have the quantity aggregated.
@@ -256,7 +237,7 @@ class IBinanceMarketDataAPI(Protocol):
             limit (Optional[int], optional): Default 500; max 1000.
 
         Returns:
-            BinanceAggregateTrades
+            RequesterResponse
         """
 
     async def get_candles(self, symbol: str,
@@ -264,7 +245,7 @@ class IBinanceMarketDataAPI(Protocol):
                           start_time: Optional[int] = None,
                           end_time: Optional[int] = None,
                           limit: Optional[int] = None
-                          ) -> BinanceCandles:
+                          ) -> RequesterResponse:
         """Kline/candlestick bars for a certain `symbol`.
         Klines are uniquely identified by their open time.
 
@@ -298,10 +279,10 @@ class IBinanceMarketDataAPI(Protocol):
             limit (Optional[int], optional): Default 500; max 1000.
 
         Returns:
-            BinanceCandles
+            RequesterResponse
         """
 
-    async def get_average_price(self, symbol: str) -> BinanceAveragePriceModel:
+    async def get_average_price(self, symbol: str) -> RequesterResponse:
         """Current average price for a certain `symbol`.
 
         Request weight: 1.
@@ -310,104 +291,14 @@ class IBinanceMarketDataAPI(Protocol):
             symbol (str): certain symbol.
 
         Returns:
-            BinanceAveragePriceModel
+            RequesterResponse
         """
 
-    @overload
-    async def get_ticker_price_change_stat(
-            self,
-            symbol: None = None
-    ) -> BinanceTickersPriceChangeStat:
+    async def get_ticker_price_change_stat(self, symbol: Optional[str] = None) -> RequesterResponse:
         """24 hour rolling window price change statistics.
         Careful when accessing this with no symbol.
 
-        Request weight: 1 for a single symbol;
-            40 when the symbol parameter is omitted;
-
-        Json example:
-            [
-                {
-                    "symbol": "BNBBTC",
-                    "priceChange": "-94.99999800",
-                    "priceChangePercent": "-95.960",
-                    "weightedAvgPrice": "0.29628482",
-                    "prevClosePrice": "0.10002000",
-                    "lastPrice": "4.00000200",
-                    "lastQty": "200.00000000",
-                    "bidPrice": "4.00000000",
-                    "askPrice": "4.00000200",
-                    "openPrice": "99.00000000",
-                    "highPrice": "100.00000000",
-                    "lowPrice": "0.10000000",
-                    "volume": "8913.30000000",
-                    "quoteVolume": "15.30000000",
-                    "openTime": 1499783499040,
-                    "closeTime": 1499869899040,
-                    "firstId": 28385,   // First tradeId
-                    "lastId": 28460,    // Last tradeId
-                    "count": 76         // Trade count
-                },
-                ...
-            ]
-
-        Args:
-            symbol (None, optional): If the symbol is None,
-                tickers for all symbols will be returned in an array.
-
-        Returns:
-            BinanceTickersPriceChangeStat
-        """
-
-    @overload
-    async def get_ticker_price_change_stat(
-            self,
-            symbol: str
-    ) -> BinanceTickerPriceChangeStatModel:
-        """24 hour rolling window price change statistics.
-        Careful when accessing this with no symbol.
-
-        Request weight: 1 for a single symbol;
-            40 when the symbol parameter is omitted;
-
-        Json example:
-            {
-                "symbol": "BNBBTC",
-                "priceChange": "-94.99999800",
-                "priceChangePercent": "-95.960",
-                "weightedAvgPrice": "0.29628482",
-                "prevClosePrice": "0.10002000",
-                "lastPrice": "4.00000200",
-                "lastQty": "200.00000000",
-                "bidPrice": "4.00000000",
-                "askPrice": "4.00000200",
-                "openPrice": "99.00000000",
-                "highPrice": "100.00000000",
-                "lowPrice": "0.10000000",
-                "volume": "8913.30000000",
-                "quoteVolume": "15.30000000",
-                "openTime": 1499783499040,
-                "closeTime": 1499869899040,
-                "firstId": 28385,   // First tradeId
-                "lastId": 28460,    // Last tradeId
-                "count": 76         // Trade count
-            }
-
-        Args:
-            symbol (str): If the symbol is None,
-                tickers for all symbols will be returned in an array.
-
-        Returns:
-           BinanceTickerPriceChangeStatModel
-        """
-
-    async def get_ticker_price_change_stat(
-            self,
-            symbol: Optional[str] = None
-    ) -> BinanceTickerPriceChangeStatModelOrTickers:
-        """24 hour rolling window price change statistics.
-        Careful when accessing this with no symbol.
-
-        Request weight: 1 for a single symbol;
+        Request weight: 1 for a single symbol; 
             40 when the symbol parameter is omitted;
 
         Json example:
@@ -463,64 +354,10 @@ class IBinanceMarketDataAPI(Protocol):
                 tickers for all symbols will be returned in an array.
 
         Returns:
-            Union[BinanceTickerPriceChangeStatModel, BinanceTickersPriceChangeStat]
+            RequesterResponse
         """
 
-    @overload
-    async def get_price_ticker(
-            self,
-            symbol: None = None
-    ) -> BinancePriceTickers:
-        """Latest price for a symbol or symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "price": "4.00000200"
-                },
-                ...
-            ]
-
-        Args:
-            symbol (None, optional): If the symbol is not sent,
-                prices for all symbols will be returned in an array.
-
-        Returns:
-            BinancePriceTickers
-        """
-
-    @overload
-    async def get_price_ticker(
-            self,
-            symbol: str
-    ) -> BinancePriceTickerModel:
-        """Latest price for a symbol or symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            {
-                "symbol": "LTCBTC",
-                "price": "4.00000200"
-            }
-
-        Args:
-            symbol (str): If the symbol is not sent,
-                prices for all symbols will be returned in an array.
-
-        Returns:
-            BinancePriceTickerModel
-        """
-
-    async def get_price_ticker(
-            self,
-            symbol: Optional[str] = None
-    ) -> BinancePriceTickerModelOrTickers:
+    async def get_price_ticker(self, symbol: Optional[str] = None) -> RequesterResponse:
         """Latest price for a symbol or symbols.
 
         Request weight: 1 for a single symbol;
@@ -545,72 +382,10 @@ class IBinanceMarketDataAPI(Protocol):
                 prices for all symbols will be returned in an array.
 
         Returns:
-            Union[BinancePriceTickerModel, BinancePriceTickers]
+            RequesterResponse
         """
 
-    @overload
-    async def get_order_book_ticker(
-            self,
-            symbol: None = None
-    ) -> BinanceOrderBookTickers:
-        """Best price/qty on the order book for a `symbol` or all symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "bidPrice": "4.00000000",
-                    "bidQty": "431.00000000",
-                    "askPrice": "4.00000200",
-                    "askQty": "9.00000000"
-                },
-                ...
-            ]
-
-        Args:
-            symbol (None, optional): If the symbol is not sent,
-                bookTickers for all symbols will be returned in an array.
-
-
-        Returns:
-            BinanceOrderBookTickers
-        """
-
-    @overload
-    async def get_order_book_ticker(
-            self,
-            symbol: str
-    ) -> BinanceOrderBookTickerModel:
-        """Best price/qty on the order book for a `symbol` or all symbols.
-
-        Request weight: 1 for a single symbol;
-            2 when the symbol parameter is omitted
-
-        Json example:
-            {
-                "symbol": "LTCBTC",
-                "bidPrice": "4.00000000",
-                "bidQty": "431.00000000",
-                "askPrice": "4.00000200",
-                "askQty": "9.00000000"
-            }
-
-        Args:
-            symbol (str): If the symbol is not sent,
-                bookTickers for all symbols will be returned in an array.
-
-
-        Returns:
-            BinanceOrderBookTickerModel
-        """
-
-    async def get_order_book_ticker(
-            self,
-            symbol: Optional[str] = None
-    ) -> BinanceOrderBookTickerModelOrTickers:
+    async def get_order_book_ticker(self, symbol: Optional[str] = None) -> RequesterResponse:
         """Best price/qty on the order book for a `symbol` or all symbols.
 
         Request weight: 1 for a single symbol;
@@ -642,5 +417,5 @@ class IBinanceMarketDataAPI(Protocol):
 
 
         Returns:
-            Union[BinanceOrderBookTickerModel, BinanceOrderBookTickers]
+            RequesterResponse
         """

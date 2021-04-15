@@ -98,10 +98,9 @@ from exapi.models.binance.exchange_info.rate_limits import (
     BinanceRawRequestsRateLimitJson, BinanceRawRequestsRateLimitModel,
     BinanceRequestWeightRateLimitJson, BinanceRequestWeightRateLimitModel)
 from exapi.models_mappers.binance.base import BinanceBaseModelsMapper
-from exapi.models_mappers.binance.spot.interface import IBinanceSpotModelsMapper
 
 
-class BinanceSpotModelsMapper(IBinanceSpotModelsMapper, BinanceBaseModelsMapper):
+class BinanceSpotModelsMapper(BinanceBaseModelsMapper):
     """Binance models mapper interface.
 
     Maps json to models.
