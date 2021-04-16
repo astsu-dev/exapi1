@@ -3,7 +3,7 @@
 from typing import Any, Optional, Union
 
 from exapi.response_handlers.base import BaseResponseHandler
-from exapi.api.hitbtc.exceptions import HitbtcError
+from exapi.exceptions.hitbtc import HitbtcError
 from exapi.models.hitbtc import (HitbtcRawDetailedErrorModel,
                                  HitbtcRawErrorModel)
 from exapi.models_mappers.hitbtc.base import (HitbtcBaseModelsMapper,

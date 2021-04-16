@@ -17,7 +17,7 @@ from exapi.typedefs.binance import (OrderResponseType, OrderSide, OrderType,
 from exapi.utils.numbers import decimal_to_str
 
 
-class BinanceTradingAPI:
+class BinanceSpotTradingAPI:
     """Binance trading api.
 
     Has methods for trading request making to binance exchange.

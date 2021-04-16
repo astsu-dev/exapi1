@@ -21,7 +21,7 @@ from exapi.models.binance.trade import BinanceAggregateTrades, BinanceTrades
 from exapi.typedefs.binance import CandleInterval
 
 
-class IBinanceMarketDataAPI(Protocol):
+class IBinanceSpotMarketDataAPI(Protocol):
     """Binance markte data api interface.
 
     Has methods for market data request making to binance exchange.

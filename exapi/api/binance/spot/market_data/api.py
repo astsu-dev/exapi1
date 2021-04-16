@@ -24,7 +24,7 @@ from exapi.response_handlers.binance.spot.market_data import (BinanceSpotMarketD
 from exapi.typedefs.binance import CandleInterval
 
 
-class BinanceMarketDataAPI:
+class BinanceSpotMarketDataAPI:
     """Binance market data api.
 
     Has methods for market data request making to binance exchange.

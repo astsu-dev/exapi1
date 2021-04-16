@@ -3,7 +3,7 @@
 from typing import Any, Optional, cast
 
 from exapi.response_handlers.base import BaseResponseHandler
-from exapi.api.binance.exceptions import BinanceError
+from exapi.exceptions.binance import BinanceError
 from exapi.models.binance.error import BinanceErrorJson
 from exapi.models_mappers.binance.base import (BinanceBaseModelsMapper,
                                                IBinanceBaseModelsMapper)

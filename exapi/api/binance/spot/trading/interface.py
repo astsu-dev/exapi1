@@ -13,7 +13,7 @@ from exapi.typedefs.binance import (OrderResponseType, OrderSide,
                                     OrderType, TimeInForce)
 
 
-class IBinanceTradingAPI(Protocol):
+class IBinanceSpotTradingAPI(Protocol):
     """Binance trading api interface.
 
     Has methods for trading request making to binance exchange.

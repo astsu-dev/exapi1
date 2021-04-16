@@ -1,4 +1,4 @@
-from exapi.api.exceptions import BaseExchangeError
+from exapi.exceptions.base import BaseExchangeError
 from exapi.models.binance import BinanceErrorModel
 
 

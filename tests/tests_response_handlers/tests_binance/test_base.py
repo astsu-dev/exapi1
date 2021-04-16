@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 from exapi.response_handlers.binance.base import BinanceBaseResponseHandler
-from exapi.api.binance.exceptions import BinanceError
+from exapi.exceptions.binance import BinanceError
 from exapi.models.binance.error import BinanceErrorModel
 
 

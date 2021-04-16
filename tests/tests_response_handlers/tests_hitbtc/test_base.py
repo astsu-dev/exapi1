@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 from exapi.response_handlers.hitbtc.base import HitbtcBaseResponseHandler
-from exapi.api.hitbtc.exceptions import HitbtcError
+from exapi.exceptions.hitbtc import HitbtcError
 from exapi.models.hitbtc import HitbtcErrorModel
 
 
