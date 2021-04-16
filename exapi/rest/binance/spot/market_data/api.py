@@ -2,9 +2,9 @@
 
 from typing import Optional, Union, overload
 
-from exapi.api.binance.spot.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
-                                                         BinancePriceTickerModelOrTickers,
-                                                         BinanceTickerPriceChangeStatModelOrTickers)
+from exapi.rest.binance.spot.market_data.typedefs import (BinanceOrderBookTickerModelOrTickers,
+                                                          BinancePriceTickerModelOrTickers,
+                                                          BinanceTickerPriceChangeStatModelOrTickers)
 from exapi.models.binance import (BinanceAveragePriceModel,
                                   BinanceExchangeInfoModel,
                                   BinanceOrderBookModel,
