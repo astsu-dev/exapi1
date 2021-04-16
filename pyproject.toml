@@ -8,6 +8,7 @@ authors = ["astsu <you@example.com>"]
 python = "^3.9"
 aiohttp = "^3.7.3"
 yarl = "^1.6.3"
+websockets = "^8.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.800"
