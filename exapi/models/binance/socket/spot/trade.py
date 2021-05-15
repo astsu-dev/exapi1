@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from typing import TypedDict, Literal
 from decimal import Decimal
+from typing import Literal, TypedDict
 
 
 class BinanceSocketSpotTradeEventJson(TypedDict):
@@ -47,4 +47,3 @@ class BinanceSocketSpotTradeEventModel:
     seller_order_id: int
     trade_time: int
     is_buyer_market_maker: bool
-    ignore: bool
