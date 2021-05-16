@@ -4,7 +4,7 @@ from typing import Literal, TypedDict
 
 
 class BinanceSocketSpotTradeEventJson(TypedDict):
-    """Binance spot market data stream trade event json.
+    """Binance socket spot trade event json.
 
     Fields:
         e (Literal["trade"]): event type
@@ -35,7 +35,20 @@ class BinanceSocketSpotTradeEventJson(TypedDict):
 
 @dataclass(frozen=True)
 class BinanceSocketSpotTradeEventModel:
-    """Binance spot market data stream trade event model."""
+    """Binance socket spot trade event model.
+
+    Fields:
+        event_type (Literal["trade"])
+        event_time (int)
+        symbol (str)
+        trade_id (int)
+        price (Decimal)
+        quantity (Decimal)
+        buyer_order_id (int)
+        seller_order_id (int)
+        trade_time (int)
+        is_buyer_market_maker (bool)
+    """
 
     event_type: Literal["trade"]
     event_time: int
