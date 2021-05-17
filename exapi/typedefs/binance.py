@@ -18,3 +18,7 @@ SymbolStatus = Literal["TRADING", "PRE_TRADING", "POST_TRADING",
                        "END_OF_DAY", "HALT", "AUCTION_MATCH", "BREAK"]
 RateLimitInterval = Literal["SECOND", "MINUTE", "DAY"]
 AccountType = Literal["SPOT"]
+OrderExecutionType = Literal["NEW", "CANCELED", "REPLACED", "REJECTED", "TRADE", "EXPIRED"]
+OrderContingencyType = Literal["OCO"]
+OCOStatus = Literal["RESPONSE", "EXEC_STARTED", "ALL_DONE"]
+OCOOrderStatus = Literal["EXECUTING", "ALL_DONE", "REJECT"]
